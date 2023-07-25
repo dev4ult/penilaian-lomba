@@ -2,7 +2,14 @@
 module.exports = {
   content: ['./app/Views/**/*.php', './public/js/*.js'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+      },
+    },
   },
-  plugins: [require('daisyui')],
+  daisyui: {
+    themes: ['corporate'],
+  },
+  plugins: [require('daisyui'), require('@tailwindcss/typography')],
 };
