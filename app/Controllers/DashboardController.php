@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController {
+class DashboardController extends BaseController {
     public function index() {
         echo view('templates/header');
-        echo view('pages/home');
+        echo view('pages/dashboard');
         echo view('templates/footer');
     }
 }
