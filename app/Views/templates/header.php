@@ -10,3 +10,4 @@
 </head>
 
 <body class="font-inter">
+    <div class="container max-w-5xl mx-auto py-10 px-3">
