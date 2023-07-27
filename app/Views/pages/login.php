@@ -15,7 +15,8 @@
         <!-- Password -->
         <div class="flex flex-col gap-1 w-full">
             <label for="password" class="text-sm font-semibold">Password</label>
-            <input type="password" id="password" name="password" class="input input-bordered" placeholder="Isikan Password">
+            <input type="password" id="password" name="password" class="input input-bordered"
+                placeholder="Isikan Password">
         </div>
 
         <!-- Submit Button -->

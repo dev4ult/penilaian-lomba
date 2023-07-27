@@ -50,6 +50,7 @@
 
 <div class="grid grid-flow-row grid-cols-4 gap-5">
     <div class="p-6 bg-white rounded border-2 hover:shadow prose">
+        <img src="" alt="">
         <h2>Adzan Senior</h2>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, dolorum.</p>
         <button class="btn btn-sm btn-secondary btn-outline capitalize">detail</button>
