@@ -1,4 +1,4 @@
-<div class="h-screen flex items-center justify-center">
+<div class="flex items-center justify-center pt-24">
     <form action="/" method="post" class="flex flex-col gap-6 bg-white p-8 border-2 rounded w-[26rem] prose">
         <!-- Title and  Desc-->
         <div>

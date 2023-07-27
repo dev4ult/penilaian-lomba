@@ -31,6 +31,8 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'DashboardController::index');
 $routes->get('/login', 'AuthController::index');
+$routes->get('/users', 'UserController::index');
+$routes->get('/contests', 'ContestController::index');
 
 /*
  * --------------------------------------------------------------------
