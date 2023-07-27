@@ -17,7 +17,7 @@
 <!-- Manage Input / Button -->
 <div class="flex gap-3 justify-between mb-6 mt-8">
     <!-- Modal Form -->
-    <button class="btn btn-neutral capitalize btn-sm btn-outline self-end" onclick="modal_form.showModal()">Tambah
+    <button class="btn btn-neutral btn-sm capitalize btn-outline self-end" onclick="modal_form.showModal()">Tambah
         Lomba</button>
     <dialog id="modal_form" class="modal">
         <form method="dialog" class="modal-box">
@@ -49,35 +49,44 @@
 </div>
 
 <div class="grid grid-flow-row grid-cols-4 gap-5">
-    <div class="p-6 bg-white rounded border-2 hover:shadow prose">
-        <img src="" alt="">
-        <h2>Adzan Senior</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, dolorum.</p>
-        <button class="btn btn-sm btn-secondary btn-outline capitalize">detail</button>
+    <div class="bg-white rounded border-2 hover:shadow">
+        <img src="<?= base_url('./images/default-card/1.png') ?>" class="w-full" alt="default">
+        <div class="p-6">
+            <div class="prose">
+                <h2 class="mt-0 mb-2">Adzan Senior</h2>
+                <p>Lorem ipsum dolor sit amet consectetur ...</p>
+            </div>
+            <a href="/" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
+        </div>
     </div>
-    <div class="p-6 bg-white rounded border-2 hover:shadow prose">
-        <h2>Adzan Senior</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, dolorum.</p>
-        <button class="btn btn-sm btn-secondary btn-outline capitalize">detail</button>
+    <div class="bg-white rounded border-2 hover:shadow">
+        <img src="<?= base_url('./images/default-card/2.png') ?>" class="w-full" alt="default">
+        <div class="p-6">
+            <div class="prose">
+                <h2 class="mt-0 mb-2">Adzan Senior</h2>
+                <p>Lorem ipsum dolor sit amet consectetur ...</p>
+            </div>
+            <a href="/" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
+        </div>
     </div>
-    <div class="p-6 bg-white rounded border-2 hover:shadow prose">
-        <h2>Adzan Senior</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, dolorum.</p>
-        <button class="btn btn-sm btn-secondary btn-outline capitalize">detail</button>
+    <div class="bg-white rounded border-2 hover:shadow">
+        <img src="<?= base_url('./images/default-card/3.png') ?>" class="w-full" alt="default">
+        <div class="p-6">
+            <div class="prose">
+                <h2 class="mt-0 mb-2">Adzan Senior</h2>
+                <p>Lorem ipsum dolor sit amet consectetur ...</p>
+            </div>
+            <a href="/" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
+        </div>
     </div>
-    <div class="p-6 bg-white rounded border-2 hover:shadow prose">
-        <h2>Adzan Senior</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, dolorum.</p>
-        <button class="btn btn-sm btn-secondary btn-outline capitalize">detail</button>
-    </div>
-    <div class="p-6 bg-white rounded border-2 hover:shadow prose">
-        <h2>Adzan Senior</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, dolorum.</p>
-        <button class="btn btn-sm btn-secondary btn-outline capitalize">detail</button>
-    </div>
-    <div class="p-6 bg-white rounded border-2 hover:shadow prose">
-        <h2>Adzan Senior</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, dolorum.</p>
-        <button class="btn btn-sm btn-secondary btn-outline capitalize">detail</button>
+    <div class="bg-white rounded border-2 hover:shadow">
+        <img src="<?= base_url('./images/default-card/4.png') ?>" class="w-full" alt="default">
+        <div class="p-6">
+            <div class="prose">
+                <h2 class="mt-0 mb-2">Adzan Senior</h2>
+                <p>Lorem ipsum dolor sit amet consectetur ...</p>
+            </div>
+            <a href="/" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
+        </div>
     </div>
 </div>

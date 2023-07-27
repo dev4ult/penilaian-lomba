@@ -67,35 +67,40 @@
                 <td>Blue</td>
                 <td>Cy Ganderton</td>
                 <td>21XXXXXXXXXXXXXX</td>
-                <td><button class="btn btn-sm btn-secondary btn-outline capitalize" onclick="modal_detail.showModal()">detail</button></td>
+                <td><button class="btn btn-sm btn-neutral btn-outline capitalize"
+                        onclick="modal_detail.showModal()">detail</button></td>
             </tr>
             <tr>
                 <th>2</th>
                 <td>Blue</td>
                 <td>Cy Ganderton</td>
                 <td>21XXXXXXXXXXXXXX</td>
-                <td><button class="btn btn-sm btn-secondary btn-outline capitalize" onclick="modal_detail.showModal()">detail</button></td>
+                <td><button class="btn btn-sm btn-neutral btn-outline capitalize"
+                        onclick="modal_detail.showModal()">detail</button></td>
             </tr>
             <tr>
                 <th>3</th>
                 <td>Blue</td>
                 <td>Cy Ganderton</td>
                 <td>21XXXXXXXXXXXXXX</td>
-                <td><button class="btn btn-sm btn-secondary btn-outline capitalize" onclick="modal_detail.showModal()">detail</button></td>
+                <td><button class="btn btn-sm btn-neutral btn-outline capitalize"
+                        onclick="modal_detail.showModal()">detail</button></td>
             </tr>
             <tr>
                 <th>4</th>
                 <td>Blue</td>
                 <td>Cy Ganderton</td>
                 <td>21XXXXXXXXXXXXXX</td>
-                <td><button class="btn btn-sm btn-secondary btn-outline capitalize" onclick="modal_detail.showModal()">detail</button></td>
+                <td><button class="btn btn-sm btn-neutral btn-outline capitalize"
+                        onclick="modal_detail.showModal()">detail</button></td>
             </tr>
             <tr>
                 <th>5</th>
                 <td>Blue</td>
                 <td>Cy Ganderton</td>
                 <td>21XXXXXXXXXXXXXX</td>
-                <td><button class="btn btn-sm btn-secondary btn-outline capitalize" onclick="modal_detail.showModal()">detail</button></td>
+                <td><button class="btn btn-sm btn-neutral btn-outline capitalize"
+                        onclick="modal_detail.showModal()">detail</button></td>
             </tr>
         </tbody>
     </table>
