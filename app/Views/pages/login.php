@@ -1,5 +1,5 @@
 <div class="h-screen flex items-center justify-center">
-    <form action="" method="post" class="flex flex-col gap-6 p-8 border-2 rounded w-[26rem] prose">
+    <form action="/" method="post" class="flex flex-col gap-6 bg-white p-8 border-2 rounded w-[26rem] prose">
         <!-- Title and  Desc-->
         <div>
             <h2 class="font-extrabold text-3xl mt-0 mb-2">Login</h2>
@@ -8,8 +8,8 @@
 
         <!-- NIP -->
         <div class="flex flex-col gap-1 w-full">
-            <label for="nip" class="text-sm font-semibold">NIP</label>
-            <input type="text" id="nip" name="nip" class="input input-bordered" placeholder="Isikan Nomor Induk Pegawai">
+            <label for="username" class="text-sm font-semibold">Username</label>
+            <input type="text" id="username" name="username" class="input input-bordered" placeholder="Isikan Username">
         </div>
 
         <!-- Password -->

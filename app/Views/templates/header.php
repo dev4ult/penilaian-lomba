@@ -9,5 +9,5 @@
     <link rel="stylesheet" href="<?= base_url("./css/styles.css") ?>">
 </head>
 
-<body class="font-inter">
+<body class="font-inter bg-purple-50 min-h-screen">
     <div class="container max-w-6xl mx-auto py-10 px-3">
