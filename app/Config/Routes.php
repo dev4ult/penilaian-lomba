@@ -33,6 +33,7 @@ $routes->get('/', 'DashboardController::index');
 $routes->get('/login', 'AuthController::index');
 $routes->get('/users', 'UserController::index');
 $routes->get('/contests', 'ContestController::index');
+$routes->get('/judges', 'JudgeController::index');
 $routes->get('/contestants', 'ContestantController::index');
 
 /*
