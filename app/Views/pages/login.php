@@ -1,5 +1,5 @@
 <div class="flex items-center justify-center pt-24">
-    <form action="/" method="post" class="flex flex-col gap-6 bg-white p-8 border-2 rounded w-[26rem] prose">
+    <form action="/" method="post" class="flex flex-col gap-6 bg-white p-8 border-2 rounded-lg w-[26rem] prose">
         <!-- Title and  Desc-->
         <div>
             <h2 class="font-extrabold text-3xl mt-0 mb-2">Login</h2>
@@ -15,8 +15,7 @@
         <!-- Password -->
         <div class="flex flex-col gap-1 w-full">
             <label for="password" class="text-sm font-semibold">Password</label>
-            <input type="password" id="password" name="password" class="input input-bordered"
-                placeholder="Isikan Password">
+            <input type="password" id="password" name="password" class="input input-bordered" placeholder="Isikan Password">
         </div>
 
         <!-- Submit Button -->
