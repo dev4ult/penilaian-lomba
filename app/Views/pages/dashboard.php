@@ -14,8 +14,7 @@
     <h2 class="text-lg font-semibold text-black/30 mb-3">Manajemen</h2>
     <div class="flex gap-6 w-full">
         <!-- User -->
-        <a href="/users"
-            class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
+        <a href="/users" class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
             <div class="h-fit p-4 rounded-full bg-blue-300">
                 <img src="<?= base_url('./icons/user.png') ?>" class="w-8 h-8 my-0" alt="user">
             </div>
@@ -26,8 +25,7 @@
         </a>
 
         <!-- Juri -->
-        <a href="/jury"
-            class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
+        <a href="/judges" class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
             <div class="h-fit p-4 rounded-full bg-red-300">
                 <img src="<?= base_url('./icons/jury.png') ?>" class="w-8 h-8 my-0" alt="juri">
             </div>
@@ -38,8 +36,7 @@
         </a>
 
         <!-- Lomba  -->
-        <a href="/contests"
-            class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
+        <a href="/contests" class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
             <div class="h-fit p-4 rounded-full bg-purple-300">
                 <img src="<?= base_url('./icons/contest.png') ?>" class="w-8 h-8 my-0" alt="lomba">
             </div>
@@ -50,8 +47,7 @@
         </a>
 
         <!-- Lomba  -->
-        <a href="/contestants"
-            class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
+        <a href="/contestants" class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
             <div class="h-fit p-4 rounded-full bg-orange-300">
                 <img src="<?= base_url('./icons/contestant.png') ?>" class="w-8 h-8 my-0" alt="peserta">
             </div>
