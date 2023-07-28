@@ -20,7 +20,7 @@
                 <img src="<?= base_url('./icons/user.png') ?>" class="w-8 h-8 my-0" alt="user">
             </div>
             <div>
-                <h4 class="text-black/70 font-medium">User</h4>
+                <h4 class="text-black/70 font-medium">Akun</h4>
                 <h1 class="text-5xl mb-0 text-black/70 font-semibold">20</h1>
             </div>
         </a>
@@ -53,7 +53,7 @@
         <a href="/contestants"
             class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
             <div class="h-fit p-4 rounded-full bg-orange-300">
-                <img src="<?= base_url('./icons/contest.png') ?>" class="w-8 h-8 my-0" alt="peserta">
+                <img src="<?= base_url('./icons/contestant.png') ?>" class="w-8 h-8 my-0" alt="peserta">
             </div>
             <div>
                 <h4 class="text-black/70 font-medium">Peserta</h4>
