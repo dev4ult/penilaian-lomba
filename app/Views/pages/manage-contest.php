@@ -56,7 +56,7 @@
                 <h2 class="mt-0 mb-2">Adzan Senior</h2>
                 <p>Lorem ipsum dolor sit amet consectetur ...</p>
             </div>
-            <a href="/" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
+            <a href="/contest/1" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
         </div>
     </div>
     <div class="bg-white rounded border-2 hover:shadow">
@@ -66,7 +66,7 @@
                 <h2 class="mt-0 mb-2">Adzan Senior</h2>
                 <p>Lorem ipsum dolor sit amet consectetur ...</p>
             </div>
-            <a href="/" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
+            <a href="/contest/1" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
         </div>
     </div>
     <div class="bg-white rounded border-2 hover:shadow">
@@ -76,7 +76,7 @@
                 <h2 class="mt-0 mb-2">Adzan Senior</h2>
                 <p>Lorem ipsum dolor sit amet consectetur ...</p>
             </div>
-            <a href="/" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
+            <a href="/contest/1" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
         </div>
     </div>
     <div class="bg-white rounded border-2 hover:shadow">
@@ -86,7 +86,7 @@
                 <h2 class="mt-0 mb-2">Adzan Senior</h2>
                 <p>Lorem ipsum dolor sit amet consectetur ...</p>
             </div>
-            <a href="/" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
+            <a href="/contest/1" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
         </div>
     </div>
 </div>

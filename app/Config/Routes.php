@@ -32,7 +32,10 @@ $routes->set404Override();
 $routes->get('/', 'DashboardController::index');
 $routes->get('/login', 'AuthController::index');
 $routes->get('/users', 'UserController::index');
+
 $routes->get('/contests', 'ContestController::index');
+$routes->get('/contest/(:any)', 'ContestController::detail/$1');
+
 $routes->get('/contestants', 'ContestantController::index');
 
 /*
