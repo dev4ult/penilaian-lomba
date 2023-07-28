@@ -1,7 +1,7 @@
 <!-- Header -->
 <header class="pb-10 border-b-2 flex justify-between">
     <div class="prose">
-        <h2 class="text-lg font-extrabold">Manajemen Lomba</h2>
+        <h1 class="text-2xl font-extrabold">Manajemen Lomba</h1>
         <p>Pengelolaan data user untuk aksesibilitas ke aplikasi dan pengaturan peranan atau tugas terhadap user</p>
     </div>
 
@@ -33,9 +33,7 @@
     <!-- Search Input -->
     <div class="join">
         <div>
-            <div>
-                <input class="input input-bordered join-item" placeholder="Cari Lomba" />
-            </div>
+            <input class="input input-bordered join-item" placeholder="Cari Lomba" />
         </div>
         <select class="select select-bordered join-item">
             <option disabled selected>Filter</option>
