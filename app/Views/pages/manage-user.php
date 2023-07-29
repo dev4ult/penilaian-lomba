@@ -130,7 +130,8 @@
                 <td>Blue</td>
                 <td>Cy Ganderton</td>
                 <td>21XXXXXXXXXXXXXX</td>
-                <td><button class="btn btn-sm btn-warning btn-outline capitalize"
+                <td>
+                    <button class="btn btn-sm btn-warning btn-outline capitalize"
                         onclick="edit_modal.showModal()">edit</button>
                     <button class="btn btn-sm btn-error btn-outline capitalize"
                         onclick="delete_modal.showModal()">hapus</button>
@@ -141,7 +142,8 @@
                 <td>Blue</td>
                 <td>Cy Ganderton</td>
                 <td>21XXXXXXXXXXXXXX</td>
-                <td><button class="btn btn-sm btn-warning btn-outline capitalize"
+                <td>
+                    <button class="btn btn-sm btn-warning btn-outline capitalize"
                         onclick="edit_modal.showModal()">edit</button>
                     <button class="btn btn-sm btn-error btn-outline capitalize"
                         onclick="delete_modal.showModal()">hapus</button>
@@ -152,7 +154,8 @@
                 <td>Blue</td>
                 <td>Cy Ganderton</td>
                 <td>21XXXXXXXXXXXXXX</td>
-                <td><button class="btn btn-sm btn-warning btn-outline capitalize"
+                <td>
+                    <button class="btn btn-sm btn-warning btn-outline capitalize"
                         onclick="edit_modal.showModal()">edit</button>
                     <button class="btn btn-sm btn-error btn-outline capitalize"
                         onclick="delete_modal.showModal()">hapus</button>
@@ -163,7 +166,8 @@
                 <td>Blue</td>
                 <td>Cy Ganderton</td>
                 <td>21XXXXXXXXXXXXXX</td>
-                <td><button class="btn btn-sm btn-warning btn-outline capitalize"
+                <td>
+                    <button class="btn btn-sm btn-warning btn-outline capitalize"
                         onclick="edit_modal.showModal()">edit</button>
                     <button class="btn btn-sm btn-error btn-outline capitalize"
                         onclick="delete_modal.showModal()">hapus</button>
@@ -174,7 +178,8 @@
                 <td>Blue</td>
                 <td>Cy Ganderton</td>
                 <td>21XXXXXXXXXXXXXX</td>
-                <td><button class="btn btn-sm btn-warning btn-outline capitalize"
+                <td>
+                    <button class="btn btn-sm btn-warning btn-outline capitalize"
                         onclick="edit_modal.showModal()">edit</button>
                     <button class="btn btn-sm btn-error btn-outline capitalize"
                         onclick="delete_modal.showModal()">hapus</button>
@@ -192,7 +197,7 @@
     <button class="join-item btn">4</button>
 </div>
 
-<!-- Modal edit -->
+<!-- Modal Edit -->
 <dialog id="edit_modal" class="modal">
     <form method="dialog" class="modal-box max-w-2xl p-8 relative">
         <h3 class="badge badge-lg badge-neutral mb-3">Edit Akun / User</h3>
@@ -277,7 +282,7 @@
 <!-- Modal Delete Confirmation -->
 <dialog id="delete_modal" class="modal">
     <form method="dialog" class="modal-box p-8">
-        <h3 class="badge badge-lg badge-error mb-3">Hapus Akun / User</h3>
+        <h3 class="badge badge-lg badge-neutral mb-3">Konfirmasi Hapus</h3>
         <p class="mb-6">Apakah anda yakin untuk menghapus Akun / User ini?
         </p>
 
