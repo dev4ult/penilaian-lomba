@@ -21,4 +21,10 @@ class ContestantController extends BaseController {
 
     public function post_add() {
     }
+
+    public function get_edit() {
+    }
+
+    public function put_edit() {
+    }
 }
