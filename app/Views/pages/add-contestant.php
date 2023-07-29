@@ -50,12 +50,10 @@
 
     <h2 class="badge badge-neutral self-center">Anggota 1</h2>
 
-    <!-- Tooltip 2 -->
+    <!-- Tooltip 1 -->
     <div class="text-right">
-        <div class="tooltip" data-tip="Jika anggota tim terdiri lebih dari satu orang">
-            <button id="add-member-btn" type="button" class="btn btn-sm btn-neutral capitalize btn-outline">tambah
-                anggota</button>
-        </div>
+        <button id="add-member-btn" type="button" class="btn btn-sm btn-neutral capitalize btn-outline">tambah
+            anggota</button>
     </div>
 
     <div class="col-span-2 grid grid-flow-row grid-cols-2 gap-6">
@@ -72,10 +70,13 @@
             <input type="number" id="nis-1" name="nis-1" class="input input-bordered"
                 placeholder="Isikan Nomor Induk Siswa" required>
         </div>
-
-        <div id="new-member-container" class="col-span-2 grid grid-flow-row grid-cols-2 gap-6"></div>
     </div>
 
+    <div id="new-member-container" class="col-span-2">
+        <p class="text-black/50 text-sm"><span class="text-black">Keterangan :</span> tidak perlu menambah anggota jika
+            tim
+            hanya terdiri dari satu individu / anggota</p>
+    </div>
 
     <hr class="col-span-2" />
 
