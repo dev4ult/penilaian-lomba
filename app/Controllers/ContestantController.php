@@ -23,6 +23,10 @@ class ContestantController extends BaseController {
     }
 
     public function get_edit() {
+        echo view('templates/header');
+        // echo view('templates/sidebar', $sidebar);
+        echo view('pages/edit-contestant');
+        echo view('templates/footer');
     }
 
     public function put_edit() {
