@@ -48,7 +48,7 @@
                 <th></th>
                 <th>Nama Tim</th>
                 <th>Ketua</th>
-                <th>Instansi</th>
+                <th>Instansi / Sekolah</th>
                 <th>Nomor Telepon</th>
                 <th></th>
             </tr>
@@ -60,9 +60,11 @@
                 <td>Cy Ganderton</td>
                 <td>SMK 123</td>
                 <td>08XXXXXXXXXXXX</td>
-                <td>
-                    <a href="/contestant/edit" class="btn btn-sm btn-warning btn-outline capitalize">edit</a>
-                    <button class="btn btn-sm btn-error btn-outline capitalize"
+                <td class="flex gap-1.5 items-center">
+                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize"
+                        onclick="detail_modal.showModal()">lihat</button> |
+                    <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
+                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize"
                         onclick="delete_modal.showModal()">hapus</button>
                 </td>
             </tr>
@@ -72,9 +74,11 @@
                 <td>Cy Ganderton</td>
                 <td>SMA 345</td>
                 <td>08XXXXXXXXXXXX</td>
-                <td>
-                    <a href="/contestant/edit" class="btn btn-sm btn-warning btn-outline capitalize">edit</a>
-                    <button class="btn btn-sm btn-error btn-outline capitalize"
+                <td class="flex gap-1.5 items-center">
+                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize"
+                        onclick="detail_modal.showModal()">lihat</button> |
+                    <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
+                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize"
                         onclick="delete_modal.showModal()">hapus</button>
                 </td>
             </tr>
@@ -84,9 +88,11 @@
                 <td>Cy Ganderton</td>
                 <td>SMP 231</td>
                 <td>08XXXXXXXXXXXX</td>
-                <td>
-                    <a href="/contestant/edit" class="btn btn-sm btn-warning btn-outline capitalize">edit</a>
-                    <button class="btn btn-sm btn-error btn-outline capitalize"
+                <td class="flex gap-1.5 items-center">
+                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize"
+                        onclick="detail_modal.showModal()">lihat</button> |
+                    <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
+                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize"
                         onclick="delete_modal.showModal()">hapus</button>
                 </td>
             </tr>
@@ -96,9 +102,11 @@
                 <td>Cy Ganderton</td>
                 <td>SMP 213</td>
                 <td>08XXXXXXXXXXXX</td>
-                <td>
-                    <a href="/contestant/edit" class="btn btn-sm btn-warning btn-outline capitalize">edit</a>
-                    <button class="btn btn-sm btn-error btn-outline capitalize"
+                <td class="flex gap-1.5 items-center">
+                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize"
+                        onclick="detail_modal.showModal()">lihat</button> |
+                    <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
+                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize"
                         onclick="delete_modal.showModal()">hapus</button>
                 </td>
             </tr>
@@ -108,9 +116,11 @@
                 <td>Cy Ganderton</td>
                 <td>SMA 20</td>
                 <td>08XXXXXXXXXXXX</td>
-                <td>
-                    <a href="/contestant/edit" class="btn btn-sm btn-warning btn-outline capitalize">edit</a>
-                    <button class="btn btn-sm btn-error btn-outline capitalize"
+                <td class="flex gap-1.5 items-center">
+                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize"
+                        onclick="detail_modal.showModal()">lihat</button> |
+                    <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
+                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize"
                         onclick="delete_modal.showModal()">hapus</button>
                 </td>
             </tr>
@@ -125,6 +135,70 @@
     <button class="join-item btn">3</button>
     <button class="join-item btn">4</button>
 </div>
+
+<!-- Modal detail Confirmation -->
+<dialog id="detail_modal" class="modal">
+    <form method="dialog" class="modal-box max-w-xl p-8">
+        <h3 class="badge badge-lg badge-neutral mb-3">Detail Peserta</h3>
+        <div class="grid p-4 border-2 rounded-lg grid-flow-row grid-cols-2 gap-4 my-3">
+            <div>
+                <h3 class="text-sm text-black/50 font-semibold">Nama Tim</h3>
+                <h4 class="font-bold">Cabe Rawit</h4>
+            </div>
+            <div>
+                <h3 class="text-sm text-black/50 font-semibold">Ketua</h3>
+                <h4 class="font-bold">Siddiq Maulana</h4>
+            </div>
+            <div>
+                <h3 class="text-sm text-black/50 font-semibold">Asal Instansi / Sekolah</h3>
+                <h4 class="font-bold">SMAN 34</h4>
+            </div>
+            <div>
+                <h3 class="text-sm text-black/50 font-semibold">Nomor Telepon</h3>
+                <h4 class="font-bold">080000000000</h4>
+            </div>
+        </div>
+
+        <h2 class="badge badge-neutral mt-6 mb-3">Data Anggota</h2>
+        <div class="overflow-x-auto">
+            <table class="table table-zebra bg-white border-2">
+                <thead>
+                    <tr class="bg-secondary text-secondary-content">
+                        <th></th>
+                        <th>Nama Lengkap</th>
+                        <th>NIS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>1</th>
+                        <td>Cy Ganderton</td>
+                        <td>2100000000</td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>Cy Ganderton</td>
+                        <td>2100000000</td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>Cy Ganderton</td>
+                        <td>2100000000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-action my-0">
+            <button type="button" onclick="detail_modal.close()"
+                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </form>
+</dialog>
 
 <!-- Modal Delete Confirmation -->
 <dialog id="delete_modal" class="modal">
