@@ -17,7 +17,7 @@
 <!-- Manage Input / Button -->
 <div class="flex gap-3 justify-between mb-6 mt-8">
     <!-- Modal Form -->
-    <button class="btn btn-neutral btn-sm capitalize btn-outline self-end" onclick="modal_form.showModal()">Tambah
+    <button class="btn btn-neutral capitalize btn-outline self-end" onclick="modal_form.showModal()">Tambah
         Lomba</button>
     <dialog id="modal_form" class="modal">
         <form method="dialog" class="modal-box">
