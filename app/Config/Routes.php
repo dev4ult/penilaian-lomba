@@ -37,6 +37,8 @@ $routes->get('/contests', 'ContestController::index');
 $routes->get('/contest/(:any)', 'ContestController::detail/$1');
 
 $routes->get('/contestants', 'ContestantController::index');
+$routes->get('/contestant/add', 'ContestantController::get_add');
+$routes->get('/contestant/edit', 'ContestantController::get_edit');
 
 /*
  * --------------------------------------------------------------------
