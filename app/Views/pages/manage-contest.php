@@ -47,7 +47,7 @@
 </div>
 
 <div class="grid grid-flow-row grid-cols-4 gap-5">
-    <div class="bg-white rounded border-2 hover:shadow">
+    <div class="bg-white rounded-lg border-2 hover:shadow overflow-hidden">
         <img src="<?= base_url('./images/default-card/1.png') ?>" class="w-full" alt="default">
         <div class="p-6">
             <div class="prose">
@@ -57,7 +57,7 @@
             <a href="/contest/1" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
         </div>
     </div>
-    <div class="bg-white rounded border-2 hover:shadow">
+    <div class="bg-white rounded-lg border-2 hover:shadow overflow-hidden">
         <img src="<?= base_url('./images/default-card/2.png') ?>" class="w-full" alt="default">
         <div class="p-6">
             <div class="prose">
@@ -67,7 +67,7 @@
             <a href="/contest/1" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
         </div>
     </div>
-    <div class="bg-white rounded border-2 hover:shadow">
+    <div class="bg-white rounded-lg border-2 hover:shadow overflow-hidden">
         <img src="<?= base_url('./images/default-card/3.png') ?>" class="w-full" alt="default">
         <div class="p-6">
             <div class="prose">
@@ -77,7 +77,7 @@
             <a href="/contest/1" class="btn btn-neutral btn-sm capitalize mt-3 text-right">lihat detail</a>
         </div>
     </div>
-    <div class="bg-white rounded border-2 hover:shadow">
+    <div class="bg-white rounded-lg border-2 hover:shadow overflow-hidden">
         <img src="<?= base_url('./images/default-card/4.png') ?>" class="w-full" alt="default">
         <div class="p-6">
             <div class="prose">
