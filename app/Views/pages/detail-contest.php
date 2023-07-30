@@ -138,20 +138,31 @@
 
 <!-- Contestant -->
 <div class="my-10">
+    <!-- Manage Contestant -->
     <div class="flex gap-3 justify-between mb-3">
         <h2 class="text-lg font-semibold text-black/30 self-end">Peserta</h2>
-        <div class="join">
-            <button class="btn btn-neutral btn-outline capitalize mr-4">Tambah Peserta</button>
-            <select class="select select-bordered join-item">
-                <option disabled selected>Filter</option>
-                <option>Belum Dinilai</option>
-                <option>Sudah Dinilai</option>
-            </select>
-            <div class="indicator">
-                <button class="btn join-item capitalize btn-primary">Set</button>
+
+        <div>
+            <!-- Filter Contestants -->
+            <div class="join mr-4">
+                <select class="select select-bordered join-item">
+                    <option disabled selected>Filter</option>
+                    <option>Belum Dinilai</option>
+                    <option>Sudah Dinilai</option>
+                </select>
+                <div class="indicator">
+                    <button class="btn join-item capitalize btn-primary">Set</button>
+                </div>
+            </div>
+
+            <!-- Add Contestants -->
+            <div class="join">
+                <input type="text" class="input input-bordered" placeholder="Cari Peserta" />
+                <button class="btn btn-primary btn-outline capitalize join-item">Tambah</button>
             </div>
         </div>
     </div>
+
     <!-- Table Contestant Registered -->
     <div class="overflow-x-auto mt-4">
         <table class="table table-lg table-zebra bg-white border-2">
@@ -160,6 +171,8 @@
                 <tr class="bg-neutral text-neutral-content">
                     <th></th>
                     <th>Nama Tim</th>
+                    <th>Ketua</th>
+                    <th>Instansi</th>
                     <th>Nilai</th>
                     <th></th>
                 </tr>
@@ -167,35 +180,131 @@
             <tbody>
                 <tr>
                     <th>1</th>
-                    <td>Blue</td>
+                    <td>Cabe Rawit</td>
+                    <td>Siddiq Maulana</td>
+                    <td>SMAN 103</td>
                     <td><span class="badge badge-success">80/100</span></td>
-                    <td><button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="modal_detail.showModal()">detail</button></td>
+                    <td class="flex gap-1.5 items-center">
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
+                            onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-warning btn-outline capitalize">ubah penilaian</button>
+                    </td>
                 </tr>
                 <tr>
                     <th>2</th>
-                    <td>Blue</td>
+                    <td>Cabe Rawit</td>
+                    <td>Siddiq Maulana</td>
+                    <td>SMAN 103</td>
                     <td><span class="badge badge-warning">60/100</span></td>
-                    <td><button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="modal_detail.showModal()">detail</button></td>
+                    <td class="flex gap-1.5 items-center">
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
+                            onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-warning btn-outline capitalize">ubah penilaian</button>
+                    </td>
                 </tr>
                 <tr>
                     <th>3</th>
-                    <td>Blue</td>
+                    <td>Cabe Rawit</td>
+                    <td>Siddiq Maulana</td>
+                    <td>SMAN 103</td>
                     <td><span class="badge badge-error">50/100</span></td>
-                    <td><button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="modal_detail.showModal()">detail</button></td>
+                    <td class="flex gap-1.5 items-center">
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
+                            onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-warning btn-outline capitalize">ubah penilaian</button>
+                    </td>
                 </tr>
                 <tr>
                     <th>4</th>
-                    <td>Blue</td>
+                    <td>Cabe Rawit</td>
+                    <td>Siddiq Maulana</td>
+                    <td>SMAN 103</td>
                     <td><span class="badge badge-success">100/100</span></td>
-                    <td><button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="modal_detail.showModal()">detail</button></td>
+                    <td class="flex gap-1.5 items-center">
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
+                            onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-warning btn-outline capitalize">ubah penilaian</button>
+                    </td>
                 </tr>
                 <tr>
                     <th>5</th>
-                    <td>Blue</td>
+                    <td>Cabe Rawit</td>
+                    <td>Siddiq Maulana</td>
+                    <td>SMAN 103</td>
                     <td><span class="badge badge-secondary badge-outline">0/100</span></td>
-                    <td><button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="modal_detail.showModal()">detail</button></td>
+                    <td class="flex gap-1.5 items-center">
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
+                            onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-success btn-outline capitalize">beri penilaian</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<!-- Modal Detail-->
+<dialog id="detail_modal" class="modal">
+    <form method="dialog" class="modal-box max-w-xl p-8">
+        <h3 class="badge badge-lg badge-neutral mb-3">Informasi Penilaian</h3>
+
+        <h2 class="badge badge-neutral mt-6 mb-3 block">Tim / Peserta</h2>
+        <div class="grid p-6 border-2 rounded grid-flow-row grid-cols-2 gap-4 my-3">
+            <div>
+                <h3 class="text-sm text-black/50 font-semibold">Nama Tim</h3>
+                <h4 class="font-bold">Cabe Rawit</h4>
+            </div>
+            <div>
+                <h3 class="text-sm text-black/50 font-semibold">Ketua</h3>
+                <h4 class="font-bold">Siddiq Maulana</h4>
+            </div>
+            <div>
+                <h3 class="text-sm text-black/50 font-semibold">Asal Instansi / Sekolah</h3>
+                <h4 class="font-bold">SMAN 34</h4>
+            </div>
+            <div>
+                <h3 class="text-sm text-black/50 font-semibold">Nomor Telepon</h3>
+                <h4 class="font-bold">080000000000</h4>
+            </div>
+        </div>
+
+        <h2 class="badge badge-neutral mt-6 mb-3">Data Anggota</h2>
+        <div class="overflow-x-auto">
+            <table class="table table-zebra bg-white border-2">
+                <thead>
+                    <tr class="">
+                        <th></th>
+                        <th>Nama Lengkap</th>
+                        <th>NIS</th>
+                    </tr>
+                </thead>
+                <tbody class="font-semibold">
+                    <tr>
+                        <th>1</th>
+                        <td>Cy Ganderton</td>
+                        <td>2100000000</td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>Cy Ganderton</td>
+                        <td>2100000000</td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>Cy Ganderton</td>
+                        <td>2100000000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-action my-0">
+            <button type="button" onclick="detail_modal.close()"
+                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </form>
+</dialog>
