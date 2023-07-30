@@ -32,6 +32,10 @@ class ContestController extends BaseController {
     }
 
     public function get_edit() {
+        echo view('templates/header');
+        // echo view('templates/sidebar', $sidebar);
+        echo view('pages/edit-contest');
+        echo view('templates/footer');
     }
 
     public function put_edit() {
