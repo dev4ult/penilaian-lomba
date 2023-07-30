@@ -140,7 +140,7 @@
 <dialog id="detail_modal" class="modal">
     <form method="dialog" class="modal-box max-w-xl p-8">
         <h3 class="badge badge-lg badge-neutral mb-3">Detail Peserta</h3>
-        <div class="grid p-4 border-2 rounded-lg grid-flow-row grid-cols-2 gap-4 my-3">
+        <div class="grid p-6 border-2 rounded-lg grid-flow-row grid-cols-2 gap-4 my-3">
             <div>
                 <h3 class="text-sm text-black/50 font-semibold">Nama Tim</h3>
                 <h4 class="font-bold">Cabe Rawit</h4>

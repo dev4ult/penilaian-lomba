@@ -17,18 +17,7 @@
 <!-- Manage Input / Button -->
 <div class="flex gap-3 justify-between mb-6 mt-8">
     <!-- Modal Form -->
-    <button class="btn btn-neutral capitalize btn-outline self-end" onclick="modal_form.showModal()">Tambah
-        Lomba</button>
-    <dialog id="modal_form" class="modal">
-        <form method="dialog" class="modal-box">
-            <h3 class="font-bold text-lg">Hello!</h3>
-            <p class="py-4">Press ESC key or click the button below to close</p>
-            <div class="modal-action">
-                <!-- if there is a button in form, it will close the modal -->
-                <button class="btn">Close</button>
-            </div>
-        </form>
-    </dialog>
+    <a href="/contest/add" class="btn btn-neutral capitalize btn-outline self-end">Tambah / Publikasi Lomba</a>
 
     <!-- Search Input -->
     <div class="join">
