@@ -61,11 +61,9 @@
                 <td>SMK 123</td>
                 <td>08XXXXXXXXXXXX</td>
                 <td class="flex gap-1.5 items-center">
-                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize"
-                        onclick="detail_modal.showModal()">lihat</button> |
+                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
                     <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
-                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize"
-                        onclick="delete_modal.showModal()">hapus</button>
+                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
                 </td>
             </tr>
             <tr>
@@ -75,11 +73,9 @@
                 <td>SMA 345</td>
                 <td>08XXXXXXXXXXXX</td>
                 <td class="flex gap-1.5 items-center">
-                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize"
-                        onclick="detail_modal.showModal()">lihat</button> |
+                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
                     <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
-                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize"
-                        onclick="delete_modal.showModal()">hapus</button>
+                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
                 </td>
             </tr>
             <tr>
@@ -89,11 +85,9 @@
                 <td>SMP 231</td>
                 <td>08XXXXXXXXXXXX</td>
                 <td class="flex gap-1.5 items-center">
-                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize"
-                        onclick="detail_modal.showModal()">lihat</button> |
+                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
                     <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
-                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize"
-                        onclick="delete_modal.showModal()">hapus</button>
+                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
                 </td>
             </tr>
             <tr>
@@ -103,11 +97,9 @@
                 <td>SMP 213</td>
                 <td>08XXXXXXXXXXXX</td>
                 <td class="flex gap-1.5 items-center">
-                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize"
-                        onclick="detail_modal.showModal()">lihat</button> |
+                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
                     <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
-                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize"
-                        onclick="delete_modal.showModal()">hapus</button>
+                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
                 </td>
             </tr>
             <tr>
@@ -117,11 +109,9 @@
                 <td>SMA 20</td>
                 <td>08XXXXXXXXXXXX</td>
                 <td class="flex gap-1.5 items-center">
-                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize"
-                        onclick="detail_modal.showModal()">lihat</button> |
+                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
                     <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
-                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize"
-                        onclick="delete_modal.showModal()">hapus</button>
+                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
                 </td>
             </tr>
         </tbody>
@@ -136,11 +126,11 @@
     <button class="join-item btn">4</button>
 </div>
 
-<!-- Modal detail Confirmation -->
+<!-- Modal Detail-->
 <dialog id="detail_modal" class="modal">
     <form method="dialog" class="modal-box max-w-xl p-8">
         <h3 class="badge badge-lg badge-neutral mb-3">Detail Peserta</h3>
-        <div class="grid p-6 border-2 rounded-lg grid-flow-row grid-cols-2 gap-4 my-3">
+        <div class="grid p-6 border-2 rounded grid-flow-row grid-cols-2 gap-4 my-3">
             <div>
                 <h3 class="text-sm text-black/50 font-semibold">Nama Tim</h3>
                 <h4 class="font-bold">Cabe Rawit</h4>
@@ -163,13 +153,13 @@
         <div class="overflow-x-auto">
             <table class="table table-zebra bg-white border-2">
                 <thead>
-                    <tr class="bg-secondary text-secondary-content">
+                    <tr class="">
                         <th></th>
                         <th>Nama Lengkap</th>
                         <th>NIS</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="font-semibold">
                     <tr>
                         <th>1</th>
                         <td>Cy Ganderton</td>
@@ -189,10 +179,8 @@
             </table>
         </div>
         <div class="modal-action my-0">
-            <button type="button" onclick="detail_modal.close()"
-                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
+            <button type="button" onclick="detail_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
@@ -208,8 +196,7 @@
         </p>
 
         <div class="modal-action my-0">
-            <button type="button" onclick="delete_modal.close()"
-                class="btn btn-sm btn-outline btn-error capitalize">Iya</button>
+            <button type="button" onclick="delete_modal.close()" class="btn btn-sm btn-outline btn-error capitalize">Iya</button>
             <button type="button" onclick="delete_modal.close()" class="btn btn-sm btn-primary capitalize">
                 Tidak
             </button>
