@@ -16,6 +16,21 @@
 </header>
 
 <form method="post" class="p-8 bg-white my-10 border-2 rounded-lg grid grid-flow-row grid-cols-2 gap-6">
+    <div class="flex flex-col gap-1 w-full col-span-2">
+        <label for="picture" class="text-sm font-semibold">Gambar</label>
+        <div id="upload-container"
+            class="w-full border-2 border-dashed border-primary rounded p-10 flex gap-6 items-center justify-center">
+            <div id="upload-text" class="flex flex-col justify-center items-center gap-3">
+                <input type="file" id="picture" name="picture" class="hidden" required>
+                <p class="font-semibold">Drag dan drop file disini</p>
+                <span>atau</span>
+                <label id="browse-file" for="picture" class="btn btn-primary btn-sm btn-outline capitalize">Cari
+                    File</label>
+            </div>
+            <div id="preview-file"></div>
+        </div>
+    </div>
+
     <!-- Contest Name -->
     <div class="flex flex-col gap-1 w-full">
         <label for="contest-name" class="text-sm font-semibold">Nama Lomba</label>
@@ -27,7 +42,7 @@
     <div class="flex flex-col gap-1 w-full">
         <label for="organizer" class="text-sm font-semibold">Penyelenggara</label>
         <input type="text" id="organizer" name="organizer" class="input input-bordered"
-            placeholder="Isikan Nama Lengkap Ketua" required>
+            placeholder="Isikan Nama Penyelenggara" required>
     </div>
 
     <!-- Description -->
@@ -39,13 +54,13 @@
 
     <!-- Date -->
     <div class="flex flex-col gap-1 w-full">
-        <label for="date" class="text-sm font-semibold">Tanggal</label>
+        <label for="date" class="text-sm font-semibold">Tanggal Pelaksanaan</label>
         <input type="date" id="date" name="date" class="input input-bordered" required>
     </div>
 
     <!-- Time -->
     <div class="flex flex-col gap-1 w-full">
-        <label for="time" class="text-sm font-semibold">Waktu</label>
+        <label for="time" class="text-sm font-semibold">Waktu Pelaksanaan</label>
         <div class="join">
             <input type="time" id="time" name="time" class="input input-bordered join-item w-full" value="10:00"
                 required>
@@ -144,3 +159,4 @@
 </form>
 
 <script src="<?= base_url("./js/contestForm.js") ?>"></script>
+<script src="<?= base_url("./js/uploadFile.js") ?>"></script>
