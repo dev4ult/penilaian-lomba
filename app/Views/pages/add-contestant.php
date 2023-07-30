@@ -28,22 +28,19 @@
     <!-- Leader Name -->
     <div class="flex flex-col gap-1 w-full">
         <label for="leader" class="text-sm font-semibold">Nama Lengkap Ketua</label>
-        <input type="text" id="leader" name="leader" class="input input-bordered"
-            placeholder="Isikan Nama Lengkap Ketua" required>
+        <input type="text" id="leader" name="leader" class="input input-bordered" placeholder="Isikan Nama Lengkap Ketua" required>
     </div>
 
     <!-- School Name -->
     <div class="flex flex-col gap-1 w-full">
         <label for="school" class="text-sm font-semibold">Instansi / Sekolah</label>
-        <input type="text" id="school" name="school" class="input input-bordered"
-            placeholder="Isikan Nama Instasi / Sekolah" required>
+        <input type="text" id="school" name="school" class="input input-bordered" placeholder="Isikan Nama Instasi / Sekolah" required>
     </div>
 
     <!-- Phone Number -->
     <div class="flex flex-col gap-1 w-full">
         <label for="phone" class="text-sm font-semibold">Nomor Telepon</label>
-        <input type="number" id="phone" name="phone" class="input input-bordered" placeholder="Isikan Nomor Telepon"
-            required>
+        <input type="number" id="phone" name="phone" class="input input-bordered" placeholder="Isikan Nomor Telepon" required>
     </div>
 
     <hr class="col-span-2" />
@@ -60,15 +57,13 @@
         <!-- Full Name -->
         <div class="flex flex-col gap-1 w-full">
             <label for="member-1" class="text-sm font-semibold">Nama Lengkap</label>
-            <input type="text" id="member-1" name="member-1" class="input input-bordered"
-                placeholder="Isikan Nama Lengkap" required>
+            <input type="text" id="member-1" name="member-1" class="input input-bordered" placeholder="Isikan Nama Lengkap" required>
         </div>
 
         <!-- NIP or NIS -->
         <div class="flex flex-col gap-1 w-full">
             <label for="nis-1" class="text-sm font-semibold">NIS</label>
-            <input type="number" id="nis-1" name="nis-1" class="input input-bordered"
-                placeholder="Isikan Nomor Induk Siswa" required>
+            <input type="number" id="nis-1" name="nis-1" class="input input-bordered" placeholder="Isikan Nomor Induk Siswa" required>
         </div>
     </div>
 
@@ -79,8 +74,6 @@
     </div>
 
     <hr class="col-span-2" />
-
-    <!-- <div id="add-member-container" class="h-0"></div> -->
 
     <!-- Submit Button -->
     <button type="submit" class="btn btn-primary capitalize col-span-2">submit</button>
