@@ -47,7 +47,7 @@ $(document).ready(function () {
   $('#add-aspect').click(function () {
     if (!$('#aspect').val()) {
       return Toastify({
-        text: 'Pilih juri terlebih dahulu',
+        text: 'Nama aspek tidak boleh kosong',
         close: true,
         duration: 3000,
         position: 'left',
@@ -57,7 +57,7 @@ $(document).ready(function () {
 
     if (!$('#aspect-range').val()) {
       return Toastify({
-        text: 'Pilih juri terlebih dahulu',
+        text: 'Pilih range nilai terlebih dahulu',
         close: true,
         duration: 3000,
         position: 'left',
