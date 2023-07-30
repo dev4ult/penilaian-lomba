@@ -15,7 +15,7 @@
 </header>
 
 <!-- Manage Input / Button -->
-<div class="flex gap-3 justify-between mb-6 mt-8">
+<div class="flex gap-3 justify-between mb-6 my-10">
     <!-- Modal Form -->
     <a href="/contest/add" class="btn btn-neutral capitalize btn-outline self-end">Tambah / Publikasi Lomba</a>
 
