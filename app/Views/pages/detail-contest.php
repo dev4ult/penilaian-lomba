@@ -19,16 +19,19 @@
 <div class="my-10 grid grid-flow-row grid-cols-2 gap-10">
 
     <!-- Description -->
-    <div class="">
-        <h2 class="text-lg font-semibold text-black/30 mb-3">Deskripsi</h2>
-        <p class="leading-8">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae enim sed quaerat
-            pariatur quo laudantium
-            dolorem!
-            Libero sit nihil suscipit dignissimos laborum saepe officia nesciunt quo repella</p>
-    </div>
+    <div class="col-span-2 grid grid-flow-row grid-cols-4 gap-10">
+        <div class="col-span-3">
+            <h2 class="text-lg font-semibold text-black/30 mb-3">Deskripsi</h2>
+            <p class="leading-8 font-semibold">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae enim sed
+                quaerat
+                pariatur quo laudantium
+                dolorem!
+                Libero sit nihil suscipit dignissimos laborum saepe officia nesciunt quo repella</p>
+        </div>
 
-    <div class="text-right">
-        <a href="/contest/edit" class="btn btn-warning capitalize">edit informasi / Penugasan</a>
+        <div class="text-right">
+            <a href="/contest/edit" class="btn btn-sm btn-warning capitalize">edit informasi / Penugasan</a>
+        </div>
     </div>
 
 
@@ -80,18 +83,18 @@
                 <tbody>
                     <tr>
                         <th>1</th>
-                        <td>Cy Ganderton</td>
-                        <td>1-8</td>
+                        <td>Makhraj dan Tajwid</td>
+                        <td><span class="badge badge-neutral badge-outline">1 - 8</span></td>
                     </tr>
                     <tr>
                         <th>2</th>
-                        <td>Cy Ganderton</td>
-                        <td>1-8</td>
+                        <td>Penjiwaan dan Pengkhayatan</td>
+                        <td><span class="badge badge-neutral badge-outline">2 - 9</span></td>
                     </tr>
                     <tr>
                         <th>3</th>
-                        <td>Cy Ganderton</td>
-                        <td>1-8</td>
+                        <td>Irama dan Suara</td>
+                        <td><span class="badge badge-neutral badge-outline">2 - 9</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -187,7 +190,8 @@
                     <td class="flex gap-1.5 items-center">
                         <button class="btn btn-sm btn-neutral btn-outline capitalize"
                             onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-warning btn-outline capitalize">ubah penilaian</button>
+                        <button class="btn btn-sm btn-warning btn-outline capitalize"
+                            onclick="change_rate_modal.showModal()">ubah penilaian</button>
                     </td>
                 </tr>
                 <tr>
@@ -199,7 +203,8 @@
                     <td class="flex gap-1.5 items-center">
                         <button class="btn btn-sm btn-neutral btn-outline capitalize"
                             onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-warning btn-outline capitalize">ubah penilaian</button>
+                        <button class="btn btn-sm btn-warning btn-outline capitalize"
+                            onclick="change_rate_modal.showModal()">ubah penilaian</button>
                     </td>
                 </tr>
                 <tr>
@@ -211,7 +216,8 @@
                     <td class="flex gap-1.5 items-center">
                         <button class="btn btn-sm btn-neutral btn-outline capitalize"
                             onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-warning btn-outline capitalize">ubah penilaian</button>
+                        <button class="btn btn-sm btn-warning btn-outline capitalize"
+                            onclick="change_rate_modal.showModal()">ubah penilaian</button>
                     </td>
                 </tr>
                 <tr>
@@ -223,7 +229,8 @@
                     <td class="flex gap-1.5 items-center">
                         <button class="btn btn-sm btn-neutral btn-outline capitalize"
                             onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-warning btn-outline capitalize">ubah penilaian</button>
+                        <button class="btn btn-sm btn-warning btn-outline capitalize"
+                            onclick="change_rate_modal.showModal()">ubah penilaian</button>
                     </td>
                 </tr>
                 <tr>
@@ -235,7 +242,8 @@
                     <td class="flex gap-1.5 items-center">
                         <button class="btn btn-sm btn-neutral btn-outline capitalize"
                             onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-success btn-outline capitalize">beri penilaian</button>
+                        <button class="btn btn-sm btn-primary btn-outline capitalize"
+                            onclick="add_rate_modal.showModal()">beri penilaian</button>
                     </td>
                 </tr>
             </tbody>
@@ -245,10 +253,45 @@
 
 <!-- Modal Detail-->
 <dialog id="detail_modal" class="modal">
-    <form method="dialog" class="modal-box max-w-xl p-8">
+    <form method="dialog" class="modal-box max-w-2xl p-8">
         <h3 class="badge badge-lg badge-neutral mb-3">Informasi Penilaian</h3>
+        <p class="mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, corrupti? Consequuntur
+            incidunt tenetur sequi neque?</p>
 
-        <h2 class="badge badge-neutral mt-6 mb-3 block">Tim / Peserta</h2>
+        <hr class="my-6">
+
+        <div class="overflow-x-auto">
+            <table class="table table-zebra bg-white border-2">
+                <thead>
+                    <tr class="">
+                        <th></th>
+                        <th>Aspek</th>
+                        <th>Nilai</th>
+                    </tr>
+                </thead>
+                <tbody class="font-semibold">
+                    <tr>
+                        <th>1</th>
+                        <td>Makhraj dan Tajwid</td>
+                        <td>7 / 8</td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>Penjiwaan dan Pengkhayatan</td>
+                        <td>5 / 9</td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>Irama dan Suara</td>
+                        <td>7 / 9</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr class="my-6">
+
+        <h2 class="badge badge-neutral mb-3 block">Tim / Peserta</h2>
         <div class="grid p-6 border-2 rounded grid-flow-row grid-cols-2 gap-4 my-3">
             <div>
                 <h3 class="text-sm text-black/50 font-semibold">Nama Tim</h3>
@@ -268,7 +311,9 @@
             </div>
         </div>
 
-        <h2 class="badge badge-neutral mt-6 mb-3">Data Anggota</h2>
+        <hr class="my-6">
+
+        <h2 class="badge badge-neutral mb-3">Data Anggota</h2>
         <div class="overflow-x-auto">
             <table class="table table-zebra bg-white border-2">
                 <thead>
@@ -299,6 +344,122 @@
         </div>
         <div class="modal-action my-0">
             <button type="button" onclick="detail_modal.close()"
+                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </form>
+</dialog>
+
+<!-- Modal Add Rate -->
+<dialog id="add_rate_modal" class="modal">
+    <form method="dialog" class="modal-box max-w-2xl p-8">
+        <h3 class="badge badge-lg badge-neutral mb-3">Form Penilaian</h3>
+        <p class="mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, corrupti? Consequuntur
+            incidunt tenetur sequi neque?</p>
+
+        <hr class="my-6">
+
+        <div class="overflow-x-auto">
+            <table class="table table-zebra bg-white border-2">
+                <thead>
+                    <tr class="">
+                        <th></th>
+                        <th>Aspek</th>
+                        <th>Range Nilai</th>
+                        <th>Nilai</th>
+                    </tr>
+                </thead>
+                <tbody class="font-semibold">
+                    <tr>
+                        <th>1</th>
+                        <td>Makhraj dan Tajwid</td>
+                        <td>1 - 8</td>
+                        <td><input type="number" class="input input-bordered" value="0" min="1" max="8" /></td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>Penjiwaan dan Pengkhayatan</td>
+                        <td>2 - 9</td>
+                        <td><input type="number" class="input input-bordered" value="0" min="2" max="9" /></td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>Irama dan Suara</td>
+                        <td>2 - 9</td>
+                        <td><input type="number" class="input input-bordered" value="0" min="2" max="9" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr class="my-6">
+
+        <button type="submit" class="btn btn-primary w-full capitalize">Submit</button>
+
+        <div class="modal-action my-0">
+            <button type="button" onclick="add_rate_modal.close()"
+                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </form>
+</dialog>
+
+<!-- Modal Change Rate -->
+<dialog id="change_rate_modal" class="modal">
+    <form method="dialog" class="modal-box max-w-2xl p-8">
+        <h3 class="badge badge-lg badge-neutral mb-3">Form Penilaian</h3>
+        <p class="mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, corrupti? Consequuntur
+            incidunt tenetur sequi neque?</p>
+
+        <hr class="my-6">
+
+        <div class="overflow-x-auto">
+            <table class="table table-zebra bg-white border-2">
+                <thead>
+                    <tr class="">
+                        <th></th>
+                        <th>Aspek</th>
+                        <th>Range Nilai</th>
+                        <th>Nilai</th>
+                    </tr>
+                </thead>
+                <tbody class="font-semibold">
+                    <tr>
+                        <th>1</th>
+                        <td>Makhraj dan Tajwid</td>
+                        <td>1 - 8</td>
+                        <td><input type="number" class="input input-bordered" value="7" min="1" max="8" /></td>
+                    </tr>
+                    <tr>
+                        <th>2</th>
+                        <td>Penjiwaan dan Pengkhayatan</td>
+                        <td>2 - 9</td>
+                        <td><input type="number" class="input input-bordered" value="5" min="2" max="9" /></td>
+                    </tr>
+                    <tr>
+                        <th>3</th>
+                        <td>Irama dan Suara</td>
+                        <td>2 - 9</td>
+                        <td><input type="number" class="input input-bordered" value="7" min="2" max="9" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <hr class="my-6">
+
+        <button type="submit" class="btn btn-warning w-full capitalize">Simpan Perubahan</button>
+
+        <div class="modal-action my-0">
+            <button type="button" onclick="change_rate_modal.close()"
                 class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
