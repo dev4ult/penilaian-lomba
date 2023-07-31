@@ -2,7 +2,7 @@
 <header class="pb-10 border-b-2 flex justify-between ">
     <div class="prose">
         <h1 class="my-0 text-2xl font-extrabold">Halo, Nibras Alyassar</h1>
-        <p class="mt-2 mb-0">Selamat datang di Dashboard Admin</p>
+        <p>Selamat datang di Dashboard Admin</p>
     </div>
     <a href="/login" class="self-end btn btn-sm btn-outline btn-error capitalize">Logout</a>
 </header>
@@ -61,12 +61,6 @@
                 <div id="chart-donut" class="min-w-[30rem]"></div>
             </div>
         </div>
-    </div>
-
-    <!-- Reporting -->
-    <div class="mt-10">
-        <h2 class="text-lg font-semibold text-black/30 mb-3">Laporan</h2>
-
     </div>
 
 </main>
