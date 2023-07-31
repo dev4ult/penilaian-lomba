@@ -293,21 +293,33 @@
 
         <h2 class="badge badge-neutral mb-3 block">Tim / Peserta</h2>
         <div class="grid p-6 border-2 rounded grid-flow-row grid-cols-2 gap-4 my-3">
-            <div>
-                <h3 class="text-sm text-black/50 font-semibold">Nama Tim</h3>
-                <h4 class="font-bold">Cabe Rawit</h4>
+            <div class="flex gap-2 items-center">
+                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">1</span>
+                <div>
+                    <h3 class="text-sm text-black/50 font-semibold">Nama Tim</h3>
+                    <h4 class="font-semibold">Cabe Rawit</h4>
+                </div>
             </div>
-            <div>
-                <h3 class="text-sm text-black/50 font-semibold">Ketua</h3>
-                <h4 class="font-bold">Siddiq Maulana</h4>
+            <div class="flex gap-2 items-center">
+                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">2</span>
+                <div>
+                    <h3 class="text-sm text-black/50 font-semibold">Ketua</h3>
+                    <h4 class="font-semibold">Siddiq Maulana</h4>
+                </div>
             </div>
-            <div>
-                <h3 class="text-sm text-black/50 font-semibold">Asal Instansi / Sekolah</h3>
-                <h4 class="font-bold">SMAN 34</h4>
+            <div class="flex gap-2 items-center">
+                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">3</span>
+                <div>
+                    <h3 class="text-sm text-black/50 font-semibold">Asal Instansi / Sekolah</h3>
+                    <h4 class="font-semibold">SMAN 34</h4>
+                </div>
             </div>
-            <div>
-                <h3 class="text-sm text-black/50 font-semibold">Nomor Telepon</h3>
-                <h4 class="font-bold">080000000000</h4>
+            <div class="flex gap-2 items-center">
+                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">4</span>
+                <div>
+                    <h3 class="text-sm text-black/50 font-semibold">Nomor Telepon</h3>
+                    <h4 class="font-semibold">080000000000</h4>
+                </div>
             </div>
         </div>
 
@@ -378,19 +390,55 @@
                         <th>1</th>
                         <td>Makhraj dan Tajwid</td>
                         <td>1 - 8</td>
-                        <td><input type="number" class="input input-bordered" value="0" min="1" max="8" /></td>
+                        <td>
+                            <select name="aspect-1" id="aspect-1" class="select select-bordered">
+                                <option disabled selected>Pilih Nilai</option>
+                                <option value="1">1 (Kurang)</option>
+                                <option value="2">2 (Kurang)</option>
+                                <option value="3">3 (Cukup)</option>
+                                <option value="4">4 (Cukup)</option>
+                                <option value="5">5 (Baik)</option>
+                                <option value="6">6 (Baik)</option>
+                                <option value="7">7 (Sangat Baik)</option>
+                                <option value="8">8 (Sangat Baik)</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <th>2</th>
                         <td>Penjiwaan dan Pengkhayatan</td>
                         <td>2 - 9</td>
-                        <td><input type="number" class="input input-bordered" value="0" min="2" max="9" /></td>
+                        <td>
+                            <select name="aspect-1" id="aspect-1" class="select select-bordered">
+                                <option disabled selected>Pilih Nilai</option>
+                                <option value="2">2 (Kurang)</option>
+                                <option value="3">3 (Kurang)</option>
+                                <option value="4">4 (Cukup)</option>
+                                <option value="5">5 (Cukup)</option>
+                                <option value="6">6 (Baik)</option>
+                                <option value="7">7 (Baik)</option>
+                                <option value="8">8 (Sangat Baik)</option>
+                                <option value="9">9 (Sangat Baik)</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <th>3</th>
                         <td>Irama dan Suara</td>
                         <td>2 - 9</td>
-                        <td><input type="number" class="input input-bordered" value="0" min="2" max="9" /></td>
+                        <td>
+                            <select name="aspect-1" id="aspect-1" class="select select-bordered">
+                                <option disabled selected>Pilih Nilai</option>
+                                <option value="2">2 (Kurang)</option>
+                                <option value="3">3 (Kurang)</option>
+                                <option value="4">4 (Cukup)</option>
+                                <option value="5">5 (Cukup)</option>
+                                <option value="6">6 (Baik)</option>
+                                <option value="7">7 (Baik)</option>
+                                <option value="8">8 (Sangat Baik)</option>
+                                <option value="9">9 (Sangat Baik)</option>
+                            </select>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -436,19 +484,55 @@
                         <th>1</th>
                         <td>Makhraj dan Tajwid</td>
                         <td>1 - 8</td>
-                        <td><input type="number" class="input input-bordered" value="7" min="1" max="8" /></td>
+                        <td>
+                            <select name="aspect-1" id="aspect-1" class="select select-bordered" value="5">
+                                <option disabled>Pilih Nilai</option>
+                                <option value="1">1 (Kurang)</option>
+                                <option value="2">2 (Kurang)</option>
+                                <option value="3">3 (Cukup)</option>
+                                <option value="4">4 (Cukup)</option>
+                                <option value="5" selected>5 (Baik)</option>
+                                <option value="6">6 (Baik)</option>
+                                <option value="7">7 (Sangat Baik)</option>
+                                <option value="8">8 (Sangat Baik)</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <th>2</th>
                         <td>Penjiwaan dan Pengkhayatan</td>
                         <td>2 - 9</td>
-                        <td><input type="number" class="input input-bordered" value="5" min="2" max="9" /></td>
+                        <td>
+                            <select name="aspect-1" id="aspect-1" class="select select-bordered" value="7">
+                                <option disabled>Pilih Nilai</option>
+                                <option value="2">2 (Kurang)</option>
+                                <option value="3">3 (Kurang)</option>
+                                <option value="4">4 (Cukup)</option>
+                                <option value="5">5 (Cukup)</option>
+                                <option value="6">6 (Baik)</option>
+                                <option value="7" selected>7 (Baik)</option>
+                                <option value="8">8 (Sangat Baik)</option>
+                                <option value="9">9 (Sangat Baik)</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <th>3</th>
                         <td>Irama dan Suara</td>
                         <td>2 - 9</td>
-                        <td><input type="number" class="input input-bordered" value="7" min="2" max="9" /></td>
+                        <td>
+                            <select name="aspect-1" id="aspect-1" class="select select-bordered" value="7">
+                                <option disabled>Pilih Nilai</option>
+                                <option value="2">2 (Kurang)</option>
+                                <option value="3">3 (Kurang)</option>
+                                <option value="4">4 (Cukup)</option>
+                                <option value="5">5 (Cukup)</option>
+                                <option value="6">6 (Baik)</option>
+                                <option value="7" selected>7 (Baik)</option>
+                                <option value="8">8 (Sangat Baik)</option>
+                                <option value="9">9 (Sangat Baik)</option>
+                            </select>
+                        </td>
                     </tr>
                 </tbody>
             </table>
