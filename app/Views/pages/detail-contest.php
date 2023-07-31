@@ -38,26 +38,41 @@
     <!-- Informatian Detail -->
     <div class="col-span-2">
         <h2 class="text-lg font-semibold text-black/30 mb-3">Informasi Pelaksanaan</h2>
-        <div class="bg-white p-6 rounded-lg border-2 hover:shadow grid grid-flow grid-cols-3 gap-4">
-            <div>
-                <h4 class="font-semibold text-sm text-black/50">Tanggal</h4>
-                <h3 class="font-bold">12 Januari 2023</h3>
+        <div class="bg-white p-6 rounded-lg border-2 hover:shadow grid grid-flow grid-cols-3 gap-6">
+            <div class="flex gap-2 items-center">
+                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">1</span>
+                <div>
+                    <h4 class="font-semibold text-sm text-black/50">Tanggal</h4>
+                    <h3 class="font-bold">12 Januari 2023</h3>
+                </div>
             </div>
-            <div>
-                <h4 class="font-semibold text-sm text-black/50">Waktu</h4>
-                <h3 class="font-bold">13.00 - 14.00</h3>
+            <div class="flex gap-2 items-center">
+                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">2</span>
+                <div>
+                    <h4 class="font-semibold text-sm text-black/50">Waktu</h4>
+                    <h3 class="font-bold">13.00 - 14.00</h3>
+                </div>
             </div>
-            <div>
-                <h4 class="font-semibold text-sm text-black/50">Penyelenggara</h4>
-                <h3 class="font-bold">Ahmah Reza Maulana</h3>
+            <div class="flex gap-2 items-center">
+                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">3</span>
+                <div>
+                    <h4 class="font-semibold text-sm text-black/50">Penyelenggara</h4>
+                    <h3 class="font-bold">Ahmah Reza Maulana</h3>
+                </div>
             </div>
-            <div>
-                <h4 class="font-semibold text-sm text-black/50">Tempat</h4>
-                <h3 class="font-bold">Aula 303</h3>
+            <div class="flex gap-2 items-center">
+                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">4</span>
+                <div>
+                    <h4 class="font-semibold text-sm text-black/50">Tempat</h4>
+                    <h3 class="font-bold">Aula 303</h3>
+                </div>
             </div>
-            <div>
-                <h4 class="font-semibold text-sm text-black/50">Jumlah Peserta</h4>
-                <h3 class="font-bold">45</h3>
+            <div class="flex gap-2 items-center">
+                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">5</span>
+                <div>
+                    <h4 class="font-semibold text-sm text-black/50">Jumlah Peserta</h4>
+                    <h3 class="font-bold">45</h3>
+                </div>
             </div>
         </div>
     </div>
@@ -146,8 +161,15 @@
         <h2 class="text-lg font-semibold text-black/30 self-end">Peserta</h2>
 
         <div>
+            <div class="inline-flex">
+                <button class="btn btn-primary btn-outline capitalize">
+                    Refresh
+                    <!-- <span class="loading"></span> -->
+                </button>
+            </div>
+
             <!-- Filter Contestants -->
-            <div class="join mr-4">
+            <div class="join mx-3">
                 <select class="select select-bordered join-item">
                     <option disabled selected>Filter</option>
                     <option>Belum Dinilai</option>
@@ -160,8 +182,8 @@
 
             <!-- Add Contestants -->
             <div class="join">
-                <input type="text" class="input input-bordered" placeholder="Cari Peserta" />
-                <button class="btn btn-primary btn-outline capitalize join-item">Tambah</button>
+                <input type="text" class="input input-bordered" placeholder="Tambah Peserta" />
+                <button class="btn btn-primary btn-outline capitalize join-item btn-disabled">Tambah</button>
             </div>
         </div>
     </div>
@@ -188,10 +210,8 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-success">80/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
-                            onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-warning btn-outline capitalize"
-                            onclick="change_rate_modal.showModal()">ubah penilaian</button>
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="change_rate_modal.showModal()">ubah penilaian</button>
                     </td>
                 </tr>
                 <tr>
@@ -201,10 +221,8 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-warning">60/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
-                            onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-warning btn-outline capitalize"
-                            onclick="change_rate_modal.showModal()">ubah penilaian</button>
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="change_rate_modal.showModal()">ubah penilaian</button>
                     </td>
                 </tr>
                 <tr>
@@ -214,10 +232,8 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-error">50/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
-                            onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-warning btn-outline capitalize"
-                            onclick="change_rate_modal.showModal()">ubah penilaian</button>
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="change_rate_modal.showModal()">ubah penilaian</button>
                     </td>
                 </tr>
                 <tr>
@@ -227,10 +243,8 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-success">100/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
-                            onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-warning btn-outline capitalize"
-                            onclick="change_rate_modal.showModal()">ubah penilaian</button>
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="change_rate_modal.showModal()">ubah penilaian</button>
                     </td>
                 </tr>
                 <tr>
@@ -240,10 +254,8 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-secondary badge-outline">0/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
-                            onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-primary btn-outline capitalize"
-                            onclick="add_rate_modal.showModal()">beri penilaian</button>
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-primary btn-outline capitalize" onclick="add_rate_modal.showModal()">beri penilaian</button>
                     </td>
                 </tr>
             </tbody>
@@ -297,28 +309,28 @@
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">1</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Nama Tim</h3>
-                    <h4 class="font-semibold">Cabe Rawit</h4>
+                    <h4 class="font-bold">Cabe Rawit</h4>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">2</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Ketua</h3>
-                    <h4 class="font-semibold">Siddiq Maulana</h4>
+                    <h4 class="font-bold">Siddiq Maulana</h4>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">3</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Asal Instansi / Sekolah</h3>
-                    <h4 class="font-semibold">SMAN 34</h4>
+                    <h4 class="font-bold">SMAN 34</h4>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">4</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Nomor Telepon</h3>
-                    <h4 class="font-semibold">080000000000</h4>
+                    <h4 class="font-bold">080000000000</h4>
                 </div>
             </div>
         </div>
@@ -355,10 +367,8 @@
             </table>
         </div>
         <div class="modal-action my-0">
-            <button type="button" onclick="detail_modal.close()"
-                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
+            <button type="button" onclick="detail_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
@@ -391,7 +401,7 @@
                         <td>Makhraj dan Tajwid</td>
                         <td>1 - 8</td>
                         <td>
-                            <select name="aspect-1" id="aspect-1" class="select select-bordered">
+                            <select name="aspect-1" id="aspect-1" class="select select-bordered select-sm">
                                 <option disabled selected>Pilih Nilai</option>
                                 <option value="1">1 (Kurang)</option>
                                 <option value="2">2 (Kurang)</option>
@@ -409,7 +419,7 @@
                         <td>Penjiwaan dan Pengkhayatan</td>
                         <td>2 - 9</td>
                         <td>
-                            <select name="aspect-1" id="aspect-1" class="select select-bordered">
+                            <select name="aspect-1" id="aspect-1" class="select select-bordered select-sm">
                                 <option disabled selected>Pilih Nilai</option>
                                 <option value="2">2 (Kurang)</option>
                                 <option value="3">3 (Kurang)</option>
@@ -427,7 +437,7 @@
                         <td>Irama dan Suara</td>
                         <td>2 - 9</td>
                         <td>
-                            <select name="aspect-1" id="aspect-1" class="select select-bordered">
+                            <select name="aspect-1" id="aspect-1" class="select select-bordered select-sm">
                                 <option disabled selected>Pilih Nilai</option>
                                 <option value="2">2 (Kurang)</option>
                                 <option value="3">3 (Kurang)</option>
@@ -446,13 +456,18 @@
 
         <hr class="my-6">
 
+        <div class="flex flex-col gap-1 w-full ">
+            <label for="judge-note" class="text-sm font-semibold">Catatan Juri</label>
+            <textarea name="judge-note" id="judge-note" class="textarea textarea-bordered h-52 text-base py-3" placeholder="Isikan Catatan Juri"></textarea>
+        </div>
+
+        <hr class="my-6">
+
         <button type="submit" class="btn btn-primary w-full capitalize">Submit</button>
 
         <div class="modal-action my-0">
-            <button type="button" onclick="add_rate_modal.close()"
-                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
+            <button type="button" onclick="add_rate_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
@@ -485,7 +500,7 @@
                         <td>Makhraj dan Tajwid</td>
                         <td>1 - 8</td>
                         <td>
-                            <select name="aspect-1" id="aspect-1" class="select select-bordered" value="5">
+                            <select name="aspect-1" id="aspect-1" class="select select-bordered select-sm" value="5">
                                 <option disabled>Pilih Nilai</option>
                                 <option value="1">1 (Kurang)</option>
                                 <option value="2">2 (Kurang)</option>
@@ -503,7 +518,7 @@
                         <td>Penjiwaan dan Pengkhayatan</td>
                         <td>2 - 9</td>
                         <td>
-                            <select name="aspect-1" id="aspect-1" class="select select-bordered" value="7">
+                            <select name="aspect-1" id="aspect-1" class="select select-bordered select-sm" value="7">
                                 <option disabled>Pilih Nilai</option>
                                 <option value="2">2 (Kurang)</option>
                                 <option value="3">3 (Kurang)</option>
@@ -521,7 +536,7 @@
                         <td>Irama dan Suara</td>
                         <td>2 - 9</td>
                         <td>
-                            <select name="aspect-1" id="aspect-1" class="select select-bordered" value="7">
+                            <select name="aspect-1" id="aspect-1" class="select select-bordered select-sm" value="7">
                                 <option disabled>Pilih Nilai</option>
                                 <option value="2">2 (Kurang)</option>
                                 <option value="3">3 (Kurang)</option>
@@ -540,13 +555,18 @@
 
         <hr class="my-6">
 
+        <div class="flex flex-col gap-1 w-full ">
+            <label for="judge-note" class="text-sm font-semibold">Catatan Juri</label>
+            <textarea name="judge-note" id="judge-note" class="textarea textarea-bordered h-52 text-base py-3" placeholder="Isikan Catatan Juri">Catatan juri mengenai penilaian, dll.</textarea>
+        </div>
+
+        <hr class="my-6">
+
         <button type="submit" class="btn btn-warning w-full capitalize">Simpan Perubahan</button>
 
         <div class="modal-action my-0">
-            <button type="button" onclick="change_rate_modal.close()"
-                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
+            <button type="button" onclick="change_rate_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
