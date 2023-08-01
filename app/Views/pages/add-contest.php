@@ -88,7 +88,7 @@
                 <option disabled selected>Pilih Juri</option>
                 <option value="Nibras Alyassar">Nibras Alyassar</option>
             </select>
-            <button type="button" id="select-judge" class="btn btn-primary btn-outline capitalize">Tambah</button>
+            <button type="button" id="add-judge" class="btn btn-primary btn-outline capitalize">Tambah</button>
         </div>
     </div>
 
@@ -115,20 +115,20 @@
 
     <hr class="col-span-2" />
 
-    <h2 class="badge badge-neutral self-center">Aspek Penilaian</h2>
+    <h2 class="badge badge-neutral self-center">Kategori Penilaian</h2>
 
     <div class="flex flex-col gap-1 w-full col-span-2">
         <div class="join w-full">
-            <input type="text" id="aspect" name="aspect" class="input input-bordered join-item w-full"
-                placeholder="Nama Aspek" required>
-            <select name="aspect-range" id="aspect-range" class="select select-bordered join-item">
+            <input type="text" id="category-eval" name="category-eval" class="input input-bordered join-item w-full"
+                placeholder="Nama Kategori" required>
+            <!-- <select name="aspect-range" id="aspect-range" class="select select-bordered join-item">
                 <option disabled selected>Pilih Range Nilai</option>
                 <option value="1-8">1-8</option>
                 <option value="2-9">2-9</option>
                 <option value="3-10">3-10</option>
                 <option value="4-11">4-11</option>
-            </select>
-            <button type="button" id="add-aspect" class="btn btn-primary btn-outline capitalize">Tambah</button>
+            </select> -->
+            <button type="button" id="add-category" class="btn btn-primary btn-outline capitalize">Tambah</button>
         </div>
     </div>
 
@@ -137,15 +137,14 @@
             <thead>
                 <tr class="bg-black/20">
                     <th></th>
-                    <th>Aspek</th>
-                    <th>Range Nilai</th>
+                    <th>Kategori</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody id="aspect-table">
+            <tbody id="category-table">
                 <tr>
-                    <td colspan="4">
-                        <h3 class="text-center text-black/50">-- Belum ada Aspek yang ditambahkan --</h3>
+                    <td colspan="3">
+                        <h3 class="text-center text-black/50">-- Belum ada Kategori Penilaian yang ditambahkan --</h3>
                     </td>
                 </tr>
             </tbody>
