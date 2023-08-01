@@ -6,12 +6,12 @@
     </div>
 
     <!-- Breadcrumbs -->
-    <div class="text-sm breadcrumbs self-end">
+    <div class="text-sm breadcrumbs flex-shrink-0 self-end">
         <ul>
             <li><a href="/" class="text-primary">Dashboard</a></li>
             <li><a href="/contests" class="text-primary">Lomba</a></li>
             <li><a href="/contest/1" class="text-primary">Adzan Senior</a></li>
-            <li><span class="badge badge-neutral rounded-full">Edit</span></li>
+            <li><span class="badge badge-neutral rounded-full">Edit Informasi</span></li>
         </ul>
     </div>
 </header>

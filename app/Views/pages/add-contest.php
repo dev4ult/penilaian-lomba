@@ -18,8 +18,7 @@
 <form method="post" class="p-8 bg-white my-10 border-2 rounded-lg grid grid-flow-row grid-cols-2 gap-6">
     <div class="flex flex-col gap-1 w-full col-span-2">
         <label for="picture" class="text-sm font-semibold">Gambar</label>
-        <div id="upload-container"
-            class="w-full border-2 border-dashed border-primary rounded p-10 flex gap-6 items-center justify-center">
+        <div id="upload-container" class="w-full border-2 border-dashed border-primary rounded p-10 flex gap-6 items-center justify-center">
             <div id="upload-text" class="flex flex-col justify-center items-center gap-3">
                 <input type="file" id="picture" name="picture" class="hidden" required>
                 <p class="font-semibold">Drag dan drop file disini</p>
@@ -34,22 +33,19 @@
     <!-- Contest Name -->
     <div class="flex flex-col gap-1 w-full">
         <label for="contest-name" class="text-sm font-semibold">Nama Lomba</label>
-        <input type="text" id="contest-name" name="contest-name" class="input input-bordered"
-            placeholder="Isikan Nama Lomba" required>
+        <input type="text" id="contest-name" name="contest-name" class="input input-bordered" placeholder="Isikan Nama Lomba" required>
     </div>
 
     <!-- Organizer -->
     <div class="flex flex-col gap-1 w-full">
         <label for="organizer" class="text-sm font-semibold">Penyelenggara</label>
-        <input type="text" id="organizer" name="organizer" class="input input-bordered"
-            placeholder="Isikan Nama Penyelenggara" required>
+        <input type="text" id="organizer" name="organizer" class="input input-bordered" placeholder="Isikan Nama Penyelenggara" required>
     </div>
 
     <!-- Description -->
     <div class="flex flex-col gap-1 w-full col-span-2">
         <label for="description" class="text-sm font-semibold">Deskripsi Lomba</label>
-        <textarea type="text" id="description" name="description" class="textarea textarea-bordered text-base h-52 py-3"
-            placeholder="Isikan Deskripsi Lomba" required></textarea>
+        <textarea type="text" id="description" name="description" class="textarea textarea-bordered text-base h-52 py-3" placeholder="Isikan Deskripsi Lomba" required></textarea>
     </div>
 
     <!-- Date -->
@@ -62,18 +58,15 @@
     <div class="flex flex-col gap-1 w-full">
         <label for="time" class="text-sm font-semibold">Waktu Pelaksanaan</label>
         <div class="join">
-            <input type="time" id="time" name="time" class="input input-bordered join-item w-full" value="10:00"
-                required>
-            <input type="time" id="time" name="time" class="input input-bordered join-item w-full" value="11:00"
-                required>
+            <input type="time" id="time" name="time" class="input input-bordered join-item w-full" value="10:00" required>
+            <input type="time" id="time" name="time" class="input input-bordered join-item w-full" value="11:00" required>
         </div>
     </div>
 
     <!-- Place -->
     <div class="flex flex-col gap-1 w-full">
         <label for="place" class="text-sm font-semibold">Tempat Lomba</label>
-        <input type="text" id="place" name="place" class="input input-bordered" placeholder="Isikan Nama Tempat Lomba"
-            required>
+        <input type="text" id="place" name="place" class="input input-bordered" placeholder="Isikan Nama Tempat Lomba" required>
     </div>
 
     <hr class="col-span-2" />
@@ -119,15 +112,7 @@
 
     <div class="flex flex-col gap-1 w-full col-span-2">
         <div class="join w-full">
-            <input type="text" id="category-eval" name="category-eval" class="input input-bordered join-item w-full"
-                placeholder="Nama Kategori" required>
-            <!-- <select name="aspect-range" id="aspect-range" class="select select-bordered join-item">
-                <option disabled selected>Pilih Range Nilai</option>
-                <option value="1-8">1-8</option>
-                <option value="2-9">2-9</option>
-                <option value="3-10">3-10</option>
-                <option value="4-11">4-11</option>
-            </select> -->
+            <input type="text" id="category-eval" name="category-eval" class="input input-bordered join-item w-full" placeholder="Nama Kategori" required>
             <button type="button" id="add-category" class="btn btn-primary btn-outline capitalize">Tambah</button>
         </div>
     </div>
