@@ -56,19 +56,26 @@
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">3</span>
                 <div>
+                    <h4 class="font-semibold text-sm text-black/50">Kategori / Tingkatan</h4>
+                    <h3 class="font-bold">SMP</h3>
+                </div>
+            </div>
+            <div class="flex gap-2 items-center">
+                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">4</span>
+                <div>
                     <h4 class="font-semibold text-sm text-black/50">Penyelenggara</h4>
                     <h3 class="font-bold">Ahmah Reza Maulana</h3>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
-                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">4</span>
+                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">5</span>
                 <div>
                     <h4 class="font-semibold text-sm text-black/50">Tempat</h4>
                     <h3 class="font-bold">Aula 303</h3>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
-                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">5</span>
+                <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">6</span>
                 <div>
                     <h4 class="font-semibold text-sm text-black/50">Jumlah Peserta</h4>
                     <h3 class="font-bold">45</h3>
@@ -83,33 +90,32 @@
 <div class="my-10 py-10 border-y-2 grid grid-flow-row grid-cols-2 gap-10">
     <!-- Aspects -->
     <div>
-        <h2 class="text-lg font-semibold text-black/30 mb-3">Aspek Penilaian</h2>
+        <div class="flex gap-4 justify-between">
+            <h2 class="text-lg font-semibold text-black/30 mb-3">Kategori Penilaian</h2>
+            <a class="btn btn-sm btn-secondary capitalize">Lihat Detail</a>
+        </div>
 
         <div class="overflow-x-auto">
             <table class="table table-zebra bg-white border-2">
                 <thead>
                     <tr class="bg-secondary text-secondary-content">
                         <th></th>
-                        <th>Aspek</th>
-                        <th>Range Nilai</th>
-
+                        <th>Kategori</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th>1</th>
                         <td>Makhraj dan Tajwid</td>
-                        <td><span class="badge badge-neutral badge-outline">1 - 8</span></td>
+
                     </tr>
                     <tr>
                         <th>2</th>
                         <td>Penjiwaan dan Pengkhayatan</td>
-                        <td><span class="badge badge-neutral badge-outline">2 - 9</span></td>
                     </tr>
                     <tr>
                         <th>3</th>
                         <td>Irama dan Suara</td>
-                        <td><span class="badge badge-neutral badge-outline">2 - 9</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -263,7 +269,7 @@
     </div>
 </div>
 
-<!-- Modal Detail-->
+<!-- Modal Detail Contestant -->
 <dialog id="detail_modal" class="modal">
     <form method="dialog" class="modal-box max-w-2xl p-8">
         <h3 class="badge badge-lg badge-neutral mb-3">Informasi Penilaian</h3>
