@@ -31,23 +31,23 @@ $(document).ready(function () {
     }
   });
 
-  let totalDataAspect = 0;
+  let totalDataCategory = 0;
 
-  const tableRowAspect = (id, aspect, range) => {
-    return `<tr id="tr-aspect-${id}">
+  const tableRowCategoryEval = (id, category) => {
+    return `<tr id="tr-category-${id}">
                 <th>${id}</th>
-                <td>${aspect}</td>
-                <td>${range}</td>
-                <td>
-                    <button id="remove-aspect-${id}" type="button" class="remove-aspect-btn btn btn-sm btn-outline btn-error capitalize">hapus</button>
+                <td>${category}</td>
+                <td class="flex gap-1.5 items-center">
+                    <a href="/contest/evaluation-aspect" class="btn btn-sm btn-neutral capitalize">aspek penilaian</a> |
+                    <button id="remove-category-${id}" type="button" class="remove-category-btn btn btn-sm btn-outline btn-error capitalize">hapus</button>
                 </td>
             </tr>`;
   };
 
-  $('#add-aspect').click(function () {
-    if (!$('#aspect').val()) {
+  $('#add-category').click(function () {
+    if (!$('#category-eval').val()) {
       return Toastify({
-        text: 'Nama aspek tidak boleh kosong',
+        text: 'Nama Kategory tidak boleh kosong',
         close: true,
         duration: 3000,
         position: 'left',
@@ -55,21 +55,13 @@ $(document).ready(function () {
       }).showToast();
     }
 
-    if (!$('#aspect-range').val()) {
-      return Toastify({
-        text: 'Pilih range nilai terlebih dahulu',
-        close: true,
-        duration: 3000,
-        position: 'left',
-        className: 'alert alert-error fixed top-5 right-5 w-fit transition-all',
-      }).showToast();
-    }
+    const prevData = $('#category-table').html();
+    const newCategoryEval = tableRowCategoryEval(totalDataCategory + 1, $('#category-eval').val());
 
-    const prevData = $('#aspect-table').html();
-    const newAspect = tableRowAspect(totalDataAspect + 1, $('#aspect').val(), $('#aspect-range').val());
+    $('#category-eval').val('');
 
-    $('#aspect-table').html(totalDataAspect == 0 ? newAspect : prevData + newAspect);
-    totalDataAspect++;
+    $('#category-table').html(totalDataCategory == 0 ? newCategoryEval : prevData + newCategoryEval);
+    totalDataCategory++;
   });
 
   $(document).click(function (e) {
@@ -91,16 +83,16 @@ $(document).ready(function () {
       }
     }
 
-    if (node.classList.contains('remove-aspect-btn')) {
+    if (node.classList.contains('remove-category-btn')) {
       const id = node.getAttribute('id');
-      const remove_id = id.split('-')[1];
+      const remove_id = id.split('-')[2];
 
-      $(`#tr-judge-${remove_id}`).remove();
+      $(`#tr-category-${remove_id}`).remove();
 
-      totalDataAspect--;
+      totalDataCategory--;
 
-      if (totalDataAspect == 0) {
-        $('#aspect-table').html(`<tr>
+      if (totalDataCategory == 0) {
+        $('#category-table').html(`<tr>
                                     <td colspan="5">
                                         <h3 class="text-center text-black/50">-- Belum ada Aspek yang ditambahkan --</h3>
                                     </td>
