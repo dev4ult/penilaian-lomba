@@ -41,6 +41,13 @@ class ContestController extends BaseController {
     public function put_edit() {
     }
 
+    public function get_contestant_eval() {
+        echo view('templates/header');
+        // echo view('templates/sidebar', $sidebar);
+        echo view('pages/edit-contestant-eval');
+        echo view('templates/footer');
+    }
+
     public function get_eval_aspect() {
         echo view('templates/header');
         // echo view('templates/sidebar', $sidebar);
