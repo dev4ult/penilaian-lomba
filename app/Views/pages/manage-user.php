@@ -116,56 +116,19 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th>1</th>
-                <td>Blue</td>
-                <td>Cy Ganderton</td>
-                <td>21XXXXXXXXXXXXXX</td>
-                <td>
-                    <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="edit_modal.showModal()">edit</button>
-                    <button class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
-                </td>
-            </tr>
-            <tr>
-                <th>2</th>
-                <td>Blue</td>
-                <td>Cy Ganderton</td>
-                <td>21XXXXXXXXXXXXXX</td>
-                <td>
-                    <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="edit_modal.showModal()">edit</button>
-                    <button class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
-                </td>
-            </tr>
-            <tr>
-                <th>3</th>
-                <td>Blue</td>
-                <td>Cy Ganderton</td>
-                <td>21XXXXXXXXXXXXXX</td>
-                <td>
-                    <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="edit_modal.showModal()">edit</button>
-                    <button class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
-                </td>
-            </tr>
-            <tr>
-                <th>4</th>
-                <td>Blue</td>
-                <td>Cy Ganderton</td>
-                <td>21XXXXXXXXXXXXXX</td>
-                <td>
-                    <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="edit_modal.showModal()">edit</button>
-                    <button class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
-                </td>
-            </tr>
-            <tr>
-                <th>5</th>
-                <td>Blue</td>
-                <td>Cy Ganderton</td>
-                <td>21XXXXXXXXXXXXXX</td>
-                <td>
-                    <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="edit_modal.showModal()">edit</button>
-                    <button class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
-                </td>
-            </tr>
+            <?php foreach ($users as $index => $user) : ?>
+                <tr>
+                    <th><?= $index + 1 ?></th>
+                    <td><?= $user['username'] ?></td>
+                    <td>Cy Ganderton</td>
+                    <td>21XXXXXXXXXXXXXX</td>
+                    <td>
+                        <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="edit_modal.showModal()">edit</button>
+                        <button class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+
         </tbody>
     </table>
 </div>
