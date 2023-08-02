@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends BaseModel {
+class UsersModel extends Model {
     protected $DBGroup          = 'default';
     protected $table            = 'users';
     protected $primaryKey       = 'user_id';
@@ -13,6 +13,7 @@ class UserModel extends BaseModel {
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'user_id',
         'username',
         'password',
         'staff_id',

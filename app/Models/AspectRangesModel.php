@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class AspectRangesModel extends BaseModel {
+class AspectRangesModel extends Model {
     protected $DBGroup          = 'default';
     protected $table            = 'aspect_ranges';
     protected $primaryKey       = 'aspect_range_id';
