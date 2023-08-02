@@ -11,12 +11,6 @@ $(document).ready(function () {
     }
   });
 
-  $('.tab').click(function () {
-    $('.tab').removeClass('tab-active');
-
-    $(this).addClass('tab-active');
-  });
-
   const aspectRowHtml = (index, subCatIndex, rangeVal) => {
     let range = '';
     for (let i = 0; i < 8; i++) {
