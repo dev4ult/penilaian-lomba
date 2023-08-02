@@ -101,21 +101,30 @@
                     <tr class="bg-secondary text-secondary-content">
                         <th></th>
                         <th>Kategori</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th>1</th>
                         <td>Makhraj dan Tajwid</td>
-
+                        <td>
+                            <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize">lihat</button>
+                        </td>
                     </tr>
                     <tr>
                         <th>2</th>
                         <td>Penjiwaan dan Pengkhayatan</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize">lihat</button>
+                        </td>
                     </tr>
                     <tr>
                         <th>3</th>
                         <td>Irama dan Suara</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize">lihat</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -216,8 +225,10 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-success">80/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="change_rate_modal.showModal()">ubah penilaian</button>
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
+                            onclick="detail_modal.showModal()">lihat</button> |
+                        <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
+                            penilaian</a>
                     </td>
                 </tr>
                 <tr>
@@ -227,8 +238,10 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-warning">60/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="change_rate_modal.showModal()">ubah penilaian</button>
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
+                            onclick="detail_modal.showModal()">lihat</button> |
+                        <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
+                            penilaian</a>
                     </td>
                 </tr>
                 <tr>
@@ -238,8 +251,10 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-error">50/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="change_rate_modal.showModal()">ubah penilaian</button>
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
+                            onclick="detail_modal.showModal()">lihat</button> |
+                        <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
+                            penilaian</a>
                     </td>
                 </tr>
                 <tr>
@@ -249,8 +264,10 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-success">100/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-warning btn-outline capitalize" onclick="change_rate_modal.showModal()">ubah penilaian</button>
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
+                            onclick="detail_modal.showModal()">lihat</button> |
+                        <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
+                            penilaian</a>
                     </td>
                 </tr>
                 <tr>
@@ -260,8 +277,10 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-secondary badge-outline">0/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                        <button class="btn btn-sm btn-primary btn-outline capitalize" onclick="add_rate_modal.showModal()">beri penilaian</button>
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
+                            onclick="detail_modal.showModal()">lihat</button> |
+                        <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
+                            penilaian</a>
                     </td>
                 </tr>
             </tbody>
@@ -373,8 +392,10 @@
             </table>
         </div>
         <div class="modal-action my-0">
-            <button type="button" onclick="detail_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button type="button" onclick="detail_modal.close()"
+                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
@@ -464,7 +485,8 @@
 
         <div class="flex flex-col gap-1 w-full ">
             <label for="judge-note" class="text-sm font-semibold">Catatan Juri</label>
-            <textarea name="judge-note" id="judge-note" class="textarea textarea-bordered h-52 text-base py-3" placeholder="Isikan Catatan Juri"></textarea>
+            <textarea name="judge-note" id="judge-note" class="textarea textarea-bordered h-52 text-base py-3"
+                placeholder="Isikan Catatan Juri"></textarea>
         </div>
 
         <hr class="my-6">
@@ -472,8 +494,10 @@
         <button type="submit" class="btn btn-primary w-full capitalize">Submit</button>
 
         <div class="modal-action my-0">
-            <button type="button" onclick="add_rate_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button type="button" onclick="add_rate_modal.close()"
+                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
@@ -563,7 +587,8 @@
 
         <div class="flex flex-col gap-1 w-full ">
             <label for="judge-note" class="text-sm font-semibold">Catatan Juri</label>
-            <textarea name="judge-note" id="judge-note" class="textarea textarea-bordered h-52 text-base py-3" placeholder="Isikan Catatan Juri">Catatan juri mengenai penilaian, dll.</textarea>
+            <textarea name="judge-note" id="judge-note" class="textarea textarea-bordered h-52 text-base py-3"
+                placeholder="Isikan Catatan Juri">Catatan juri mengenai penilaian, dll.</textarea>
         </div>
 
         <hr class="my-6">
@@ -571,8 +596,10 @@
         <button type="submit" class="btn btn-warning w-full capitalize">Simpan Perubahan</button>
 
         <div class="modal-action my-0">
-            <button type="button" onclick="change_rate_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button type="button" onclick="change_rate_modal.close()"
+                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
