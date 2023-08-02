@@ -21,8 +21,7 @@
     <div class="flex gap-3 justify-between mb-6">
         <div class="join">
             <input type="radio" name="view-edit" class="view-edit-btn btn btn-sm capitalize" aria-label="edit" />
-            <input type="radio" name="view-edit" class="view-edit-btn btn btn-sm capitalize" aria-label="view"
-                checked />
+            <input type="radio" name="view-edit" class="view-edit-btn btn btn-sm capitalize" aria-label="view" checked />
         </div>
 
         <div class="tabs bg-white border-2 tabs-boxed w-fit self-start">
@@ -48,12 +47,14 @@
     <div id="view-mode" class="my-6">
         <div id="aspect-val-container" class="my-6">
             <div class="overflow-x-auto my-6">
+                <p class="mb-3 text-black/50"><span class="text-black">Keterangan :</span> Lorem ipsum dolor, sit amet
+                    consectetur adipisicing elit. Eos, tempore!</p>
                 <table class="table table-lg bg-white border-2">
                     <thead>
                         <tr class="text-base text-center">
                             <th class="border-2">A</th>
                             <th class="text-left border-2">
-                                <h3 class="font-bold text-xl">Gerakan Ditempat</h3>
+                                <h3 class="font-semibold text-lg">Gerakan Ditempat</h3>
                             </th>
                             <th colspan="2" class="border-2">Kurang</th>
                             <th colspan="2" class="border-2">Cukup</th>
@@ -69,320 +70,320 @@
                             </td>
                             <td class="border-2 p-2" class="btn">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-1" />
                                     <span class="btn w-full peer-checked:btn-primary">1</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-1" />
                                     <span class="btn w-full peer-checked:btn-primary">2</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-1" />
                                     <span class="btn w-full peer-checked:btn-primary">3</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-1" />
                                     <span class="btn w-full peer-checked:btn-primary">4</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-1" />
                                     <span class="btn w-full peer-checked:btn-primary">5</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-1" />
                                     <span class="btn w-full peer-checked:btn-primary">6</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-1" />
                                     <span class="btn w-full peer-checked:btn-primary">7</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-1" />
                                     <span class="btn w-full peer-checked:btn-primary">8</span>
                                 </label>
                             </td>
                         </tr>
                         <tr id="tr-aspect-2-1" class="text-xl font-semibold ">
-                            <td class="border-2">1</td>
+                            <td class="border-2">2</td>
                             <td class="border-2">
-                                <h4>Sikap Sempurna</h4>
-                            </td>
-                            <td class="border-2 p-2" class="btn">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">1</span>
-                                </label>
+                                <h4>Hormat</h4>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-2" />
                                     <span class="btn w-full peer-checked:btn-primary">2</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-2" />
                                     <span class="btn w-full peer-checked:btn-primary">3</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-2" />
                                     <span class="btn w-full peer-checked:btn-primary">4</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-2" />
                                     <span class="btn w-full peer-checked:btn-primary">5</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-2" />
                                     <span class="btn w-full peer-checked:btn-primary">6</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-2" />
                                     <span class="btn w-full peer-checked:btn-primary">7</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-2" />
+                                    <span class="btn w-full peer-checked:btn-primary">8</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2" class="btn">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-2" />
+                                    <span class="btn w-full peer-checked:btn-primary">9</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr id="tr-aspect-1-1" class="text-xl font-semibold ">
+                            <td class="border-2">3</td>
+                            <td class="border-2">
+                                <h4>Hitung</h4>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-3" />
+                                    <span class="btn w-full peer-checked:btn-primary">3</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-3" />
+                                    <span class="btn w-full peer-checked:btn-primary">4</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-3" />
+                                    <span class="btn w-full peer-checked:btn-primary">5</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-3" />
+                                    <span class="btn w-full peer-checked:btn-primary">6</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-3" />
+                                    <span class="btn w-full peer-checked:btn-primary">7</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-3" />
+                                    <span class="btn w-full peer-checked:btn-primary">8</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2" class="btn">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-3" />
+                                    <span class="btn w-full peer-checked:btn-primary">9</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-3" />
+                                    <span class="btn w-full peer-checked:btn-primary">10</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr id="tr-aspect-1-1" class="text-xl font-semibold ">
+                            <td class="border-2">4</td>
+                            <td class="border-2">
+                                <h4>Istirahat Ditempat</h4>
+                            </td>
+                            <td class="border-2 p-2" class="btn">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-4" />
+                                    <span class="btn w-full peer-checked:btn-primary">1</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-4" />
+                                    <span class="btn w-full peer-checked:btn-primary">2</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-4" />
+                                    <span class="btn w-full peer-checked:btn-primary">3</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-4" />
+                                    <span class="btn w-full peer-checked:btn-primary">4</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-4" />
+                                    <span class="btn w-full peer-checked:btn-primary">5</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-4" />
+                                    <span class="btn w-full peer-checked:btn-primary">6</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-4" />
+                                    <span class="btn w-full peer-checked:btn-primary">7</span>
+                                </label>
+                            </td>
+                            <td class="border-2 p-2">
+                                <label>
+                                    <input type="radio" class="hidden peer" name="options-4" />
                                     <span class="btn w-full peer-checked:btn-primary">8</span>
                                 </label>
                             </td>
                         </tr>
                         <tr id="tr-aspect-1-1" class="text-xl font-semibold ">
-                            <td class="border-2">1</td>
+                            <td class="border-2">5</td>
                             <td class="border-2">
-                                <h4>Sikap Sempurna</h4>
+                                <h4>Hadap Serong Kanan</h4>
                             </td>
                             <td class="border-2 p-2" class="btn">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-5" />
                                     <span class="btn w-full peer-checked:btn-primary">1</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-5" />
                                     <span class="btn w-full peer-checked:btn-primary">2</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-5" />
                                     <span class="btn w-full peer-checked:btn-primary">3</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-5" />
                                     <span class="btn w-full peer-checked:btn-primary">4</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-5" />
                                     <span class="btn w-full peer-checked:btn-primary">5</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-5" />
                                     <span class="btn w-full peer-checked:btn-primary">6</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-5" />
                                     <span class="btn w-full peer-checked:btn-primary">7</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-5" />
                                     <span class="btn w-full peer-checked:btn-primary">8</span>
                                 </label>
                             </td>
                         </tr>
                         <tr id="tr-aspect-1-1" class="text-xl font-semibold ">
-                            <td class="border-2">1</td>
+                            <td class="border-2">6</td>
                             <td class="border-2">
-                                <h4>Sikap Sempurna</h4>
-                            </td>
-                            <td class="border-2 p-2" class="btn">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">1</span>
-                                </label>
+                                <h4>Parade Periksa Kerapihan</h4>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-6" />
                                     <span class="btn w-full peer-checked:btn-primary">2</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-6" />
                                     <span class="btn w-full peer-checked:btn-primary">3</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-6" />
                                     <span class="btn w-full peer-checked:btn-primary">4</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-6" />
                                     <span class="btn w-full peer-checked:btn-primary">5</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-6" />
                                     <span class="btn w-full peer-checked:btn-primary">6</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-6" />
                                     <span class="btn w-full peer-checked:btn-primary">7</span>
                                 </label>
                             </td>
                             <td class="border-2 p-2">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
+                                    <input type="radio" class="hidden peer" name="options-6" />
                                     <span class="btn w-full peer-checked:btn-primary">8</span>
                                 </label>
-                            </td>
-                        </tr>
-                        <tr id="tr-aspect-1-1" class="text-xl font-semibold ">
-                            <td class="border-2">1</td>
-                            <td class="border-2">
-                                <h4>Sikap Sempurna</h4>
                             </td>
                             <td class="border-2 p-2" class="btn">
                                 <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">1</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">2</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">3</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">4</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">5</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">6</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">7</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">8</span>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr id="tr-aspect-1-1" class="text-xl font-semibold ">
-                            <td class="border-2">1</td>
-                            <td class="border-2">
-                                <h4>Sikap Sempurna</h4>
-                            </td>
-                            <td class="border-2 p-2" class="btn">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">1</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">2</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">3</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">4</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">5</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">6</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">7</span>
-                                </label>
-                            </td>
-                            <td class="border-2 p-2">
-                                <label>
-                                    <input type="radio" class="hidden peer" name="options" />
-                                    <span class="btn w-full peer-checked:btn-primary">8</span>
+                                    <input type="radio" class="hidden peer" name="options-6" />
+                                    <span class="btn w-full peer-checked:btn-primary">9</span>
                                 </label>
                             </td>
                         </tr>
@@ -397,3 +398,4 @@
 </div>
 
 <script src="<?= base_url('./js/manageAspectEval.js') ?>"></script>
+<script src="<?= base_url("./js/changeTabEval.js") ?>"></script>
