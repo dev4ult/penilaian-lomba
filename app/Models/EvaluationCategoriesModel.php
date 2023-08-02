@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class EvaluationCategoriesModel extends BaseModel {
+class EvaluationCategoriesModel extends Model {
     protected $DBGroup          = 'default';
     protected $table            = 'evaluation_categories';
     protected $primaryKey       = 'eval_category_id';

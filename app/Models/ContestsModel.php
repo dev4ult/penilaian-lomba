@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ContestsModel extends BaseModel {
+class ContestsModel extends Model {
     protected $DBGroup          = 'default';
     protected $table            = 'contests';
     protected $primaryKey       = 'contest_id';
