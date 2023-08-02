@@ -92,7 +92,7 @@
     <div>
         <div class="flex gap-4 justify-between">
             <h2 class="text-lg font-semibold text-black/30 mb-3">Kategori Penilaian</h2>
-            <a class="btn btn-sm btn-secondary capitalize">Lihat Detail</a>
+            <a href="/contest/evaluation-aspect" class="btn btn-sm btn-secondary capitalize">Lihat Detail</a>
         </div>
 
         <div class="overflow-x-auto">
