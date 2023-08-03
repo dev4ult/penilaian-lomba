@@ -32,29 +32,32 @@ $routes->set404Override();
 $routes->get('/', 'DashboardController::index');
 $routes->get('login', 'AuthController::index');
 
-$routes->group('users', static function ($routes) {
-    $routes->get('/', 'UserController::index');
-    $routes->post('/', 'UserController::post_add');
+$routes->get('users', 'UserController::index');
+
+$routes->group('user', static function ($routes) {
+    $routes->post('put', 'UserController::put_edit');
+    $routes->post('add', 'UserController::post_add');
+    $routes->get('delete/(:any)', 'UserController::delete_user/$1');
+    $routes->get('(:any)', 'UserController::get_detail_json/$1');
 });
-
-$routes->post('user/delete/(:any)', 'UserController::delete_user/$1');
-
-$routes->group('user/(:any)', static function ($routes) {
-    $routes->get('/', 'UserController::get_detail_json/$1');
-    $routes->post('/', 'UserController::put_edit/$1');
-});
-
 
 $routes->get('contests', 'ContestController::index');
-$routes->get('contest/add', 'ContestController::get_add');
-$routes->get('contest/edit', 'ContestController::get_edit');
-$routes->get('contest/evaluation-aspect', 'ContestController::get_eval_aspect');
-$routes->get('contest/contestant-evaluation', 'ContestController::get_contestant_eval');
-$routes->get('contest/(:any)', 'ContestController::detail/$1');
+
+$routes->group('contest', static function ($routes) {
+    $routes->get('add', 'ContestController::get_add');
+    $routes->get('edit', 'ContestController::get_edit');
+    $routes->get('evaluation-aspect', 'ContestController::get_eval_aspect');
+    $routes->get('contestant-evaluation', 'ContestController::get_contestant_eval');
+    $routes->get('(:any)', 'ContestController::detail/$1');
+});
 
 $routes->get('contestants', 'ContestantController::index');
-$routes->get('contestant/add', 'ContestantController::get_add');
-$routes->get('contestant/edit', 'ContestantController::get_edit');
+
+$routes->group('contestant', static function ($routes) {
+    $routes->get('add', 'ContestantController::get_add');
+    $routes->post('add', 'ContestantController::post_add');
+    $routes->get('edit', 'ContestantController::get_edit');
+});
 
 
 /*
