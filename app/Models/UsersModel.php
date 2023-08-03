@@ -12,13 +12,7 @@ class UsersModel extends Model {
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'user_id',
-        'username',
-        'password',
-        'staff_id',
-        'role',
-    ];
+    protected $allowedFields    = ['user_id', 'username', 'password', 'full_name', 'staff_id', 'role'];
 
     // Dates
     protected $useTimestamps = false;
@@ -29,24 +23,19 @@ class UsersModel extends Model {
 
     // Validation
     protected $validationRules      = [
-        'username' => [
-            'label' => 'Username',
-            'rules' => 'required|max_length[150]|is_unique[username]'
-        ],
-        'password' => [
-            'label' => 'Password',
-            'rules' => 'required|max_length[32]'
-        ],
-        'staff_id' => [
-            'label' => 'Staff Id',
-            'rules' => 'required'
-        ],
-        'role' => [
-            'label' => 'Role',
-            'rules' => 'required'
-        ],
+        'username' => 'required|max_length[150]',
+        'password' => 'max_length[255]',
+        'full_name' => 'required|max_length[255]',
+        'staff_id' => 'required',
+        'role' => 'required'
     ];
-    protected $validationMessages   = [];
+
+    protected $validationMessages   = [
+        'username' => [
+            'is_unique' => 'Username tersebut sudah diambil',
+        ]
+    ];
+
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 
