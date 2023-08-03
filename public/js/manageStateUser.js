@@ -9,9 +9,9 @@ $(document).ready(function () {
       method: 'GET',
       dataType: 'json',
       success: function (user) {
-        $('#form-edit-user').attr('action', `/user/${user_id}`);
+        const { user_id, username, full_name, phone_number, role, staff_id } = user;
 
-        const { username, full_name, phone_number, role, staff_id } = user;
+        $('#user-id').val(user_id);
 
         $('#username-edit').val(username);
         $('#full-name-edit').val(full_name);
@@ -47,7 +47,7 @@ $(document).ready(function () {
       method: 'GET',
       dataType: 'json',
       success: function (user) {
-        $('#form-confirm-delete').attr('action', `/user/delete/${user_id}`);
+        $('#confirm-delete').attr('href', `/user/delete/${user_id}`);
 
         const { username } = user;
 
