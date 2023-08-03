@@ -93,10 +93,8 @@
 
     <!-- Search Input -->
     <div class="join">
-        <div>
-            <div>
-                <input class="input input-bordered join-item" placeholder="Cari Admin atau Juri" />
-            </div>
+        <div class="join-item">
+            <input class="input input-bordered join-item" placeholder="Cari Admin atau Juri" />
         </div>
         <select class="select select-bordered join-item">
             <option disabled selected>Filter</option>
