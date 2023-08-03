@@ -62,7 +62,7 @@ class UserController extends BaseController {
 
     public function get_detail_json($user_id) {
         if ($user_id) {
-            $user = $this->users_model->select('username, full_name, phone_number, role, staff_id')->find($user_id);
+            $user = $this->users_model->select('user_id, username, full_name, phone_number, role, staff_id')->find($user_id);
 
             if ($user) {
                 return $this->response->setJSON($user);
@@ -70,7 +70,8 @@ class UserController extends BaseController {
         }
     }
 
-    public function put_edit($user_id) {
+    public function put_edit() {
+        $user_id = $this->request->getPost('user-id');
         $password = $this->request->getPost('password');
         $confirm_password = $this->request->getPost('password-conf');
 
@@ -94,7 +95,7 @@ class UserController extends BaseController {
 
             if (!$this->validate($validationRules)) {
                 session()->setFlashdata('error', 'Username atau NIS/P sudah diambil user lain');
-                return redirect()->to('users');
+                return redirect()->to(base_url('users'));
             }
 
             if ($password || $confirm_password) {
@@ -115,6 +116,7 @@ class UserController extends BaseController {
 
     public function delete_user($user_id) {
         $user = $this->users_model->find($user_id);
+
 
         if ($user) {
             $delete = $this->users_model->delete($user_id);
