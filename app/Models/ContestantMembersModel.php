@@ -13,6 +13,7 @@ class ContestantMembersModel extends Model {
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'contestant_id',
         'full_name',
         'student_id'
     ];
@@ -25,7 +26,11 @@ class ContestantMembersModel extends Model {
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'contestant_id' => 'required',
+        'full_name' => 'required',
+        'student_id' => 'required'
+    ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
