@@ -1,3 +1,29 @@
+let memberData = [];
+
+function htmlVal(memberVal, nisVal, id) {
+  return `<div id="member-group-${id}" class="col-span-2 grid grid-flow-row grid-cols-2 gap-6">
+              <hr class="col-span-2" />
+              <h2 class="badge badge-neutral">Anggota ${id}</h2>
+    
+              <div class="text-right">
+                  <button id="remove-${id}" type="button" class="remove-member-btn btn btn-sm btn-error capitalize btn-outline">hapus anggota</button>
+              </div>
+    
+              <div class="flex flex-col gap-1 w-full">
+                  <label for="member-name-${id}" class="text-sm font-semibold">Nama Lengkap</label>
+                  <input type="text" id="member-name-${id}" name="member-name-${id}" class="input-member-name input input-bordered"
+                      placeholder="Isikan Nama Lengkap" value="${memberVal}" required />
+              </div>
+    
+              <div class="flex flex-col gap-1 w-full">
+                  <label for="nis-${id}" class="text-sm font-semibold">NIS</label>
+                  <input type="number" id="nis-${id}" name="nis-${id}" class="input-member-nis input input-bordered"
+                      placeholder="Isikan Nomor Induk Siswa" value="${nisVal}" required />
+              </div>
+          </div>
+  `;
+}
+
 $(document).ready(function () {
   $('#leader').keyup(function () {
     $('#member-name-1').val(this.value);
@@ -6,32 +32,6 @@ $(document).ready(function () {
   $('#member-name-1').keyup(function () {
     $('#leader').val(this.value);
   });
-
-  function htmlVal(memberVal, nisVal, id) {
-    return `<div id="member-group-${id}" class="col-span-2 grid grid-flow-row grid-cols-2 gap-6">
-                <hr class="col-span-2" />
-                <h2 class="badge badge-neutral">Anggota ${id}</h2>
-      
-                <div class="text-right">
-                    <button id="remove-${id}" type="button" class="remove-member-btn btn btn-sm btn-error capitalize btn-outline">hapus anggota</button>
-                </div>
-      
-                <div class="flex flex-col gap-1 w-full">
-                    <label for="member-name-${id}" class="text-sm font-semibold">Nama Lengkap</label>
-                    <input type="text" id="member-name-${id}" name="member-name-${id}" class="input-member-name input input-bordered"
-                        placeholder="Isikan Nama Lengkap" value="${memberVal}" required>
-                </div>
-      
-                <div class="flex flex-col gap-1 w-full">
-                    <label for="nis-${id}" class="text-sm font-semibold">NIS</label>
-                    <input type="number" id="nis-${id}" name="nis-${id}" class="input-member-nis input input-bordered"
-                        placeholder="Isikan Nomor Induk Siswa" value="${nisVal}" required>
-                </div>
-            </div>
-    `;
-  }
-
-  let memberData = [];
 
   $('#add-member-btn').click(function () {
     memberData.push({ 'member-name': '', nis: '' });
