@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class ContestantsModel extends Model {
     protected $DBGroup          = 'default';
     protected $table            = 'contestants';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'contestant_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
