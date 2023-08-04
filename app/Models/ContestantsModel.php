@@ -13,9 +13,11 @@ class ContestantsModel extends Model {
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'contestant_id',
         'team_name',
         'leader',
         'school',
+        'phone_number'
     ];
 
     // Dates
@@ -26,7 +28,13 @@ class ContestantsModel extends Model {
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'team_name' => 'required',
+        'leader' => 'required',
+        'school' => 'required',
+        'phone_number' => 'required',
+    ];
+
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
