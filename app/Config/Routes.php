@@ -54,9 +54,15 @@ $routes->group('contest', static function ($routes) {
 $routes->get('contestants', 'ContestantController::index');
 
 $routes->group('contestant', static function ($routes) {
-    $routes->get('add', 'ContestantController::get_add');
-    $routes->post('add', 'ContestantController::post_add');
+    $routes->group('add', static function ($routes) {
+        $routes->get('/', 'ContestantController::get_add');
+        $routes->post('/', 'ContestantController::post_add');
+    });
+
     $routes->get('edit', 'ContestantController::get_edit');
+    $routes->post('put', 'ContestantController::put_edit');
+
+    $routes->get('(:any)', 'ContestController::get_detail_json/$1');
 });
 
 
