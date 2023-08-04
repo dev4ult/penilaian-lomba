@@ -54,66 +54,20 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th>1</th>
-                <td>Blue</td>
-                <td>Cy Ganderton</td>
-                <td>SMK 123</td>
-                <td>08XXXXXXXXXXXX</td>
-                <td class="flex gap-1.5 items-center">
-                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                    <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
-                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
-                </td>
-            </tr>
-            <tr>
-                <th>2</th>
-                <td>Blue</td>
-                <td>Cy Ganderton</td>
-                <td>SMA 345</td>
-                <td>08XXXXXXXXXXXX</td>
-                <td class="flex gap-1.5 items-center">
-                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                    <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
-                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
-                </td>
-            </tr>
-            <tr>
-                <th>3</th>
-                <td>Blue</td>
-                <td>Cy Ganderton</td>
-                <td>SMP 231</td>
-                <td>08XXXXXXXXXXXX</td>
-                <td class="flex gap-1.5 items-center">
-                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                    <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
-                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
-                </td>
-            </tr>
-            <tr>
-                <th>4</th>
-                <td>Blue</td>
-                <td>Cy Ganderton</td>
-                <td>SMP 213</td>
-                <td>08XXXXXXXXXXXX</td>
-                <td class="flex gap-1.5 items-center">
-                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                    <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
-                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
-                </td>
-            </tr>
-            <tr>
-                <th>5</th>
-                <td>Blue</td>
-                <td>Cy Ganderton</td>
-                <td>SMA 20</td>
-                <td>08XXXXXXXXXXXX</td>
-                <td class="flex gap-1.5 items-center">
-                    <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                    <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
-                    <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
-                </td>
-            </tr>
+            <?php foreach ($contestants as $index => $contestant) : ?>
+                <tr>
+                    <th><?= $index + 1 ?></th>
+                    <td><?= $contestant['team_name'] ?></td>
+                    <td><?= $contestant['leader'] ?></td>
+                    <td><?= $contestant['school'] ?></td>
+                    <td><?= $contestant['phone_number'] ?></td>
+                    <td class="flex gap-1.5 items-center">
+                        <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
+                        <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
+                        <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
+                    </td>
+                </tr>
+            <?php endforeach ?>
         </tbody>
     </table>
 </div>
@@ -221,3 +175,24 @@
         </div>
     </form>
 </dialog>
+
+<script>
+    <?php if (session()->getFlashdata('error')) : ?>
+        Toastify({
+            text: `<?= session()->getFlashdata('error') ?>`,
+            close: true,
+            duration: 3000,
+            position: 'left',
+            className: 'alert alert-error fixed top-5 right-5 w-fit transition-all',
+        }).showToast();
+    <?php endif ?>
+    <?php if (session()->getFlashdata('success')) : ?>
+        Toastify({
+            text: `<?= session()->getFlashdata('success') ?>`,
+            close: true,
+            duration: 3000,
+            position: 'left',
+            className: 'alert alert-success fixed top-5 right-5 w-fit transition-all',
+        }).showToast();
+    <?php endif ?>
+</script>
