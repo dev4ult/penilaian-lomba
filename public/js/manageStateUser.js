@@ -2,6 +2,10 @@ $(document).ready(function () {
   $('.edit-user-btn').click(function () {
     const user_id = this.id.split('-')[1];
 
+    $('#edit-container').addClass('hidden');
+    $('#edit-container').removeClass('grid');
+    $('#load-bars').removeClass('hidden');
+
     edit_modal.showModal();
 
     $.ajax({
@@ -29,16 +33,12 @@ $(document).ready(function () {
     });
   });
 
-  $('#close-edit-modal').click(function () {
-    edit_modal.close();
-
-    $('#edit-container').addClass('hidden');
-    $('#edit-container').removeClass('grid');
-    $('#load-bars').removeClass('hidden');
-  });
-
   $('.delete-user-btn').click(function () {
     const user_id = this.id.split('-')[2];
+
+    $('#confirm-delete').addClass('hidden');
+    $('#username-delete').addClass('hidden');
+    $('#load-dots').removeClass('hidden');
 
     delete_modal.showModal();
 
@@ -61,13 +61,5 @@ $(document).ready(function () {
         delete_modal.close();
       },
     });
-  });
-
-  $('#confirm-no-delete').click(function () {
-    delete_modal.close();
-
-    $('#confirm-delete').addClass('hidden');
-    $('#username-delete').addClass('hidden');
-    $('#load-dots').removeClass('hidden');
   });
 });
