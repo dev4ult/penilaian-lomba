@@ -125,7 +125,7 @@ class ContestantController extends BaseController {
 
         $contestant = $this->contestants_model->find($contestant_id);
 
-        if ($contestant_id != null && $contestant) {
+        if ($contestant_id && $contestant) {
 
             $put_fields = [
                 "team_name" => $this->request->getPost('team'),
@@ -172,6 +172,20 @@ class ContestantController extends BaseController {
             }
 
             return redirect()->to(base_url('contestant/edit/' . $contestant_id));
+        }
+
+        return redirect()->to(base_url('contestants'));
+    }
+
+    public function delete_contestant($contestant_id) {
+        $contestant = $this->contestants_model->find($contestant_id);
+
+        if ($contestant_id && $contestant) {
+            $delete = $this->contestants_model->delete($contestant_id);
+
+            if ($delete) {
+                session()->setFlashdata('success', 'Peserta dengan nama Tim ' . $contestant['team_name'] . ' berhasil dihapus!');
+            }
         }
 
         return redirect()->to(base_url('contestants'));

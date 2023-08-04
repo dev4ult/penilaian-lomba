@@ -64,7 +64,7 @@
                     <td class="flex gap-1.5 items-center">
                         <button id="contestant-<?= $contestant['contestant_id'] ?>" type="button" class="detail-contestant-btn btn btn-sm btn-neutral btn-outline capitalize">lihat</button> |
                         <a href="/contestant/edit/<?= $contestant['contestant_id'] ?>" class="btn btn-sm btn-warning capitalize">edit</a>
-                        <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
+                        <button id="contestant-rmv-<?= $contestant['contestant_id'] ?>" type="button" class="delete-contestant-btn btn btn-sm btn-error btn-outline capitalize">hapus</button>
                     </td>
                 </tr>
             <?php endforeach ?>
@@ -139,7 +139,7 @@
             </table>
         </div>
         <div class="modal-action my-0">
-            <button id="close-detail" type="button" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+            <button id="close-detail" type="button" onclick="detail_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -152,12 +152,12 @@
 <dialog id="delete_modal" class="modal">
     <form method="dialog" class="modal-box p-8">
         <h3 class="badge badge-lg badge-neutral mb-3">Konfirmasi Hapus</h3>
-        <p class="mb-6">Apakah anda yakin untuk menghapus Tim / Peserta ini?
+        <p class="mb-6">Apakah anda yakin untuk menghapus Tim / Peserta <span id="load-dots" class="loading loading-dots loading-sm"></span> <span id="team-delete" class="hidden"></span>?
         </p>
 
         <div class="modal-action my-0">
-            <button type="button" onclick="delete_modal.close()" class="btn btn-sm btn-outline btn-error capitalize">Iya</button>
-            <button type="button" onclick="delete_modal.close()" class="btn btn-sm btn-primary capitalize">
+            <a id="confirm-delete" class="btn btn-sm btn-outline btn-error capitalize">Iya</a>
+            <button type="button" onclick="delete_modal.close()" class="btn btn-sm btn-neutral capitalize">
                 Tidak
             </button>
         </div>

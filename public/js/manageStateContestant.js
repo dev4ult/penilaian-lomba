@@ -10,6 +10,10 @@ $(document).ready(function () {
   $('.detail-contestant-btn').click(function () {
     const contestant_id = this.id.split('-')[1];
 
+    $('#detail-contestant').addClass('hidden');
+    $('#detail-contestant').removeClass('grid');
+    $('#load-bars').removeClass('hidden');
+
     detail_modal.showModal();
 
     $.ajax({
@@ -37,11 +41,34 @@ $(document).ready(function () {
     });
   });
 
-  $('#close-detail').click(function () {
-    detail_modal.close();
+  $('.delete-contestant-btn').click(function () {
+    const contestant_id = this.id.split('-')[2];
 
-    $('#detail-contestant').addClass('hidden');
-    $('#detail-contestant').removeClass('grid');
-    $('#load-bars').removeClass('hidden');
+    $('#team-delete').addClass('hidden');
+
+    $('#load-dots').removeClass('hidden');
+    $('#confirm-delete').addClass('hidden');
+
+    delete_modal.showModal();
+
+    $.ajax({
+      url: `/contestant/${contestant_id}`,
+      method: 'GET',
+      dataType: 'json',
+      success: function (contestant) {
+        $('#confirm-delete').attr('href', `/contestant/delete/${contestant_id}`);
+
+        const { team } = contestant;
+
+        $('#team-delete').html(team);
+        $('#team-delete').removeClass('hidden');
+
+        $('#load-dots').addClass('hidden');
+        $('#confirm-delete').removeClass('hidden');
+      },
+      error: function (message) {
+        delete_modal.close();
+      },
+    });
   });
 });

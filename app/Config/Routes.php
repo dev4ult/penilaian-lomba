@@ -61,6 +61,7 @@ $routes->group('contestant', static function ($routes) {
 
     $routes->get('edit/(:any)', 'ContestantController::get_edit/$1');
     $routes->post('put', 'ContestantController::put_edit');
+    $routes->get('delete/(:any)', 'ContestantController::delete_contestant/$1');
 
     $routes->get('(:any)', 'ContestantController::get_detail_json/$1');
 });

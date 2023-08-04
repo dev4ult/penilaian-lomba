@@ -87,7 +87,7 @@ class UserController extends BaseController {
 
         $user = $this->users_model->find($user_id);
 
-        if ($user) {
+        if ($user_id && $user) {
 
             $validationRules = [
                 'username' => 'is_unique[users.username, user_id,' . $user_id . ']',
@@ -119,7 +119,7 @@ class UserController extends BaseController {
         $user = $this->users_model->find($user_id);
 
 
-        if ($user) {
+        if ($user_id && $user) {
             $delete = $this->users_model->delete($user_id);
 
             if ($delete) {
