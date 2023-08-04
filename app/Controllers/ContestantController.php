@@ -102,13 +102,78 @@ class ContestantController extends BaseController {
         ]);
     }
 
-    public function get_edit() {
-        echo view('templates/header');
-        // echo view('templates/sidebar', $sidebar);
-        echo view('pages/edit-contestant');
-        echo view('templates/footer');
+    public function get_edit($contestant_id) {
+
+        $contestant = $this->contestants_model->find($contestant_id);
+        if ($contestant) {
+
+            $this->data['contestant'] = $contestant;
+            $this->data['members'] = $this->member_model->where('contestant_id', $contestant_id)->findAll();
+
+            echo view('templates/header');
+            // echo view('templates/sidebar', $sidebar);
+            echo view('pages/edit-contestant', $this->data);
+            echo view('templates/footer');
+        } else {
+            session()->setFlashdata('error', 'Peserta tidak ditemukan');
+            return redirect()->to(base_url('contestants'));
+        }
     }
 
     public function put_edit() {
+        $contestant_id = $this->request->getPost('contestant-id');
+
+        $contestant = $this->contestants_model->find($contestant_id);
+
+        if ($contestant_id != null && $contestant) {
+
+            $put_fields = [
+                "team_name" => $this->request->getPost('team'),
+                "leader" => $this->request->getPost('leader'),
+                "school" => $this->request->getPost('school'),
+                "phone_number" => $this->request->getPost('phone-number'),
+            ];
+
+            $validationRules = [
+                'team_name' => 'is_unique[contestants.team_name, contestant_id, ' . $contestant_id  . ']'
+            ];
+
+            if (!$validationRules) {
+                session()->setFlashdata('error', 'Nama tim sudah dipakai peserta lain!');
+                return redirect()->to(base_url('contestant/edit/' . $contestant_id));
+            }
+
+
+
+
+            $update = $this->contestants_model->update($contestant_id, $put_fields);
+
+            if ($update) {
+                $delete_all_member = $this->member_model->where('contestant_id', $contestant_id)->delete();
+
+                if ($delete_all_member) {
+                    $total_member = $this->request->getPost('total-member');
+
+                    $member_data = [];
+                    for ($i = 0; $i < (int) $total_member; $i++) {
+                        array_push($member_data, [
+                            "contestant_id" => $contestant_id,
+                            "full_name" => $this->request->getPost('member-name-' . $i + 1),
+                            "student_id" => $this->request->getPost('nis-' . $i + 1)
+                        ]);
+                    }
+
+                    $insert_all_member = $this->member_model->insertBatch($member_data);
+
+                    if ($insert_all_member) {
+                        session()->setFlashdata('success', 'Peserta berhasil diubah datanya!');
+                    }
+                }
+            }
+
+            return redirect()->to(base_url('contestant/edit/' . $contestant_id));
+        }
+
+        return redirect()->to(base_url('contestants'));
     }
 }
