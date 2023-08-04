@@ -62,7 +62,7 @@
                     <td><?= $contestant['school'] ?></td>
                     <td><?= $contestant['phone_number'] ?></td>
                     <td class="flex gap-1.5 items-center">
-                        <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
+                        <button id="contestant-<?= $contestant['contestant_id'] ?>" type="button" class="detail-contestant-btn btn btn-sm btn-neutral btn-outline capitalize">lihat</button> |
                         <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
                         <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
                     </td>
@@ -88,33 +88,35 @@
 
         <hr class="my-6">
 
-        <div class="grid p-6 border-2 rounded grid-flow-row grid-cols-2 gap-4 my-3">
+        <span id="load-bars" class="loading loading-bars loading-md"></span>
+
+        <div id="detail-contestant" class="p-6 border-2 rounded grid-flow-row grid-cols-2 gap-4 my-3 hidden">
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">1</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Nama Tim</h3>
-                    <h4 class="font-semibold">Cabe Rawit</h4>
+                    <h4 id="team-name" class="font-semibold">Cabe Rawit</h4>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">2</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Ketua</h3>
-                    <h4 class="font-semibold">Siddiq Maulana</h4>
+                    <h4 id="leader" class="font-semibold">Siddiq Maulana</h4>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">3</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Asal Instansi / Sekolah</h3>
-                    <h4 class="font-semibold">SMAN 34</h4>
+                    <h4 id="school" class="font-semibold">SMAN 34</h4>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">4</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Nomor Telepon</h3>
-                    <h4 class="font-semibold">080000000000</h4>
+                    <h4 id="phone-number" class="font-semibold">080000000000</h4>
                 </div>
             </div>
         </div>
@@ -125,33 +127,19 @@
         <div class="overflow-x-auto">
             <table class="table table-zebra bg-white border-2">
                 <thead>
-                    <tr class="">
+                    <tr>
                         <th></th>
                         <th>Nama Lengkap</th>
                         <th>NIS</th>
                     </tr>
                 </thead>
-                <tbody class="font-semibold">
-                    <tr>
-                        <th>1</th>
-                        <td>Cy Ganderton</td>
-                        <td>2100000000</td>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <td>Cy Ganderton</td>
-                        <td>2100000000</td>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <td>Cy Ganderton</td>
-                        <td>2100000000</td>
-                    </tr>
+                <tbody id="member-container" class="font-semibold">
+
                 </tbody>
             </table>
         </div>
         <div class="modal-action my-0">
-            <button type="button" onclick="detail_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+            <button id="close-detail" type="button" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -196,3 +184,5 @@
         }).showToast();
     <?php endif ?>
 </script>
+
+<script src="<?= base_url('./js/manageStateContestant.js') ?>"></script>
