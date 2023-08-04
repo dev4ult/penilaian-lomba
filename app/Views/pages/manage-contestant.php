@@ -47,7 +47,7 @@
             <tr class="bg-neutral text-neutral-content">
                 <th></th>
                 <th>Nama Tim</th>
-                <th>Ketua</th>
+                <th>Penanggung Jawab</th>
                 <th>Instansi / Sekolah</th>
                 <th>Nomor Telepon</th>
                 <th></th>
@@ -63,7 +63,7 @@
                     <td><?= $contestant['phone_number'] ?></td>
                     <td class="flex gap-1.5 items-center">
                         <button id="contestant-<?= $contestant['contestant_id'] ?>" type="button" class="detail-contestant-btn btn btn-sm btn-neutral btn-outline capitalize">lihat</button> |
-                        <a href="/contestant/edit" class="btn btn-sm btn-warning capitalize">edit</a>
+                        <a href="/contestant/edit/<?= $contestant['contestant_id'] ?>" class="btn btn-sm btn-warning capitalize">edit</a>
                         <button type="button" class="btn btn-sm btn-error btn-outline capitalize" onclick="delete_modal.showModal()">hapus</button>
                     </td>
                 </tr>
@@ -95,28 +95,28 @@
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">1</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Nama Tim</h3>
-                    <h4 id="team-name" class="font-semibold">Cabe Rawit</h4>
+                    <h4 id="team-name" class="font-semibold"></h4>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">2</span>
                 <div>
-                    <h3 class="text-sm text-black/50 font-semibold">Ketua</h3>
-                    <h4 id="leader" class="font-semibold">Siddiq Maulana</h4>
+                    <h3 class="text-sm text-black/50 font-semibold">Penanggung Jawab</h3>
+                    <h4 id="leader" class="font-semibold"></h4>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">3</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Asal Instansi / Sekolah</h3>
-                    <h4 id="school" class="font-semibold">SMAN 34</h4>
+                    <h4 id="school" class="font-semibold"></h4>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">4</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Nomor Telepon</h3>
-                    <h4 id="phone-number" class="font-semibold">080000000000</h4>
+                    <h4 id="phone-number" class="font-semibold"></h4>
                 </div>
             </div>
         </div>
