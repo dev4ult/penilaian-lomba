@@ -79,6 +79,29 @@ class ContestantController extends BaseController {
         return redirect()->to(base_url('/contestants'));
     }
 
+    public function get_detail_json($contestant_id) {
+        $contestant = $this->contestants_model->find($contestant_id);
+
+        if ($contestant) {
+            $contestant_data = [
+                'team' => $contestant['team_name'],
+                'leader' => $contestant['leader'],
+                'school' =>  $contestant['school'],
+                'phone_number' => $contestant['phone_number'],
+            ];
+
+            $member = $this->member_model->where('contestant_id', $contestant['contestant_id'])->findAll();
+            $contestant_data['member'] = $member;
+
+            return $this->response->setJSON($contestant_data);
+        }
+
+        return $this->response->setJSON([
+            "status" => 404,
+            "message" => "Peserta tidak ditemukan"
+        ]);
+    }
+
     public function get_edit() {
         echo view('templates/header');
         // echo view('templates/sidebar', $sidebar);
