@@ -1,13 +1,13 @@
 $(document).ready(function () {
   $('#leader').keyup(function () {
-    $('#member-1').val(this.value);
+    $('#member-name-1').val(this.value);
   });
 
-  $('#member-1').keyup(function () {
+  $('#member-name-1').keyup(function () {
     $('#leader').val(this.value);
   });
 
-  function htmlVal(id) {
+  function htmlVal(memberVal, nisVal, id) {
     return `<div id="member-group-${id}" class="col-span-2 grid grid-flow-row grid-cols-2 gap-6">
                 <hr class="col-span-2" />
                 <h2 class="badge badge-neutral">Anggota ${id}</h2>
@@ -17,31 +17,29 @@ $(document).ready(function () {
                 </div>
       
                 <div class="flex flex-col gap-1 w-full">
-                    <label for="member-${id}" class="text-sm font-semibold">Nama Lengkap</label>
-                    <input type="text" id="member-${id}" name="member-${id}" class="input input-bordered"
-                        placeholder="Isikan Nama Lengkap" required>
+                    <label for="member-name-${id}" class="text-sm font-semibold">Nama Lengkap</label>
+                    <input type="text" id="member-name-${id}" name="member-name-${id}" class="input-member-name input input-bordered"
+                        placeholder="Isikan Nama Lengkap" value="${memberVal}" required>
                 </div>
       
                 <div class="flex flex-col gap-1 w-full">
                     <label for="nis-${id}" class="text-sm font-semibold">NIS</label>
-                    <input type="number" id="nis-${id}" name="nis-${id}" class="input input-bordered"
-                        placeholder="Isikan Nomor Induk Siswa" required>
+                    <input type="number" id="nis-${id}" name="nis-${id}" class="input-member-nis input input-bordered"
+                        placeholder="Isikan Nomor Induk Siswa" value="${nisVal}" required>
                 </div>
             </div>
     `;
   }
 
-  let totalMember = 0;
+  let memberData = [];
 
   $('#add-member-btn').click(function () {
-    totalMember++;
+    memberData.push({ 'member-name': '', nis: '' });
 
-    let vals = '';
-    for (let i = 0; i < totalMember; i++) {
-      vals += htmlVal(i + 2);
-    }
+    $('#new-member-container').html('');
+    memberData.forEach((member, index) => $('#new-member-container').append(htmlVal(member['member-name'], member['nis'], index + 2)));
 
-    $('#new-member-container').html(vals);
+    $('#total-member').val(memberData.length + 1);
   });
 
   $(document).click(function (e) {
@@ -50,9 +48,30 @@ $(document).ready(function () {
       const id = node.getAttribute('id');
       const member_id = id.split('-')[1];
 
-      $(`#member-group-${member_id}`).remove();
+      // console.log(member_id);
+      memberData.splice(member_id - 2, 1);
 
-      totalMember--;
+      $('#new-member-container').html('');
+      memberData.forEach((member, index) => $('#new-member-container').append(htmlVal(member['member-name'], member['nis'], index + 2)));
+
+      $('#total-member').val(memberData.length + 1);
+    }
+  });
+
+  $(document).keyup(function (e) {
+    const node = e.target;
+    const id = node.getAttribute('id');
+
+    if (node.classList.contains('input-member-name')) {
+      const member_id = id.split('-')[2];
+
+      memberData[member_id - 2]['member-name'] = node.value;
+    }
+
+    if (node.classList.contains('input-member-nis')) {
+      const member_id = id.split('-')[1];
+
+      memberData[member_id - 2]['nis'] = node.value;
     }
   });
 });
