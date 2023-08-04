@@ -59,7 +59,7 @@ $routes->group('contestant', static function ($routes) {
         $routes->post('/', 'ContestantController::post_add');
     });
 
-    $routes->get('edit', 'ContestantController::get_edit');
+    $routes->get('edit/(:any)', 'ContestantController::get_edit/$1');
     $routes->post('put', 'ContestantController::put_edit');
 
     $routes->get('(:any)', 'ContestantController::get_detail_json/$1');
