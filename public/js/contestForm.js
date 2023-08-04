@@ -1,27 +1,37 @@
+let judgeData = [];
+
+const tableRowJudge = (id, user_id, fullName, nisNip, phoneNumber) => {
+  return `<tr id="tr-judge-${id}">
+              <th>${id}</th>
+              <td>${fullName}</td>
+              <td>${nisNip}</td>
+              <td>${phoneNumber}</td>
+              <td>
+                  <input type="text" id="judge-${id}" name="judge-${id}" class="hidden" value="${user_id}" />
+                  <button id="remove-judge-${id}" type="button" class="remove-judge-btn btn btn-sm btn-outline btn-error capitalize">hapus</button>
+              </td>
+          </tr>`;
+};
+
+let categoryData = [];
+
+const tableRowCategoryEval = (id, category) => {
+  return `<tr id="tr-category-${id}">
+              <th>${id}</th>
+              <td>
+                <input type="text" id="category-${id}" placeholder="Isikan Nama Kategori" name="category-${id}" value="${category}" class="input-category input input-bordered" required />
+              </td>
+              <td>
+                  <a href="/contest/evaluation-aspect" class="btn btn-sm btn-neutral capitalize">aspek penilaian</a> |
+                  <button id="remove-category-${id}" type="button" class="remove-category-btn btn btn-sm btn-outline btn-error capitalize">hapus</button>
+              </td>
+          </tr>`;
+};
+
 $(document).ready(function () {
-  let totalDataJudge = 0;
-
-  const tableRowJudge = (id) => {
-    return `<tr id="tr-judge-${id}">
-                <th>${id}</th>
-                <td>Nibras Alyassar</td>
-                <td>2100000000</td>
-                <td>080000000000</td>
-                <td>
-                    <button id="remove-${id}" type="button" class="remove-judge-btn btn btn-sm btn-outline btn-error capitalize">hapus</button>
-                </td>
-            </tr>`;
-  };
-
   $('#add-judge').click(function () {
-    if ($('#judge').val()) {
-      const prevData = $('#judge-table').html();
-      const newJudge = tableRowJudge(totalDataJudge + 1);
-
-      $('#judge-table').html(totalDataJudge == 0 ? newJudge : prevData + newJudge);
-      totalDataJudge++;
-    } else {
-      Toastify({
+    if ($('#judge').val() == '') {
+      return Toastify({
         text: 'Pilih juri terlebih dahulu',
         close: true,
         duration: 3000,
@@ -29,20 +39,21 @@ $(document).ready(function () {
         className: 'alert alert-error fixed top-5 right-5 w-fit transition-all',
       }).showToast();
     }
+
+    const user_id = $('#judge').val();
+
+    const fullName = $(`#judge-full-name-${user_id}`).val();
+    const nisNip = $(`#judge-nis-nip-${user_id}`).val();
+    const phoneNumber = $(`#judge-phone-number-${user_id}`).val();
+
+    judgeData.push({ 'user-id': user_id, 'full-name': fullName, 'nis-nip': nisNip, 'phone-number': phoneNumber });
+
+    $(`#option-${user_id}`).remove();
+    $('#jugde').val('').change();
+
+    $('#judge-table').html('');
+    judgeData.forEach((judge, index) => $('#judge-table').append(tableRowJudge(index + 1, judge['user-id'], judge['full-name'], judge['nis-nip'], judge['phone-number'])));
   });
-
-  let totalDataCategory = 0;
-
-  const tableRowCategoryEval = (id, category) => {
-    return `<tr id="tr-category-${id}">
-                <th>${id}</th>
-                <td>${category}</td>
-                <td class="flex gap-1.5 items-center">
-                    <a href="/contest/evaluation-aspect" class="btn btn-sm btn-neutral capitalize">aspek penilaian</a> |
-                    <button id="remove-category-${id}" type="button" class="remove-category-btn btn btn-sm btn-outline btn-error capitalize">hapus</button>
-                </td>
-            </tr>`;
-  };
 
   $('#add-category').click(function () {
     if (!$('#category-eval').val()) {
@@ -55,26 +66,28 @@ $(document).ready(function () {
       }).showToast();
     }
 
-    const prevData = $('#category-table').html();
-    const newCategoryEval = tableRowCategoryEval(totalDataCategory + 1, $('#category-eval').val());
-
+    categoryData.push($('#category-eval').val());
     $('#category-eval').val('');
 
-    $('#category-table').html(totalDataCategory == 0 ? newCategoryEval : prevData + newCategoryEval);
-    totalDataCategory++;
+    $('#category-table').html('');
+    categoryData.forEach((category, index) => $('#category-table').append(tableRowCategoryEval(index + 1, category)));
   });
 
   $(document).click(function (e) {
     const node = e.target;
+    const id = node.getAttribute('id');
+
     if (node.classList.contains('remove-judge-btn')) {
-      const id = node.getAttribute('id');
-      const remove_id = id.split('-')[1];
+      const remove_id = id.split('-')[2];
 
-      $(`#tr-judge-${remove_id}`).remove();
+      $('#judge').append(`<option id="option-${judgeData[remove_id - 1]['user-id']}" value="${judgeData[remove_id - 1]['user-id']}">${judgeData[remove_id - 1]['full-name']}</option>`);
 
-      totalDataJudge--;
+      judgeData.splice(remove_id - 1, 1);
 
-      if (totalDataJudge == 0) {
+      $('#judge-table').html('');
+      judgeData.forEach((judge, index) => $('#judge-table').append(tableRowJudge(index + 1, judge['full-name'], judge['nis-nip'], judge['phone-number'])));
+
+      if (judgeData.length == 0) {
         $('#judge-table').html(`<tr>
                                     <td colspan="5">
                                         <h3 class="text-center text-black/50">-- Belum ada Juri yang ditambahkan --</h3>
@@ -84,20 +97,31 @@ $(document).ready(function () {
     }
 
     if (node.classList.contains('remove-category-btn')) {
-      const id = node.getAttribute('id');
       const remove_id = id.split('-')[2];
 
-      $(`#tr-category-${remove_id}`).remove();
+      categoryData.splice(remove_id - 1, 1);
 
-      totalDataCategory--;
+      $('#category-table').html('');
+      categoryData.forEach((category, index) => $('#category-table').append(tableRowCategoryEval(index + 1, category)));
 
-      if (totalDataCategory == 0) {
+      if (categoryData.length == 0) {
         $('#category-table').html(`<tr>
                                     <td colspan="5">
                                         <h3 class="text-center text-black/50">-- Belum ada Aspek yang ditambahkan --</h3>
                                     </td>
                                 </tr>`);
       }
+    }
+  });
+
+  $(document).keyup(function (e) {
+    const node = e.target;
+    const id = node.getAttribute('id');
+
+    if (node.classList.contains('input-category')) {
+      const category_id = id.split('-')[1];
+
+      categoryData[category_id - 1] = node.value;
     }
   });
 });

@@ -2,7 +2,17 @@
 
 namespace App\Controllers;
 
+use App\Models\UsersModel;
+
 class ContestController extends BaseController {
+    protected $users_model;
+
+    protected $data;
+
+    public function __construct() {
+        $this->users_model = new UsersModel();
+    }
+
     public function index() {
         // $sidebar['path'] = "/";
 
@@ -22,13 +32,26 @@ class ContestController extends BaseController {
     }
 
     public function get_add() {
+        // $sidebar['path'] = "/";
+
+        $this->data['judges'] = $this->users_model->where('role', 'juri')->findAll();
+
         echo view('templates/header');
         // echo view('templates/sidebar', $sidebar);
-        echo view('pages/add-contest');
+        echo view('pages/add-contest', $this->data);
         echo view('templates/footer');
     }
 
     public function post_add() {
+        $contest_data = [
+            'contest_name' => $this->request->getPost('contest-name'),
+            'organizer' => $this->request->getPost('organizer'),
+            'description' => $this->request->getPost('description'),
+            'date' => $this->request->getPost('date'),
+            'time' => $this->request->getPost('time'),
+            'held_on' => $this->request->getPost('held-on'),
+            'category' => $this->request->getPost('category'),
+        ];
     }
 
     public function get_edit() {

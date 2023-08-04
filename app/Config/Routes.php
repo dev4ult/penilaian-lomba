@@ -44,7 +44,11 @@ $routes->group('user', static function ($routes) {
 $routes->get('contests', 'ContestController::index');
 
 $routes->group('contest', static function ($routes) {
-    $routes->get('add', 'ContestController::get_add');
+    $routes->group('add', static function ($routes) {
+        $routes->get('/', 'ContestController::get_add');
+        $routes->post('/', 'ContestController::post_add');
+    });
+
     $routes->get('edit', 'ContestController::get_edit');
     $routes->get('evaluation-aspect', 'ContestController::get_eval_aspect');
     $routes->get('contestant-evaluation', 'ContestController::get_contestant_eval');
