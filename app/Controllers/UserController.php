@@ -61,13 +61,14 @@ class UserController extends BaseController {
     }
 
     public function get_detail_json($user_id) {
-        if ($user_id) {
-            $user = $this->users_model->select('user_id, username, full_name, phone_number, role, staff_id')->find($user_id);
+        $user = $this->users_model->find($user_id);
 
-            if ($user) {
-                return $this->response->setJSON($user);
-            }
-        }
+        if ($user) return $this->response->setJSON($user);
+
+        return $this->response->setJSON([
+            "status" => 404,
+            "message" => "User tidak ditemukan"
+        ]);
     }
 
     public function put_edit() {
