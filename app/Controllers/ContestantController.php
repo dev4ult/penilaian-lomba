@@ -2,13 +2,27 @@
 
 namespace App\Controllers;
 
+use App\Models\ContestantsModel;
+use App\Models\ContestantMembersModel;
+
 class ContestantController extends BaseController {
+    protected $contestants_model, $member_model;
+
+    protected $data;
+
+    public function __construct() {
+        $this->contestants_model = new ContestantsModel();
+        $this->member_model = new ContestantMembersModel();
+    }
+
     public function index() {
         // $sidebar['path'] = "/";
 
+        $this->data['contestants'] = $this->contestants_model->findAll();
+
         echo view('templates/header');
         // echo view('templates/sidebar', $sidebar);
-        echo view('pages/manage-contestant');
+        echo view('pages/manage-contestant', $this->data);
         echo view('templates/footer');
     }
 
@@ -20,6 +34,49 @@ class ContestantController extends BaseController {
     }
 
     public function post_add() {
+        $team_credential_fields = [
+            "team_name" => $this->request->getPost('team'),
+            "leader" => $this->request->getPost('leader'),
+            "school" => $this->request->getPost('school'),
+            "phone_number" => $this->request->getPost('phone-number'),
+        ];
+
+        $total_member = $this->request->getPost('total-member');
+
+
+        $validationRules = [
+            "team_name" => "is_unique[contestants.team_name]"
+        ];
+
+        if (!$this->validate($validationRules)) {
+            session()->setFlashdata('error', 'Nama Tim sudah dipakai peserta lain');
+            return redirect()->to(base_url('/contestant/add'));
+        }
+
+        $insert = $this->contestants_model->insert($team_credential_fields);
+
+        // return $this->response->setJSON(['total member' => $total_member, 'data' => $member_data]);
+
+        if ($insert) {
+            $contestant_id = $this->contestants_model->getInsertID();
+            $member_data = [];
+            for ($i = 0; $i < (int) $total_member; $i++) {
+                array_push($member_data, [
+                    "contestant_id" => $contestant_id,
+                    "full_name" => $this->request->getPost('member-name-' . $i + 1),
+                    "student_id" => $this->request->getPost('nis-' . $i + 1)
+                ]);
+            }
+
+
+            $insert_all_member = $this->member_model->insertBatch($member_data);
+
+            if ($insert_all_member) {
+                session()->setFlashdata('success', 'Peserta berhasil ditambahkan!');
+            }
+        }
+
+        return redirect()->to(base_url('/contestants'));
     }
 
     public function get_edit() {
