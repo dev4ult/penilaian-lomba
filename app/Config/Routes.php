@@ -52,7 +52,7 @@ $routes->group('contest', static function ($routes) {
     $routes->get('edit', 'ContestController::get_edit');
     $routes->get('evaluation-aspect', 'ContestController::get_eval_aspect');
     $routes->get('contestant-evaluation', 'ContestController::get_contestant_eval');
-    $routes->get('(:any)', 'ContestController::detail/$1');
+    $routes->get('(:any)', 'ContestController::get_detail/$1');
 });
 
 $routes->get('contestants', 'ContestantController::index');
