@@ -105,7 +105,7 @@ class ContestantController extends BaseController {
     public function get_edit($contestant_id) {
 
         $contestant = $this->contestants_model->find($contestant_id);
-        if ($contestant) {
+        if ($contestant_id && $contestant) {
 
             $this->data['contestant'] = $contestant;
             $this->data['members'] = $this->member_model->where('contestant_id', $contestant_id)->findAll();
@@ -114,10 +114,12 @@ class ContestantController extends BaseController {
             // echo view('templates/sidebar', $sidebar);
             echo view('pages/edit-contestant', $this->data);
             echo view('templates/footer');
-        } else {
-            session()->setFlashdata('error', 'Peserta tidak ditemukan');
-            return redirect()->to(base_url('contestants'));
+
+            return;
         }
+
+        session()->setFlashdata('error', 'Peserta tidak ditemukan');
+        return redirect()->to(base_url('contestants'));
     }
 
     public function put_edit() {
