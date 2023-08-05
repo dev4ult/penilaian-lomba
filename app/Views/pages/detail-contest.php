@@ -26,14 +26,16 @@
         </div>
 
         <div class="text-right">
-            <a href="/contest/edit" class="btn btn-sm btn-warning capitalize">edit informasi</a>
+            <a href="/contest/edit/<?= $contest['contest_id'] ?>" class="btn btn-sm btn-warning capitalize">edit
+                informasi</a>
         </div>
     </div>
 
     <!-- Informatian Detail -->
     <div class="col-span-2">
+        <input type="number" id="contest-id" name="contest-id" class="hidden" value="<?= $contest['contest_id'] ?>" />
         <h2 class="text-lg font-semibold text-black/30 mb-3">Informasi Pelaksanaan</h2>
-        <div class="bg-white p-6 rounded-lg border-2 hover:shadow grid grid-flow grid-cols-3 gap-6">
+        <div class="bg-white p-10 rounded-lg border-2 hover:shadow grid grid-flow grid-cols-3 gap-8">
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">1</span>
                 <div>
@@ -74,7 +76,7 @@
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">6</span>
                 <div>
                     <h4 class="font-semibold text-sm text-black/50">Jumlah Peserta</h4>
-                    <h3 class="font-bold">45</h3>
+                    <h3 class="font-bold" id="total-contestants-registered"><?= count($reg_contestants) ?></h3>
                 </div>
             </div>
         </div>
@@ -88,7 +90,7 @@
     <div>
         <div class="flex gap-4 justify-between">
             <h2 class="text-lg font-semibold text-black/30 mb-3">Kategori Penilaian</h2>
-            <a href="/contest/evaluation-aspect/<?= $contest['contest_id'] ?>" class="btn btn-sm btn-warning capitalize">Edit Penilaian</a>
+            <a href="/contest/evaluation-aspect/<?= $contest['contest_id'] ?>" class="btn btn-sm btn-warning capitalize">Edit Kategori</a>
         </div>
 
         <div class="overflow-x-auto">
@@ -151,7 +153,7 @@
 
         <div>
             <div class="inline-flex">
-                <button class="btn btn-primary btn-outline capitalize">
+                <button type="button" id="refresh" class="btn btn-primary btn-outline capitalize">
                     Refresh
                     <!-- <span class="loading"></span> -->
                 </button>
@@ -171,8 +173,13 @@
 
             <!-- Add Contestants -->
             <div class="join">
-                <input type="text" class="input input-bordered" placeholder="Tambah Peserta" />
-                <button class="btn btn-primary btn-outline capitalize join-item btn-disabled">Tambah</button>
+                <input type="text" id="select-contestants" class="input input-bordered" list="contestants" placeholder="Tambah Peserta" />
+                <datalist id="contestants">
+                    <?php foreach ($contestants as $contestant) : ?>
+                        <option value="<?= $contestant['team_name'] ?>" />
+                    <?php endforeach ?>
+                </datalist>
+                <button id="add-contestant" class="btn btn-primary btn-outline capitalize join-item btn-disabled">Tambah</button>
             </div>
         </div>
     </div>
@@ -185,73 +192,37 @@
                 <tr class="bg-neutral text-neutral-content">
                     <th></th>
                     <th>Nama Tim</th>
-                    <th>Ketua</th>
                     <th>Instansi</th>
                     <th>Nilai</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th>1</th>
-                    <td>Cabe Rawit</td>
-                    <td>Siddiq Maulana</td>
-                    <td>SMAN 103</td>
-                    <td><span class="badge badge-success">80/100</span></td>
-                    <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                        <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
-                            penilaian</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th>2</th>
-                    <td>Cabe Rawit</td>
-                    <td>Siddiq Maulana</td>
-                    <td>SMAN 103</td>
-                    <td><span class="badge badge-warning">60/100</span></td>
-                    <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                        <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
-                            penilaian</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th>3</th>
-                    <td>Cabe Rawit</td>
-                    <td>Siddiq Maulana</td>
-                    <td>SMAN 103</td>
-                    <td><span class="badge badge-error">50/100</span></td>
-                    <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                        <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
-                            penilaian</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th>4</th>
-                    <td>Cabe Rawit</td>
-                    <td>Siddiq Maulana</td>
-                    <td>SMAN 103</td>
-                    <td><span class="badge badge-success">100/100</span></td>
-                    <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                        <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
-                            penilaian</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th>5</th>
-                    <td>Cabe Rawit</td>
-                    <td>Siddiq Maulana</td>
-                    <td>SMAN 103</td>
-                    <td><span class="badge badge-secondary badge-outline">0/100</span></td>
-                    <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                        <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
-                            penilaian</a>
-                    </td>
-                </tr>
+            <tbody id="reg-contestants-container">
+                <?php if (count($reg_contestants) == 0) : ?>
+                    <tr>
+                        <td colspan="6">
+                            <h3 class="text-center text-black/50">-- Belum ada Peserta yang mendaftar pada lomba ini --</>
+                        </td>
+                    </tr>
+                <?php endif ?>
+
+                <?php foreach ($reg_contestants as $index => $contestant) : ?>
+                    <tr>
+                        <th><?= $index + 1 ?></th>
+                        <td id="team-name-data-<?= $contestant['contestant_id'] ?>"><?= $contestant['team_name'] ?></td>
+                        <td><?= $contestant['school'] ?></td>
+                        <td><span class="badge badge-success">80/100</span></td>
+                        <td class="flex gap-1.5 items-center">
+                            <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
+                            <a href="/contest/contestant-evaluation/<?= $contestant['contest_id'] ?>/<?= $contestant['contestant_id'] ?>" class="btn btn-sm btn-warning capitalize">ubah
+                                penilaian</a>
+                            <button type="button" id="contestant-rmv-<?= $contestant['contestant_id'] ?>" class="remove-reg-btn btn btn-sm btn-error btn-outline capitalize">hapus</button>
+                        </td>
+                    </tr>
+                    <script>
+                        $(`option[value="<?= $contestant['team_name'] ?>"]`).remove();
+                    </script>
+                <?php endforeach ?>
             </tbody>
         </table>
     </div>
@@ -370,200 +341,22 @@
     </form>
 </dialog>
 
-<!-- Modal Add Rate -->
-<dialog id="add_rate_modal" class="modal">
-    <form method="dialog" class="modal-box max-w-2xl p-8">
-        <h3 class="badge badge-lg badge-neutral mb-3">Form Penilaian</h3>
-        <p class="mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, corrupti? Consequuntur
-            incidunt tenetur sequi neque?</p>
+<!-- Modal Delete Confirmation -->
+<dialog id="delete_modal" class="modal">
+    <form id="form-confirm-delete" method="dialog" class="modal-box p-8">
+        <h3 class="badge badge-lg badge-neutral mb-3">Konfirmasi Hapus</h3>
+        <p class="mb-6">Apakah anda yakin untuk menghapus <span id="team-delete"></span>?
+        </p>
 
-        <hr class="my-6">
-
-        <div class="overflow-x-auto">
-            <table class="table table-zebra bg-white border-2">
-                <thead>
-                    <tr class="">
-                        <th></th>
-                        <th>Aspek</th>
-                        <th>Range Nilai</th>
-                        <th>Nilai</th>
-                    </tr>
-                </thead>
-                <tbody class="font-semibold">
-                    <tr>
-                        <th>1</th>
-                        <td>Makhraj dan Tajwid</td>
-                        <td>1 - 8</td>
-                        <td>
-                            <select name="aspect-1" id="aspect-1" class="select select-bordered select-sm">
-                                <option disabled selected>Pilih Nilai</option>
-                                <option value="1">1 (Kurang)</option>
-                                <option value="2">2 (Kurang)</option>
-                                <option value="3">3 (Cukup)</option>
-                                <option value="4">4 (Cukup)</option>
-                                <option value="5">5 (Baik)</option>
-                                <option value="6">6 (Baik)</option>
-                                <option value="7">7 (Sangat Baik)</option>
-                                <option value="8">8 (Sangat Baik)</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <td>Penjiwaan dan Pengkhayatan</td>
-                        <td>2 - 9</td>
-                        <td>
-                            <select name="aspect-1" id="aspect-1" class="select select-bordered select-sm">
-                                <option disabled selected>Pilih Nilai</option>
-                                <option value="2">2 (Kurang)</option>
-                                <option value="3">3 (Kurang)</option>
-                                <option value="4">4 (Cukup)</option>
-                                <option value="5">5 (Cukup)</option>
-                                <option value="6">6 (Baik)</option>
-                                <option value="7">7 (Baik)</option>
-                                <option value="8">8 (Sangat Baik)</option>
-                                <option value="9">9 (Sangat Baik)</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <td>Irama dan Suara</td>
-                        <td>2 - 9</td>
-                        <td>
-                            <select name="aspect-1" id="aspect-1" class="select select-bordered select-sm">
-                                <option disabled selected>Pilih Nilai</option>
-                                <option value="2">2 (Kurang)</option>
-                                <option value="3">3 (Kurang)</option>
-                                <option value="4">4 (Cukup)</option>
-                                <option value="5">5 (Cukup)</option>
-                                <option value="6">6 (Baik)</option>
-                                <option value="7">7 (Baik)</option>
-                                <option value="8">8 (Sangat Baik)</option>
-                                <option value="9">9 (Sangat Baik)</option>
-                            </select>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <hr class="my-6">
-
-        <div class="flex flex-col gap-1 w-full ">
-            <label for="judge-note" class="text-sm font-semibold">Catatan Juri</label>
-            <textarea name="judge-note" id="judge-note" class="textarea textarea-bordered h-52 text-base py-3" placeholder="Isikan Catatan Juri"></textarea>
-        </div>
-
-        <hr class="my-6">
-
-        <button type="submit" class="btn btn-primary w-full capitalize">Submit</button>
+        <input type="number" id="delete-contestant-id" name="delete-contestant-id" class="hidden" />
 
         <div class="modal-action my-0">
-            <button type="button" onclick="add_rate_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+            <button type="button" id="confirm-delete" class="btn btn-sm btn-outline btn-error capitalize">Iya</button>
+            <button id="confirm-no-delete" onclick="delete_modal.close()" type="button" class="btn btn-sm btn-neutral capitalize">
+                Tidak
             </button>
         </div>
     </form>
 </dialog>
 
-<!-- Modal Change Rate -->
-<dialog id="change_rate_modal" class="modal">
-    <form method="dialog" class="modal-box max-w-2xl p-8">
-        <h3 class="badge badge-lg badge-neutral mb-3">Form Penilaian</h3>
-        <p class="mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, corrupti? Consequuntur
-            incidunt tenetur sequi neque?</p>
-
-        <hr class="my-6">
-
-        <div class="overflow-x-auto">
-            <table class="table table-zebra bg-white border-2">
-                <thead>
-                    <tr class="">
-                        <th></th>
-                        <th>Aspek</th>
-                        <th>Range Nilai</th>
-                        <th>Nilai</th>
-                    </tr>
-                </thead>
-                <tbody class="font-semibold">
-                    <tr>
-                        <th>1</th>
-                        <td>Makhraj dan Tajwid</td>
-                        <td>1 - 8</td>
-                        <td>
-                            <select name="aspect-1" id="aspect-1" class="select select-bordered select-sm" value="5">
-                                <option disabled>Pilih Nilai</option>
-                                <option value="1">1 (Kurang)</option>
-                                <option value="2">2 (Kurang)</option>
-                                <option value="3">3 (Cukup)</option>
-                                <option value="4">4 (Cukup)</option>
-                                <option value="5" selected>5 (Baik)</option>
-                                <option value="6">6 (Baik)</option>
-                                <option value="7">7 (Sangat Baik)</option>
-                                <option value="8">8 (Sangat Baik)</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <td>Penjiwaan dan Pengkhayatan</td>
-                        <td>2 - 9</td>
-                        <td>
-                            <select name="aspect-1" id="aspect-1" class="select select-bordered select-sm" value="7">
-                                <option disabled>Pilih Nilai</option>
-                                <option value="2">2 (Kurang)</option>
-                                <option value="3">3 (Kurang)</option>
-                                <option value="4">4 (Cukup)</option>
-                                <option value="5">5 (Cukup)</option>
-                                <option value="6">6 (Baik)</option>
-                                <option value="7" selected>7 (Baik)</option>
-                                <option value="8">8 (Sangat Baik)</option>
-                                <option value="9">9 (Sangat Baik)</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <td>Irama dan Suara</td>
-                        <td>2 - 9</td>
-                        <td>
-                            <select name="aspect-1" id="aspect-1" class="select select-bordered select-sm" value="7">
-                                <option disabled>Pilih Nilai</option>
-                                <option value="2">2 (Kurang)</option>
-                                <option value="3">3 (Kurang)</option>
-                                <option value="4">4 (Cukup)</option>
-                                <option value="5">5 (Cukup)</option>
-                                <option value="6">6 (Baik)</option>
-                                <option value="7" selected>7 (Baik)</option>
-                                <option value="8">8 (Sangat Baik)</option>
-                                <option value="9">9 (Sangat Baik)</option>
-                            </select>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <hr class="my-6">
-
-        <div class="flex flex-col gap-1 w-full ">
-            <label for="judge-note" class="text-sm font-semibold">Catatan Juri</label>
-            <textarea name="judge-note" id="judge-note" class="textarea textarea-bordered h-52 text-base py-3" placeholder="Isikan Catatan Juri">Catatan juri mengenai penilaian, dll.</textarea>
-        </div>
-
-        <hr class="my-6">
-
-        <button type="submit" class="btn btn-warning w-full capitalize">Simpan Perubahan</button>
-
-        <div class="modal-action my-0">
-            <button type="button" onclick="change_rate_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        </div>
-    </form>
-</dialog>
+<script src="<?= base_url('./js/manageRegisterContestants.js') ?>"></script>
