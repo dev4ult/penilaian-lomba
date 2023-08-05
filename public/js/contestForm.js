@@ -22,7 +22,7 @@ const tableRowCategoryEval = (id, category) => {
                 <input type="text" id="category-${id}" placeholder="Isikan Nama Kategori" name="category-${id}" value="${category}" class="input-category input input-bordered" required />
               </td>
               <td>
-                  <a href="/contest/evaluation-aspect" class="btn btn-sm btn-neutral capitalize">aspek penilaian</a> |
+                  <a href="/contest/evaluation-aspect" class="btn btn-sm btn-warning capitalize">edit penilaian</a> |
                   <button id="remove-category-${id}" type="button" class="remove-category-btn btn btn-sm btn-outline btn-error capitalize">hapus</button>
               </td>
           </tr>`;
@@ -32,7 +32,7 @@ $(document).ready(function () {
   $('#add-judge').click(function () {
     if ($('#judge').val() == '') {
       return Toastify({
-        text: 'Pilih juri terlebih dahulu',
+        text: 'Pilih juri terlebih dahulu!',
         close: true,
         duration: 3000,
         position: 'left',
@@ -53,12 +53,14 @@ $(document).ready(function () {
 
     $('#judge-table').html('');
     judgeData.forEach((judge, index) => $('#judge-table').append(tableRowJudge(index + 1, judge['user-id'], judge['full-name'], judge['nis-nip'], judge['phone-number'])));
+
+    $('#total-judges').val(judgeData.length);
   });
 
   $('#add-category').click(function () {
     if (!$('#category-eval').val()) {
       return Toastify({
-        text: 'Nama Kategory tidak boleh kosong',
+        text: 'Nama Kategori tidak boleh kosong!',
         close: true,
         duration: 3000,
         position: 'left',
@@ -71,6 +73,8 @@ $(document).ready(function () {
 
     $('#category-table').html('');
     categoryData.forEach((category, index) => $('#category-table').append(tableRowCategoryEval(index + 1, category)));
+
+    $('#total-eval-category').val(categoryData.length);
   });
 
   $(document).click(function (e) {
@@ -86,6 +90,8 @@ $(document).ready(function () {
 
       $('#judge-table').html('');
       judgeData.forEach((judge, index) => $('#judge-table').append(tableRowJudge(index + 1, judge['full-name'], judge['nis-nip'], judge['phone-number'])));
+
+      $('#total-judges').val(judgeData.length);
 
       if (judgeData.length == 0) {
         $('#judge-table').html(`<tr>
@@ -103,6 +109,8 @@ $(document).ready(function () {
 
       $('#category-table').html('');
       categoryData.forEach((category, index) => $('#category-table').append(tableRowCategoryEval(index + 1, category)));
+
+      $('#total-eval-category').val(categoryData.length);
 
       if (categoryData.length == 0) {
         $('#category-table').html(`<tr>
