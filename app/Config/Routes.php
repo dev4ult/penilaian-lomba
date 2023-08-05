@@ -49,9 +49,9 @@ $routes->group('contest', static function ($routes) {
         $routes->post('/', 'ContestController::post_add');
     });
 
-    $routes->get('edit', 'ContestController::get_edit');
-    $routes->get('evaluation-aspect', 'ContestController::get_eval_aspect');
-    $routes->get('contestant-evaluation', 'ContestController::get_contestant_eval');
+    $routes->get('edit/(:any)', 'ContestController::get_edit/$1');
+    $routes->get('evaluation-aspect/(:any)', 'ContestController::get_eval_aspect/$1');
+    $routes->get('contestant-evaluation/(:any)', 'ContestController::get_contestant_eval/$1');
     $routes->get('(:any)', 'ContestController::get_detail/$1');
 });
 
