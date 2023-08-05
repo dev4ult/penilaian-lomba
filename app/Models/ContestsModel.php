@@ -14,10 +14,12 @@ class ContestsModel extends Model {
     protected $protectFields    = true;
     protected $allowedFields    = [
         'contest_name',
+        'picture',
         'organizer',
         'description',
         'date',
-        'time',
+        'time_start',
+        'time_end',
         'held_on',
         'category'
     ];
@@ -30,7 +32,17 @@ class ContestsModel extends Model {
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'contest_name' => 'required',
+        'organizer' => 'required',
+        'description' => 'required',
+        'date' => 'required',
+        'time_start' => 'required',
+        'time_end' => 'required',
+        'held_on' => 'required',
+        'category' => 'required'
+    ];
+
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
