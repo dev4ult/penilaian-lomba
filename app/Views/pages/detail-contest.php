@@ -11,7 +11,7 @@
         <ul>
             <li><a href="/" class="text-primary">Dashboard</a></li>
             <li><a href="/contests" class="text-primary">Lomba</a></li>
-            <li><span class="badge badge-neutral rounded-full">Adzan Senior</span></li>
+            <li><span class="badge badge-neutral rounded-full"><?= $contest['contest_name'] ?></span></li>
         </ul>
     </div>
 </header>
@@ -22,18 +22,13 @@
     <div class="col-span-2 grid grid-flow-row grid-cols-4 gap-10">
         <div class="col-span-3">
             <h2 class="text-lg font-semibold text-black/30 mb-3">Deskripsi</h2>
-            <p class="leading-8 font-semibold">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae enim sed
-                quaerat
-                pariatur quo laudantium
-                dolorem!
-                Libero sit nihil suscipit dignissimos laborum saepe officia nesciunt quo repella</p>
+            <p class="leading-8 font-semibold"><?= $contest['description'] ?></p>
         </div>
 
         <div class="text-right">
-            <a href="/contest/edit" class="btn btn-sm btn-warning capitalize">edit informasi / Penugasan</a>
+            <a href="/contest/edit" class="btn btn-sm btn-warning capitalize">edit informasi</a>
         </div>
     </div>
-
 
     <!-- Informatian Detail -->
     <div class="col-span-2">
@@ -43,35 +38,36 @@
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">1</span>
                 <div>
                     <h4 class="font-semibold text-sm text-black/50">Tanggal</h4>
-                    <h3 class="font-bold">12 Januari 2023</h3>
+                    <h3 class="font-bold"><?= date_format(date_create($contest['date']), "j F Y") ?></h3>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">2</span>
                 <div>
                     <h4 class="font-semibold text-sm text-black/50">Waktu</h4>
-                    <h3 class="font-bold">13.00 - 14.00</h3>
+                    <h3 class="font-bold"><?= date_format(date_create($contest['time_start']), "H:i") ?> -
+                        <?= date_format(date_create($contest['time_end']), "H:i") ?></h3>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">3</span>
                 <div>
                     <h4 class="font-semibold text-sm text-black/50">Kategori / Tingkatan</h4>
-                    <h3 class="font-bold">SMP</h3>
+                    <h3 class="font-bold uppercase"><?= $contest['category'] ?></h3>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">4</span>
                 <div>
                     <h4 class="font-semibold text-sm text-black/50">Penyelenggara</h4>
-                    <h3 class="font-bold">Ahmah Reza Maulana</h3>
+                    <h3 class="font-bold"><?= $contest['organizer'] ?></h3>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">5</span>
                 <div>
                     <h4 class="font-semibold text-sm text-black/50">Tempat</h4>
-                    <h3 class="font-bold">Aula 303</h3>
+                    <h3 class="font-bold"><?= $contest['held_on'] ?></h3>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
@@ -92,7 +88,7 @@
     <div>
         <div class="flex gap-4 justify-between">
             <h2 class="text-lg font-semibold text-black/30 mb-3">Kategori Penilaian</h2>
-            <a href="/contest/evaluation-aspect" class="btn btn-sm btn-secondary capitalize">Lihat Detail</a>
+            <a href="/contest/evaluation-aspect/<?= $contest['contest_id'] ?>" class="btn btn-sm btn-warning capitalize">Edit Penilaian</a>
         </div>
 
         <div class="overflow-x-auto">
@@ -101,31 +97,15 @@
                     <tr class="bg-secondary text-secondary-content">
                         <th></th>
                         <th>Kategori</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>Makhraj dan Tajwid</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize">lihat</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <td>Penjiwaan dan Pengkhayatan</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize">lihat</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <td>Irama dan Suara</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-neutral btn-outline capitalize">lihat</button>
-                        </td>
-                    </tr>
+                    <?php foreach ($categories as $index => $category) : ?>
+                        <tr>
+                            <th><?= $index + 1 ?></th>
+                            <td><?= $category['category_name'] ?></td>
+                        </tr>
+                    <?php endforeach ?>
                 </tbody>
             </table>
         </div>
@@ -143,25 +123,19 @@
                     <tr class="bg-accent text-accent-content">
                         <th></th>
                         <th>Nama Lengkap</th>
+                        <th>NIP / S</th>
                         <th>Nomor Telepon</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>Cy Ganderton</td>
-                        <td>080000000000</td>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <td>Cy Ganderton</td>
-                        <td>080000000000</td>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <td>Cy Ganderton</td>
-                        <td>080000000000</td>
-                    </tr>
+                    <?php foreach ($judges as $index => $judge) : ?>
+                        <tr>
+                            <th><?= $index + 1 ?></th>
+                            <td><?= $judge['full_name'] ?></td>
+                            <td><?= $judge['staff_id'] ?></td>
+                            <td><?= $judge['phone_number'] ?></td>
+                        </tr>
+                    <?php endforeach ?>
                 </tbody>
             </table>
         </div>
@@ -225,8 +199,7 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-success">80/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
-                            onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
                         <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
                             penilaian</a>
                     </td>
@@ -238,8 +211,7 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-warning">60/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
-                            onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
                         <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
                             penilaian</a>
                     </td>
@@ -251,8 +223,7 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-error">50/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
-                            onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
                         <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
                             penilaian</a>
                     </td>
@@ -264,8 +235,7 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-success">100/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
-                            onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
                         <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
                             penilaian</a>
                     </td>
@@ -277,8 +247,7 @@
                     <td>SMAN 103</td>
                     <td><span class="badge badge-secondary badge-outline">0/100</span></td>
                     <td class="flex gap-1.5 items-center">
-                        <button class="btn btn-sm btn-neutral btn-outline capitalize"
-                            onclick="detail_modal.showModal()">lihat</button> |
+                        <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
                         <a href="/contest/contestant-evaluation" class="btn btn-sm btn-warning capitalize">ubah
                             penilaian</a>
                     </td>
@@ -392,10 +361,8 @@
             </table>
         </div>
         <div class="modal-action my-0">
-            <button type="button" onclick="detail_modal.close()"
-                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
+            <button type="button" onclick="detail_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
@@ -485,8 +452,7 @@
 
         <div class="flex flex-col gap-1 w-full ">
             <label for="judge-note" class="text-sm font-semibold">Catatan Juri</label>
-            <textarea name="judge-note" id="judge-note" class="textarea textarea-bordered h-52 text-base py-3"
-                placeholder="Isikan Catatan Juri"></textarea>
+            <textarea name="judge-note" id="judge-note" class="textarea textarea-bordered h-52 text-base py-3" placeholder="Isikan Catatan Juri"></textarea>
         </div>
 
         <hr class="my-6">
@@ -494,10 +460,8 @@
         <button type="submit" class="btn btn-primary w-full capitalize">Submit</button>
 
         <div class="modal-action my-0">
-            <button type="button" onclick="add_rate_modal.close()"
-                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
+            <button type="button" onclick="add_rate_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
@@ -587,8 +551,7 @@
 
         <div class="flex flex-col gap-1 w-full ">
             <label for="judge-note" class="text-sm font-semibold">Catatan Juri</label>
-            <textarea name="judge-note" id="judge-note" class="textarea textarea-bordered h-52 text-base py-3"
-                placeholder="Isikan Catatan Juri">Catatan juri mengenai penilaian, dll.</textarea>
+            <textarea name="judge-note" id="judge-note" class="textarea textarea-bordered h-52 text-base py-3" placeholder="Isikan Catatan Juri">Catatan juri mengenai penilaian, dll.</textarea>
         </div>
 
         <hr class="my-6">
@@ -596,10 +559,8 @@
         <button type="submit" class="btn btn-warning w-full capitalize">Simpan Perubahan</button>
 
         <div class="modal-action my-0">
-            <button type="button" onclick="change_rate_modal.close()"
-                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
+            <button type="button" onclick="change_rate_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
