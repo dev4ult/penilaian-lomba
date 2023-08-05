@@ -50,8 +50,14 @@ $routes->group('contest', static function ($routes) {
     });
 
     $routes->get('edit/(:any)', 'ContestController::get_edit/$1');
+    $routes->post('put', 'ContestController::put_edit');
+
+    $routes->get('get-register-contestants/(:any)', 'ContestController::get_register_contestants_json/$1');
+    $routes->post('register-contestant', 'ContestController::register_contestant');
+    $routes->Get('remove-contestant/(:any)/(:any)', 'ContestController::remove_contestant/$1/$2');
+
     $routes->get('evaluation-aspect/(:any)', 'ContestController::get_eval_aspect/$1');
-    $routes->get('contestant-evaluation/(:any)', 'ContestController::get_contestant_eval/$1');
+    $routes->get('contestant-evaluation/(:any)/(:any)', 'ContestController::get_contestant_eval/$1/$2');
     $routes->get('(:any)', 'ContestController::get_detail/$1');
 });
 
