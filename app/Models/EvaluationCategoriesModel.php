@@ -13,6 +13,7 @@ class EvaluationCategoriesModel extends Model {
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'contest_id',
         'category_name'
     ];
 
@@ -24,7 +25,11 @@ class EvaluationCategoriesModel extends Model {
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'contest_id' => 'required',
+        'category_name' => 'required'
+    ];
+
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
