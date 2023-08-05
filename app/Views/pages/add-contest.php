@@ -15,13 +15,12 @@
     </div>
 </header>
 
-<form method="post" class="p-8 bg-white my-10 border-2 rounded-lg grid grid-flow-row grid-cols-2 gap-6">
+<form method="post" action="/contest/add" class="p-8 bg-white my-10 border-2 rounded-lg grid grid-flow-row grid-cols-2 gap-6" enctype="multipart/form-data">
     <div class="flex flex-col gap-1 w-full col-span-2">
-        <label for="picture" class="text-sm font-semibold">Gambar</label>
-        <div id="upload-container"
-            class="w-full border-2 border-dashed border-primary rounded p-10 flex gap-6 items-center justify-center">
+        <label for="picture" class="text-sm font-semibold">Gambar (Opsional)</label>
+        <div id="upload-container" class="w-full border-2 border-dashed border-primary rounded p-10 flex gap-6 items-center justify-center">
             <div id="upload-text" class="flex flex-col justify-center items-center gap-3">
-                <input type="file" id="picture" name="picture" class="hidden" required>
+                <input type="file" id="picture" name="picture" class="hidden" />
                 <p class="font-semibold">Drag dan drop file disini</p>
                 <span>atau</span>
                 <label id="browse-file" for="picture" class="btn btn-primary btn-sm btn-outline capitalize">Cari
@@ -34,46 +33,51 @@
     <!-- Contest Name -->
     <div class="flex flex-col gap-1 w-full">
         <label for="contest-name" class="text-sm font-semibold">Nama Lomba</label>
-        <input type="text" id="contest-name" name="contest-name" class="input input-bordered"
-            placeholder="Isikan Nama Lomba" required>
+        <input type="text" id="contest-name" name="contest-name" class="input input-bordered" placeholder="Isikan Nama Lomba" required />
     </div>
 
     <!-- Organizer -->
     <div class="flex flex-col gap-1 w-full">
         <label for="organizer" class="text-sm font-semibold">Penyelenggara</label>
-        <input type="text" id="organizer" name="organizer" class="input input-bordered"
-            placeholder="Isikan Nama Penyelenggara" required>
+        <input type="text" id="organizer" name="organizer" class="input input-bordered" placeholder="Isikan Nama Penyelenggara" required />
     </div>
 
     <!-- Description -->
     <div class="flex flex-col gap-1 w-full col-span-2">
         <label for="description" class="text-sm font-semibold">Deskripsi Lomba</label>
-        <textarea type="text" id="description" name="description" class="textarea textarea-bordered text-base h-52 py-3"
-            placeholder="Isikan Deskripsi Lomba" required></textarea>
+        <textarea type="text" id="description" name="description" class="textarea textarea-bordered text-base h-52 py-3" placeholder="Isikan Deskripsi Lomba" required></textarea>
     </div>
 
     <!-- Date -->
     <div class="flex flex-col gap-1 w-full">
         <label for="date" class="text-sm font-semibold">Tanggal Pelaksanaan</label>
-        <input type="date" id="date" name="date" class="input input-bordered" required>
+        <input type="date" id="date" name="date" class="input input-bordered" required />
     </div>
 
     <!-- Time -->
     <div class="flex flex-col gap-1 w-full">
-        <label for="time" class="text-sm font-semibold">Waktu Pelaksanaan</label>
+        <label for="time-start" class="text-sm font-semibold">Waktu Pelaksanaan</label>
         <div class="join">
-            <input type="time" id="time" name="time" class="input input-bordered join-item w-full" value="10:00"
-                required>
-            <input type="time" id="time" name="time" class="input input-bordered join-item w-full" value="11:00"
-                required>
+            <input type="time" id="time-start" name="time-start" class="input input-bordered join-item w-full" value="10:00" required />
+            <input type="time" id="time-end" name="time-end" class="input input-bordered join-item w-full" value="11:00" required />
         </div>
     </div>
 
-    <!-- Place -->
+    <!-- Held On -->
     <div class="flex flex-col gap-1 w-full">
-        <label for="place" class="text-sm font-semibold">Tempat Lomba</label>
-        <input type="text" id="place" name="place" class="input input-bordered" placeholder="Isikan Nama Tempat Lomba"
-            required>
+        <label for="held-on" class="text-sm font-semibold">Tempat Lomba</label>
+        <input type="text" id="held-on" name="held-on" class="input input-bordered" placeholder="Isikan Nama Tempat Lomba" required />
+    </div>
+
+    <!-- Category -->
+    <div class="flex flex-col gap-1 w-full">
+        <label for="category" class="text-sm font-semibold">Kategori / Tingkatan Lomba</label>
+        <select id="category" name="category" class="select select-bordered" required>
+            <option disabled selected>Pilih Tingkatan Lomba</option>
+            <option value="sd">SD</option>
+            <option value="smp">SMP</option>
+            <option value="sma/smk">SMA/SMK</option>
+        </select>
     </div>
 
     <hr class="col-span-2" />
@@ -83,21 +87,20 @@
     <h2 class="badge badge-neutral self-center">Juri</h2>
 
     <div class="flex flex-col gap-1 w-full col-span-2">
+        <input type="number" id="total-judges" name="total-judges" class="hidden" value="0" />
         <div class="join w-full">
             <select name="judge" id="judge" class="select select-bordered join-item w-full">
                 <option id="option-select" value="" selected>Pilih Juri</option>
                 <?php foreach ($judges as $judge) : ?>
-                <option value="<?= $judge['user_id'] ?>" id="option-<?= $judge['user_id'] ?>"><?= $judge['full_name'] ?>
-                </option>
-                <input type="text" id="judge-full-name-<?= $judge['user_id'] ?>"
-                    name="judge-full-name-<?= $judge['user_id'] ?>" class="hidden" value="<?= $judge['full_name'] ?>" />
-                <input type="number" id="judge-nis-nip-<?= $judge['user_id'] ?>"
-                    name="judge-nis-nip-<?= $judge['user_id'] ?>" class="hidden" value="<?= $judge['staff_id'] ?>" />
-                <input type="text" id="judge-phone-number-<?= $judge['user_id'] ?>"
-                    name="judge-phone-number-<?= $judge['user_id'] ?>" class="hidden"
-                    value="<?= $judge['phone_number'] ?>" />
+                    <option value="<?= $judge['user_id'] ?>" id="option-<?= $judge['user_id'] ?>"><?= $judge['full_name'] ?>
+                    </option>
                 <?php endforeach ?>
             </select>
+            <?php foreach ($judges as $judge) : ?>
+                <input type="text" id="judge-full-name-<?= $judge['user_id'] ?>" name="judge-full-name-<?= $judge['user_id'] ?>" class="hidden" value="<?= $judge['full_name'] ?>" />
+                <input type="number" id="judge-nis-nip-<?= $judge['user_id'] ?>" name="judge-nis-nip-<?= $judge['user_id'] ?>" class="hidden" value="<?= $judge['staff_id'] ?>" />
+                <input type="text" id="judge-phone-number-<?= $judge['user_id'] ?>" name="judge-phone-number-<?= $judge['user_id'] ?>" class="hidden" value="<?= $judge['phone_number'] ?>" />
+            <?php endforeach ?>
             <button type="button" id="add-judge" class="btn btn-primary btn-outline capitalize">Tambah</button>
         </div>
     </div>
@@ -128,9 +131,9 @@
     <h2 class="badge badge-neutral self-center">Kategori Penilaian</h2>
 
     <div class="flex flex-col gap-1 w-full col-span-2">
+        <input type="number" id="total-eval-category" name="total-eval-category" class="hidden" value="0" />
         <div class="join w-full">
-            <input type="text" id="category-eval" name="category-eval" class="input input-bordered join-item w-full"
-                placeholder="Nama Kategori" required>
+            <input type="text" id="category-eval" name="category-eval" class="input input-bordered join-item w-full" placeholder="Nama Kategori" />
             <button type="button" id="add-category" class="btn btn-primary btn-outline capitalize">Tambah</button>
         </div>
     </div>
@@ -162,3 +165,24 @@
 
 <script src="<?= base_url("./js/contestForm.js") ?>"></script>
 <script src="<?= base_url("./js/uploadFile.js") ?>"></script>
+
+<script>
+    <?php if (session()->getFlashdata('error')) : ?>
+        Toastify({
+            text: `<?= session()->getFlashdata('error') ?>`,
+            close: true,
+            duration: 3000,
+            position: 'left',
+            className: 'alert alert-error fixed top-5 right-5 w-fit transition-all',
+        }).showToast();
+    <?php endif ?>
+    <?php if (session()->getFlashdata('success')) : ?>
+        Toastify({
+            text: `<?= session()->getFlashdata('success') ?>`,
+            close: true,
+            duration: 3000,
+            position: 'left',
+            className: 'alert alert-success fixed top-5 right-5 w-fit transition-all',
+        }).showToast();
+    <?php endif ?>
+</script>
