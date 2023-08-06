@@ -13,7 +13,9 @@ class EvaluationAspectsModel extends Model {
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'aspect_name'
+        'eval_sub_category_id',
+        'aspect_name',
+        'aspect_range_id'
     ];
 
     // Dates
@@ -24,7 +26,12 @@ class EvaluationAspectsModel extends Model {
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'eval_sub_category_id' => 'required',
+        'aspect_name' => 'required',
+        'aspect_range_id' => 'required'
+    ];
+
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
