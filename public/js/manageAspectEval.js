@@ -1,93 +1,156 @@
+let subCategoryData = [];
+
+function isAnyFieldEmpty(category_id) {
+  const data = subCategoryData[category_id];
+
+  for (let i = 0; i < subCategoryData[category_id].length; i++) {
+    if (data[i].subCategoryName == '') {
+      Toastify({
+        text: 'Field nama Sub Kategori tidak boleh kosong!',
+        close: true,
+        duration: 3000,
+        position: 'left',
+        className: `alert alert-error fixed z-20 top-5 right-5 w-fit transition-all`,
+      }).showToast();
+
+      return true;
+    }
+
+    for (let j = 0; j < data[i].aspects.length; j++) {
+      if (data[i].aspects[j]['name'] == '') {
+        Toastify({
+          text: 'Field nama Aspek Penilaian tidak boleh kosong!',
+          close: true,
+          duration: 3000,
+          position: 'left',
+          className: `alert alert-error fixed top-5 right-5 w-fit transition-all`,
+        }).showToast();
+
+        return true;
+      }
+
+      if (data[i].aspects[j]['range'] == null) {
+        Toastify({
+          text: 'Setiap Aspek Penilaian harus dipilih range penilaiannya!',
+          close: true,
+          duration: 3000,
+          position: 'left',
+          className: `alert alert-error fixed top-5 right-5 w-fit transition-all`,
+        }).showToast();
+
+        return true;
+      }
+    }
+  }
+}
+
+let tab = $('.tab-active').attr('id').split('-')[2];
+
+const subCategoryHtml = (categoryAlpha, subCategoryName, categoryId, subCategoryIndex) => {
+  return `<div class="overflow-x-auto my-6">
+              <table class="table table-lg bg-white border-2">
+                  <thead>
+                      <tr class="text-base text-center">
+                          <th class="border-2">${categoryAlpha}</th>
+                          <th class="text-left border-2">
+                              <input type="text" id="sub-category-${categoryId}-${subCategoryIndex}" name="sub-category-${categoryId}-${subCategoryIndex}" class="sub-category-input input font-medium text-black input-bordered"
+                                  placeholder="Nama Sub Kategori" value="${subCategoryName}" required />
+                          </th>
+                          <th></th>
+                          <th colspan="2" class="border-2">Kurang</th>
+                          <th colspan="2" class="border-2">Cukup</th>
+                          <th colspan="2" class="border-2">Baik</th>
+                          <th colspan="2" class="border-2">Sangat Baik</th>
+                          <th></th>
+                      </tr>
+                  </thead>
+                  <tbody id="aspect-container-${categoryId}-${subCategoryIndex}">
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                          <td class="border-2"></td>
+                          <td colspan="11" class="border-2">
+                              <button id="new-aspect-${categoryId}-${subCategoryIndex}" type="button" class="add-new-aspect btn btn-outline btn-sm btn-primary capitalize">tambah aspek penilaian</button>
+                          </td>
+                      </tr>
+                  </tfoot>
+              </table>
+          </div>`;
+};
+
+const aspectRowHtml = (index, categoryId, subCategoryIndex, aspectName, rangeVal) => {
+  let range = '';
+  for (let i = 0; i < 8; i++) {
+    range += `<td class="border-2">${rangeVal ? i + parseInt(rangeVal) : ''}</td>`;
+  }
+
+  return `<tr id="tr-aspect-${index}-${categoryId}-${subCategoryIndex}" class="text-xl font-semibold text-center">
+              <td class="border-2">${index + 1}</td>
+              <td class="border-2">
+                  <input type="text" id="eval-aspect-${index}-${subCategoryIndex}" name="eval-aspect-${index}-${subCategoryIndex}" class="aspect-input input input-sm input-bordered w-full"
+                      placeholder="Nama Aspek" value="${aspectName}" required />
+              </td>
+              <td class="border-2">
+                  <select id="aspect-range-${index}-${subCategoryIndex}" name="aspect-range-${index}-${subCategoryIndex}" class="aspect-select select select-sm select-bordered join-item" required>
+                      <option value="" disabled ${rangeVal ? '' : 'selected'}>Range</option>
+                      <option value="1" ${rangeVal == '1' ? 'selected' : ''}>1 - 8</option>
+                      <option value="2" ${rangeVal == '2' ? 'selected' : ''}>2 - 9</option>
+                      <option value="3" ${rangeVal == '3' ? 'selected' : ''}>3 - 10</option>
+                      <option value="4" ${rangeVal == '4' ? 'selected' : ''}>4 - 11</option>
+                  </select>
+              </td>
+              ${range}
+              <td>
+                  <button id="remove-${index}-${subCategoryIndex}" class="remove-aspect-btn btn btn-error btn-sm btn-outline capitalize">hapus</button>
+              </td>
+          </tr>`;
+};
+
 $(document).ready(function () {
+  // view and edit mode
   $('.view-edit-btn').click(function () {
     const mode = this.getAttribute('aria-label');
 
     if (mode == 'edit') {
-      $('#view-mode').addClass('hidden');
-      $('#edit-mode').removeClass('hidden');
+      $('.view-mode').addClass('hidden');
+      $('.edit-mode').removeClass('hidden');
     } else {
-      $('#edit-mode').addClass('hidden');
-      $('#view-mode').removeClass('hidden');
+      $('.edit-mode').addClass('hidden');
+      $('.view-mode').removeClass('hidden');
     }
   });
 
-  const aspectRowHtml = (index, subCatIndex, rangeVal) => {
-    let range = '';
-    for (let i = 0; i < 8; i++) {
-      range += `<td class="border-2">${rangeVal ? i + parseInt(rangeVal) : ''}</td>`;
-    }
+  // category tab change
+  $('.tab').click(function () {
+    const category_id = this.id.split('-')[2];
 
-    return `<tr id="tr-aspect-${index}-${subCatIndex}" class="text-xl font-semibold text-center">
-                <td class="border-2">${index + 1}</td>
-                <td class="border-2">
-                    <input type="text" id="eval-aspect-1-${index}-${subCatIndex}" name="eval-aspect-${index}-${subCatIndex}" class="aspect-input input input-sm input-bordered"
-                        placeholder="Nama Aspek">
-                </td>
-                <td class="border-2">
-                    <select name="aspect-range-${index}-${subCatIndex}" id="aspect-range-${index}-${subCatIndex}" class="aspect-select select select-sm select-bordered join-item" >
-                        <option disabled ${rangeVal ? 'selected="false"' : 'selected'}>Range</option>
-                        <option value="1" ${rangeVal == '1' ? 'selected' : ''}>1 - 8</option>
-                        <option value="2" ${rangeVal == '2' ? 'selected' : ''}>2 - 9</option>
-                        <option value="3" ${rangeVal == '3' ? 'selected' : ''}>3 - 10</option>
-                        <option value="4" ${rangeVal == '4' ? 'selected' : ''}>4 - 11</option>
-                    </select>
-                </td>
-                ${range}
-                <td>
-                    <button id="remove-${index}-${subCatIndex}" class="remove-aspect-btn btn btn-error btn-sm btn-outline capitalize">hapus</button>
-                </td>
-            </tr>`;
-  };
+    tab = category_id;
 
-  const subCategoryHtml = (categoryAlpha, index) => {
-    return `<div class="overflow-x-auto my-6">
-                <table class="table table-lg bg-white border-2">
-                    <thead>
-                        <tr class="text-base text-center">
-                            <th class="border-2">${categoryAlpha}</th>
-                            <th class="text-left border-2">
-                                <input type="text" id="sub-category-1" class="input font-medium text-black input-bordered"
-                                    placeholder="Nama Sub Kategori">
-                            </th>
-                            <th></th>
-                            <th colspan="2" class="border-2">Kurang</th>
-                            <th colspan="2" class="border-2">Cukup</th>
-                            <th colspan="2" class="border-2">Baik</th>
-                            <th colspan="2" class="border-2">Sangat Baik</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="aspect-container-${index}">
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td class="border-2"></td>
-                            <td colspan="11" class="border-2">
-                                <button id="new-aspect-${index}" type="button" class="add-new-aspect btn btn-outline btn-sm btn-primary capitalize">tambah aspek penilaian</button>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>`;
-  };
-
-  let subCategoryData = [];
+    $('.category-container').addClass('hidden');
+    $(`#category-container-${category_id}`).removeClass('hidden');
+  });
 
   let charCode = 65;
-  $('#add-sub-category').click(function () {
-    subCategoryData.push({
+  $('.add-sub-category').click(function () {
+    subCategoryData[tab].push({
+      subCategoryId: null,
+      subCategoryName: '',
       charCode,
-      aspects: [null],
+      aspects: [{ aspectId: null, name: '', range: null }],
     });
 
-    $('#sub-category-container').html('');
-    subCategoryData.forEach((data, index) => {
-      $('#sub-category-container').append(subCategoryHtml(String.fromCharCode(data.charCode), index));
+    $(`#sub-category-container-${tab}`).html('');
+    subCategoryData[tab].forEach((data, subCategoryIndex) => {
+      $(`#sub-category-container-${tab}`).append(subCategoryHtml(String.fromCharCode(data.charCode), data.subCategoryName, tab, subCategoryIndex));
 
-      data.aspects.forEach((rangeVal, aIndex) => {
-        $(`#aspect-container-${index}`).append(aspectRowHtml(aIndex, index, rangeVal));
+      data.aspects.forEach((item, aIndex) => {
+        $(`#aspect-container-${tab}-${subCategoryIndex}`).append(aspectRowHtml(aIndex, tab, subCategoryIndex, item['name'], item['range']));
       });
     });
+
+    if (subCategoryData[tab].length == 1) {
+      $(`#save-eval-aspect-${tab}`).removeClass('hidden');
+    }
 
     charCode++;
   });
@@ -97,14 +160,14 @@ $(document).ready(function () {
 
     // add new aspect
     if (node.classList.contains('add-new-aspect')) {
-      const index = node.getAttribute('id').split('-')[2];
+      const subCategoryIndex = node.getAttribute('id').split('-')[3];
 
-      subCategoryData[index].aspects.push(null);
+      subCategoryData[tab][subCategoryIndex].aspects.push({ aspectId: null, name: '', range: null });
 
-      $(`#aspect-container-${index}`).html('');
+      $(`#aspect-container-${tab}-${subCategoryIndex}`).html('');
 
-      subCategoryData[index].aspects.forEach((rangeVal, aIndex) => {
-        $(`#aspect-container-${index}`).append(aspectRowHtml(aIndex, index, rangeVal));
+      subCategoryData[tab][subCategoryIndex].aspects.forEach((item, aIndex) => {
+        $(`#aspect-container-${tab}-${subCategoryIndex}`).append(aspectRowHtml(aIndex, tab, subCategoryIndex, item['name'], item['range']));
       });
     }
 
@@ -112,15 +175,19 @@ $(document).ready(function () {
       const btnId = node.getAttribute('id').split('-');
 
       const aIndex = btnId[1];
-      const index = btnId[2];
+      const subCategoryIndex = btnId[2];
 
-      subCategoryData[index].aspects.splice(aIndex, 1);
+      subCategoryData[tab][subCategoryIndex].aspects.splice(aIndex, 1);
 
-      $(`#aspect-container-${index}`).html('');
+      $(`#aspect-container-${tab}-${subCategoryIndex}`).html('');
 
-      subCategoryData[index].aspects.forEach((rangeVal, aIndex) => {
-        $(`#aspect-container-${index}`).append(aspectRowHtml(aIndex, index, rangeVal));
+      subCategoryData[tab][subCategoryIndex].aspects.forEach((item, aIndex) => {
+        $(`#aspect-container-${tab}-${subCategoryIndex}`).append(aspectRowHtml(aIndex, tab, subCategoryIndex, item['name'], item['range']));
       });
+
+      if (subCategoryData[tab].length == 0) {
+        $(`#save-eval-aspect-${tab}`).addClass('hidden');
+      }
     }
   });
 
@@ -132,15 +199,63 @@ $(document).ready(function () {
       const selectVal = node.value;
 
       const aIndex = selectId[2];
-      const index = selectId[3];
+      const subCategoryIndex = selectId[3];
 
-      subCategoryData[index].aspects[aIndex] = selectVal;
+      subCategoryData[tab][subCategoryIndex].aspects[aIndex]['range'] = selectVal;
 
-      $(`#aspect-container-${index}`).html('');
+      $(`#aspect-container-${tab}-${subCategoryIndex}`).html('');
 
-      subCategoryData[index].aspects.forEach((rangeVal, aIndex) => {
-        $(`#aspect-container-${index}`).append(aspectRowHtml(aIndex, index, rangeVal));
+      subCategoryData[tab][subCategoryIndex].aspects.forEach((item, aIndex) => {
+        $(`#aspect-container-${tab}-${subCategoryIndex}`).append(aspectRowHtml(aIndex, tab, subCategoryIndex, item['name'], item['range']));
       });
     }
+  });
+
+  $(document).keyup(function (e) {
+    const node = e.target;
+
+    if (node.classList.contains('aspect-input')) {
+      const id = node.getAttribute('id').split('-');
+      const inputVal = node.value;
+
+      const aIndex = id[2];
+      const subCategoryIndex = id[3];
+
+      subCategoryData[tab][subCategoryIndex].aspects[aIndex]['name'] = inputVal;
+    }
+
+    if (node.classList.contains('sub-category-input')) {
+      const id = node.getAttribute('id').split('-');
+      const inputVal = node.value;
+
+      const subCategoryIndex = id[3];
+
+      subCategoryData[tab][subCategoryIndex].subCategoryName = inputVal;
+    }
+  });
+
+  $('.save-eval-aspect-btn').click(function () {
+    const category_id = this.id.split('-')[3];
+
+    if (isAnyFieldEmpty(category_id)) return;
+
+    const formData = new FormData();
+
+    formData.append('category-id', category_id);
+    formData.append('contest-id', $('#contest-id').val());
+    formData.append('evaluation-aspect', JSON.stringify(subCategoryData[category_id]));
+
+    $.ajax({
+      url: '/contest/evaluation-aspect/put',
+      method: 'POST',
+      dataType: 'json',
+      processData: false,
+      contentType: false,
+      cache: false,
+      data: formData,
+      success: function (response) {
+        console.log(response);
+      },
+    });
   });
 });
