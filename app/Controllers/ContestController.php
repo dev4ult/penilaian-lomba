@@ -6,12 +6,14 @@ use App\Models\UsersModel;
 use App\Models\ContestsModel;
 use App\Models\JudgesModel;
 use App\Models\EvaluationCategoriesModel;
+use App\Models\EvaluationSubCategoriesModel;
+use App\Models\EvaluationAspectsModel;
 use App\Models\ContestantsModel;
 use App\Models\RegisteredConstestantsModel;
 
 
 class ContestController extends BaseController {
-    protected $users_model, $contests_model, $judges_model, $eval_categories_model, $contestants_model, $reg_contestants_model;
+    protected $users_model, $contests_model, $judges_model, $eval_categories_model, $eval_sub_categories_model, $eval_aspects_model, $contestants_model, $reg_contestants_model;
 
     protected $data;
 
@@ -20,6 +22,8 @@ class ContestController extends BaseController {
         $this->contests_model = new ContestsModel();
         $this->judges_model = new JudgesModel();
         $this->eval_categories_model = new EvaluationCategoriesModel();
+        $this->eval_sub_categories_model = new EvaluationSubCategoriesModel();
+        $this->eval_aspects_model = new EvaluationAspectsModel();
         $this->contestants_model = new ContestantsModel();
         $this->reg_contestants_model = new RegisteredConstestantsModel();
     }
@@ -368,10 +372,82 @@ class ContestController extends BaseController {
         }
     }
 
-    public function get_eval_aspect() {
-        echo view('templates/header');
-        // echo view('templates/sidebar', $sidebar);
-        echo view('pages/detail-evaluation');
-        echo view('templates/footer');
+    public function get_eval_aspect($contest_id) {
+
+        $contest = $this->contests_model->find($contest_id);
+
+        if ($contest_id && $contest) {
+            $this->data['contest'] = $contest;
+
+            $this->data['categories'] = $this->eval_categories_model->where('contest_id', $contest_id)->findAll();
+
+            foreach ($this->data['categories'] as $category) {
+                $category_id = $category['eval_category_id'];
+                $this->data['total_sub_categories'][$category_id] = count($this->eval_sub_categories_model->where('eval_category_id', $category_id)->findAll());
+            }
+
+            $this->data['sub_categories'] = $this->eval_sub_categories_model->findAll();
+            $this->data['evaluation_aspects'] = $this->eval_aspects_model->findAll();
+
+            echo view('templates/header');
+            // echo view('templates/sidebar', $sidebar);
+            echo view('pages/detail-evaluation', $this->data);
+            echo view('templates/footer');
+
+            return;
+        }
+
+        return redirect()->to(base_url('contests'));
+    }
+
+    public function put_eval_aspect() {
+        $contest_id = $this->request->getPost('contest-id');
+        $category_id = $this->request->getPost('category-id');
+
+        $evaluation_aspect = json_decode((string) $this->request->getPost('evaluation-aspect'));
+
+        return $this->response->setJSON([
+            'contest id' => $contest_id,
+            'category id' => $category_id,
+            'total sub categories' => count($evaluation_aspect),
+            'data' => $evaluation_aspect
+        ]);
+
+        $total_sub_categories = (int) $this->request->getPost('total-sub-categories');
+
+        for ($i = 0; $i < $total_sub_categories; $i++) {
+            $sub_category_data = [
+                'eval_category_id' => $category_id,
+                'sub_category_name' => $this->request->getPost('sub-category-' . $category_id . '-' . $i)
+            ];
+
+            $insert_sub_category = $this->eval_sub_categories_model->insert($sub_category_data);
+
+            if ($insert_sub_category) {
+                $sub_category_id = $this->eval_sub_categories_model->getInsertID();
+                $total_aspects = $this->request->getPost('total-aspects-' . $category_id . '-' . $i);
+
+                $aspect_data = [];
+                for ($j = 0; $j < $total_aspects; $j++) {
+                    array_push($aspect_data, [
+                        'eval_sub_category_id' => $sub_category_id,
+                        'aspect_name' => $this->request->getPost('eval-aspect-' . $j . '-' . $i),
+                        'aspect_range_id' => $this->request->getPost('aspect-range-' . $j . '-' . $i)
+                    ]);
+                }
+
+                $insert_batch_aspect = $this->eval_aspects_model->insertBatch($aspect_data);
+
+                if ($insert_batch_aspect) {
+                    session()->setFlashdata('success', 'Aspek penilaian berhasil ditambah / diubah');
+                }
+            }
+        }
+
+        return redirect()->to(base_url('contest/evaluation-aspect/' . $contest_id));
+
+        // return redirect()->to(base_url('contest/' . $contest_id));
+
+        // return $this->response->setJSON(['sub category' => $sub_category_data, 'aspect data' => $aspect_data]);
     }
 }
