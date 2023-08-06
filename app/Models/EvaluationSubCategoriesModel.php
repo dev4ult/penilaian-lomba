@@ -13,6 +13,7 @@ class EvaluationSubCategoriesModel extends Model {
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'eval_category_id',
         'sub_category_name'
     ];
 
@@ -24,7 +25,10 @@ class EvaluationSubCategoriesModel extends Model {
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = [
+        'eval_category_id' => 'required',
+        'sub_category_name' => 'required'
+    ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
