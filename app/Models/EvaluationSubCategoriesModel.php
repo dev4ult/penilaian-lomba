@@ -13,6 +13,7 @@ class EvaluationSubCategoriesModel extends Model {
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'eval_sub_category_id',
         'eval_category_id',
         'sub_category_name'
     ];

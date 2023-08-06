@@ -168,17 +168,19 @@
 
 <script>
 let charCode;
+let aspectIndex;
 
 <?php foreach ($categories as $category) : ?>
 <?php $category_id = $category['eval_category_id'] ?>
 subCategoryData["<?= $category_id ?>"] = [];
 charCode = 65;
+aspectIndex = 0;
 <?php foreach ($sub_categories as $index => $sub_category) : ?>
 <?php $sub_category_id = $sub_category['eval_sub_category_id'] ?>
 
 <?php if ($sub_category['eval_category_id'] == $category_id) : ?>
 subCategoryData["<?= $category_id ?>"].push({
-    categoryId: <?= $category_id ?>,
+    subCategoryId: <?= $sub_category_id ?>,
     subCategoryName: '<?= $sub_category['sub_category_name'] ?>',
     charCode,
     aspects: [],
@@ -188,15 +190,15 @@ charCode++;
 
 <?php foreach ($evaluation_aspects as $aspect) : ?>
 <?php if ($aspect['eval_sub_category_id'] == $sub_category_id) : ?>
-subCategoryData["<?= $category_id ?>"][<?= $index ?>].aspects.push({
+subCategoryData["<?= $category_id ?>"][aspectIndex].aspects.push({
     aspectId: <?= $aspect['aspect_id'] ?>,
     name: '<?= $aspect['aspect_name'] ?>',
     range: <?= $aspect['aspect_range_id'] ?>
 })
 <?php endif ?>
 <?php endforeach ?>
+aspectIndex++;
 <?php endif ?>
-
 <?php endforeach ?>
 $('.sub-category-container').html('');
 

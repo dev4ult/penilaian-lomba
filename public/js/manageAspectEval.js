@@ -3,8 +3,22 @@ let subCategoryData = [];
 function isAnyFieldEmpty(category_id) {
   const data = subCategoryData[category_id];
 
+  const category_name = $(`#category-name-${category_id}`).val();
+
+  if (category_name == '') {
+    Toastify({
+      text: 'Field nama Kategori tidak boleh kosong!',
+      close: true,
+      duration: 3000,
+      position: 'left',
+      className: `alert alert-error fixed z-20 top-5 right-5 w-fit transition-all`,
+    }).showToast();
+
+    return true;
+  }
+
   for (let i = 0; i < subCategoryData[category_id].length; i++) {
-    if (data[i].subCategoryName == '') {
+    if (data[i].subCategoryName == '' && data[i].subCategoryId != 'delete') {
       Toastify({
         text: 'Field nama Sub Kategori tidak boleh kosong!',
         close: true,
@@ -17,25 +31,26 @@ function isAnyFieldEmpty(category_id) {
     }
 
     for (let j = 0; j < data[i].aspects.length; j++) {
-      if (data[i].aspects[j]['name'] == '') {
+      if (data[i].aspects[j]['name'] == '' && data[i].aspects[j]['aspectId'] != 'delete') {
         Toastify({
           text: 'Field nama Aspek Penilaian tidak boleh kosong!',
           close: true,
           duration: 3000,
           position: 'left',
-          className: `alert alert-error fixed top-5 right-5 w-fit transition-all`,
+          className: `alert alert-error fixed z-20 top-5 right-5 w-fit transition-all`,
         }).showToast();
 
         return true;
       }
 
-      if (data[i].aspects[j]['range'] == null) {
+      if (data[i].aspects[j]['range'] == null && data[i].aspects[j]['aspectId'] != 'delete') {
+        console.log(data[i].aspect);
         Toastify({
           text: 'Setiap Aspek Penilaian harus dipilih range penilaiannya!',
           close: true,
           duration: 3000,
           position: 'left',
-          className: `alert alert-error fixed top-5 right-5 w-fit transition-all`,
+          className: `alert alert-error fixed z-20 top-5 right-5 w-fit transition-all`,
         }).showToast();
 
         return true;
@@ -47,7 +62,7 @@ function isAnyFieldEmpty(category_id) {
 let tab = $('.tab-active').attr('id').split('-')[2];
 
 const subCategoryHtml = (categoryAlpha, subCategoryName, categoryId, subCategoryIndex) => {
-  return `<div class="overflow-x-auto my-6">
+  return `<div class="overflow-x-auto my-6 relative z-0">
               <table class="table table-lg bg-white border-2">
                   <thead>
                       <tr class="text-base text-center">
@@ -61,7 +76,9 @@ const subCategoryHtml = (categoryAlpha, subCategoryName, categoryId, subCategory
                           <th colspan="2" class="border-2">Cukup</th>
                           <th colspan="2" class="border-2">Baik</th>
                           <th colspan="2" class="border-2">Sangat Baik</th>
-                          <th></th>
+                          <th>
+                              <button type="button" class="btn btn-error capitalize btn-outline btn-sm">hapus</button>
+                          </th>
                       </tr>
                   </thead>
                   <tbody id="aspect-container-${categoryId}-${subCategoryIndex}">
@@ -177,12 +194,15 @@ $(document).ready(function () {
       const aIndex = btnId[1];
       const subCategoryIndex = btnId[2];
 
-      subCategoryData[tab][subCategoryIndex].aspects.splice(aIndex, 1);
+      const delete_id = subCategoryData[tab][subCategoryIndex].aspects[aIndex].aspectId;
+
+      subCategoryData[tab][subCategoryIndex].aspects[aIndex].deleteId = delete_id;
+      subCategoryData[tab][subCategoryIndex].aspects[aIndex].aspectId = 'delete';
 
       $(`#aspect-container-${tab}-${subCategoryIndex}`).html('');
 
       subCategoryData[tab][subCategoryIndex].aspects.forEach((item, aIndex) => {
-        $(`#aspect-container-${tab}-${subCategoryIndex}`).append(aspectRowHtml(aIndex, tab, subCategoryIndex, item['name'], item['range']));
+        return item['aspectId'] != 'delete' ? $(`#aspect-container-${tab}-${subCategoryIndex}`).append(aspectRowHtml(aIndex, tab, subCategoryIndex, item['name'], item['range'])) : '';
       });
 
       if (subCategoryData[tab].length == 0) {
@@ -236,12 +256,14 @@ $(document).ready(function () {
 
   $('.save-eval-aspect-btn').click(function () {
     const category_id = this.id.split('-')[3];
+    const category_name = $(`#category-name-${category_id}`).val();
 
     if (isAnyFieldEmpty(category_id)) return;
 
     const formData = new FormData();
 
     formData.append('category-id', category_id);
+    formData.append('category-name', category_name);
     formData.append('contest-id', $('#contest-id').val());
     formData.append('evaluation-aspect', JSON.stringify(subCategoryData[category_id]));
 
@@ -255,6 +277,7 @@ $(document).ready(function () {
       data: formData,
       success: function (response) {
         console.log(response);
+        location.reload();
       },
     });
   });

@@ -403,48 +403,114 @@ class ContestController extends BaseController {
     public function put_eval_aspect() {
         $contest_id = $this->request->getPost('contest-id');
         $category_id = $this->request->getPost('category-id');
+        $category_name = $this->request->getPost('category-name');
 
-        $evaluation_aspect = json_decode((string) $this->request->getPost('evaluation-aspect'));
+        $sub_categories = json_decode((string) $this->request->getPost('evaluation-aspect'), true);
 
-        return $this->response->setJSON([
-            'contest id' => $contest_id,
-            'category id' => $category_id,
-            'total sub categories' => count($evaluation_aspect),
-            'data' => $evaluation_aspect
-        ]);
+        // return $this->response->setJSON([
+        //     'contest id' => $contest_id,
+        //     'category id' => $category_id,
+        //     'total sub categories' => count($sub_categories),
+        //     'data' => $sub_categories
+        // ]);
 
-        $total_sub_categories = (int) $this->request->getPost('total-sub-categories');
+        $update_name = $this->eval_categories_model->update($category_id, ['category_name' => $category_name]);
 
-        for ($i = 0; $i < $total_sub_categories; $i++) {
-            $sub_category_data = [
-                'eval_category_id' => $category_id,
-                'sub_category_name' => $this->request->getPost('sub-category-' . $category_id . '-' . $i)
-            ];
 
-            $insert_sub_category = $this->eval_sub_categories_model->insert($sub_category_data);
+        foreach ($sub_categories as $sub_category) {
+            // print($sub_category['subCategoryId']);
+            if ($sub_category['subCategoryId'] == null) {
+                $post_fields = [
+                    'eval_category_id' => $category_id,
+                    'sub_category_name' => $sub_category['subCategoryName']
+                ];
 
-            if ($insert_sub_category) {
-                $sub_category_id = $this->eval_sub_categories_model->getInsertID();
-                $total_aspects = $this->request->getPost('total-aspects-' . $category_id . '-' . $i);
+                $insert_sub = $this->eval_sub_categories_model->insert($post_fields);
 
                 $aspect_data = [];
-                for ($j = 0; $j < $total_aspects; $j++) {
+
+                $sub_category_id = $this->eval_sub_categories_model->getInsertID();
+
+                foreach ($sub_category['aspects'] as $aspect) {
                     array_push($aspect_data, [
                         'eval_sub_category_id' => $sub_category_id,
-                        'aspect_name' => $this->request->getPost('eval-aspect-' . $j . '-' . $i),
-                        'aspect_range_id' => $this->request->getPost('aspect-range-' . $j . '-' . $i)
+                        'aspect_name' => $aspect['name'],
+                        'aspect_range_id' => $aspect['range'],
                     ]);
+
+                    $insert_aspect_batch = $this->eval_aspects_model->insertBatch($aspect_data);
                 }
+            } else if ($sub_category['subCategoryId'] == 'delete' && $sub_category['deleteId'] != null) {
+                $delete_sub = $this->eval_sub_categories_model->delete($sub_category['deleteId']);
+            } else {
+                $put_fields = [
+                    'eval_category_id' => $category_id,
+                    'sub_category_name' => $sub_category['subCategoryName']
+                ];
 
-                $insert_batch_aspect = $this->eval_aspects_model->insertBatch($aspect_data);
+                $update_sub = $this->eval_sub_categories_model->update($sub_category['subCategoryId'], $put_fields);
 
-                if ($insert_batch_aspect) {
-                    session()->setFlashdata('success', 'Aspek penilaian berhasil ditambah / diubah');
+                foreach ($sub_category['aspects'] as $aspect) {
+                    if ($aspect['aspectId'] == null) {
+                        $post_aspect_fields = [
+                            'eval_sub_category_id' => $sub_category['subCategoryId'],
+                            'aspect_name' => $aspect['name'],
+                            'aspect_range_id' => $aspect['range'],
+                        ];
+
+                        $insert_aspect = $this->eval_aspects_model->insert($post_aspect_fields);
+                    } else if ($aspect['aspectId'] == 'delete' && $aspect['deleteId'] != null) {
+                        $delete_aspect = $this->eval_aspects_model->delete($aspect['deleteId']);
+                    } else {
+                        $put_aspect_fields = [
+                            'eval_sub_category_id' => $sub_category['subCategoryId'],
+                            'aspect_name' => $aspect['name'],
+                            'aspect_range_id' => $aspect['range'],
+                        ];
+
+                        // return $this->response->setJSON([$put_aspect_fields]);
+                        $update_aspect = $this->eval_aspects_model->update($aspect['aspectId'], $put_aspect_fields);
+                    }
                 }
             }
         }
 
-        return redirect()->to(base_url('contest/evaluation-aspect/' . $contest_id));
+        return $this->response->setJSON([
+            'status' => 200,
+            'message' => 'Berhasil mengubah data penilaian kategori'
+        ]);
+
+
+
+
+        // $sub_category_data = [
+        //     'eval_category_id' => $category_id,
+        //     'sub_category_name' => $this->request->getPost('sub-category-' . $category_id . '-' . $i)
+        // ];
+
+        // $insert_sub_category = $this->eval_sub_categories_model->insert($sub_category_data);
+
+        // if ($insert_sub_category) {
+        //     $sub_category_id = $this->eval_sub_categories_model->getInsertID();
+        //     $total_aspects = $this->request->getPost('total-aspects-' . $category_id . '-' . $i);
+
+        //     $aspect_data = [];
+        //     for ($j = 0; $j < $total_aspects; $j++) {
+        //         array_push($aspect_data, [
+        //             'eval_sub_category_id' => $sub_category_id,
+        //             'aspect_name' => $this->request->getPost('eval-aspect-' . $j . '-' . $i),
+        //             'aspect_range_id' => $this->request->getPost('aspect-range-' . $j . '-' . $i)
+        //         ]);
+        //     }
+
+        //     $insert_batch_aspect = $this->eval_aspects_model->insertBatch($aspect_data);
+
+        //     if ($insert_batch_aspect) {
+        //         session()->setFlashdata('success', 'Aspek penilaian berhasil ditambah / diubah');
+        //     }
+        // }
+
+        // return redirect()->to(base_url('contest/evaluation-aspect/' . $contest_id));
 
         // return redirect()->to(base_url('contest/' . $contest_id));
 
