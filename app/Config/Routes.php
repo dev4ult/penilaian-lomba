@@ -56,7 +56,11 @@ $routes->group('contest', static function ($routes) {
     $routes->post('register-contestant', 'ContestController::register_contestant');
     $routes->Get('remove-contestant/(:any)/(:any)', 'ContestController::remove_contestant/$1/$2');
 
-    $routes->get('evaluation-aspect/(:any)', 'ContestController::get_eval_aspect/$1');
+    $routes->group('evaluation-aspect', static function ($routes) {
+        $routes->post('put', 'ContestController::put_eval_aspect');
+        $routes->get('(:any)', 'ContestController::get_eval_aspect/$1');
+    });
+
     $routes->get('contestant-evaluation/(:any)/(:any)', 'ContestController::get_contestant_eval/$1/$2');
     $routes->get('(:any)', 'ContestController::get_detail/$1');
 });
