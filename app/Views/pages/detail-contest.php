@@ -1,7 +1,7 @@
 <!-- Header -->
 <header class="pb-10 border-b-2 flex justify-between">
     <div class="prose ">
-        <h1 class="text-2xl font-extrabold my-0">Adzan Senior</h1>
+        <h1 class="text-2xl font-extrabold my-0"><?= $contest['contest_name'] ?></h1>
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione porro quas magni, nam perspiciatis
             voluptatum!</p>
     </div>
@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <!-- Informatian Detail -->
+    <!-- Information Detail -->
     <div class="col-span-2">
         <input type="number" id="contest-id" name="contest-id" class="hidden" value="<?= $contest['contest_id'] ?>" />
         <h2 class="text-lg font-semibold text-black/30 mb-3">Informasi Pelaksanaan</h2>
@@ -214,8 +214,7 @@
                         <td><span class="badge badge-success">80/100</span></td>
                         <td class="flex gap-1.5 items-center">
                             <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
-                            <a href="/contest/contestant-evaluation/<?= $contestant['contest_id'] ?>/<?= $contestant['contestant_id'] ?>" class="btn btn-sm btn-warning capitalize">ubah
-                                penilaian</a>
+                            <a href="/contest/contestant-evaluation/<?= $contestant['contest_id'] ?>/<?= $contestant['contestant_id'] ?>" class="btn btn-sm btn-primary capitalize">Beri Penilaian</a>
                             <button type="button" id="contestant-rmv-<?= $contestant['contestant_id'] ?>" class="remove-reg-btn btn btn-sm btn-error btn-outline capitalize">hapus</button>
                         </td>
                     </tr>
@@ -345,7 +344,7 @@
 <dialog id="delete_modal" class="modal">
     <form id="form-confirm-delete" method="dialog" class="modal-box p-8">
         <h3 class="badge badge-lg badge-neutral mb-3">Konfirmasi Hapus</h3>
-        <p class="mb-6">Apakah anda yakin untuk menghapus <span id="team-delete"></span>?
+        <p class="mb-6">Apakah anda yakin untuk menghapus Tim / Peserta <span id="team-delete" class="font-bold"></span>?
         </p>
 
         <input type="number" id="delete-contestant-id" name="delete-contestant-id" class="hidden" />
@@ -358,5 +357,26 @@
         </div>
     </form>
 </dialog>
+
+<script>
+    <?php if (session()->getFlashdata('error')) : ?>
+        Toastify({
+            text: `<?= session()->getFlashdata('error') ?>`,
+            close: true,
+            duration: 3000,
+            position: 'left',
+            className: 'alert alert-error fixed z-20 top-5 right-5 w-fit transition-all',
+        }).showToast();
+    <?php endif ?>
+    <?php if (session()->getFlashdata('success')) : ?>
+        Toastify({
+            text: `<?= session()->getFlashdata('success') ?>`,
+            close: true,
+            duration: 3000,
+            position: 'left',
+            className: 'alert alert-success fixed z-20 top-5 right-5 w-fit transition-all',
+        }).showToast();
+    <?php endif ?>
+</script>
 
 <script src="<?= base_url('./js/manageRegisterContestants.js') ?>"></script>
