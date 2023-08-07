@@ -19,24 +19,25 @@
 </header>
 
 <div class="my-10">
-
-    <!-- contest-id -->
-    <input type="number" id="contest-id" name="contest-id" value="<?= $contest['contest_id'] ?>" class="hidden" />
-
-
-    <div class="flex gap-3 justify-between mb-6">
+    <div class="flex gap-3 justify-between items-center mb-10">
         <div class="join">
             <input type="radio" name="view-edit" class="view-edit-btn btn btn-sm capitalize" aria-label="edit" />
             <input type="radio" name="view-edit" class="view-edit-btn btn btn-sm capitalize" aria-label="view"
                 checked />
         </div>
 
-        <div class="tabs bg-white border-2 tabs-boxed w-fit self-start">
-            <?php foreach ($categories as $index => $category) : ?>
-            <button type="button" id="select-tab-<?= $category['eval_category_id'] ?>"
-                class="tab <?= $index == 0 ? "tab-active" : "" ?>"><?= $category['category_name'] ?></button>
-            <?php endforeach ?>
+        <div class="flex gap-5 items-center">
+            <button type="button" class="btn btn-sm btn-primary btn-outline capitalize"
+                onclick="add_modal.showModal()">tambah
+                kategori</button>
+            <div class="tabs bg-white border-2 tabs-boxed w-fit self-start">
+                <?php foreach ($categories as $index => $category) : ?>
+                <button type="button" id="select-tab-<?= $category['eval_category_id'] ?>"
+                    class="tab <?= $index == 0 ? "tab-active" : "" ?>"><?= $category['category_name'] ?></button>
+                <?php endforeach ?>
+            </div>
         </div>
+
     </div>
 
     <?php foreach ($categories as $index => $category) : ?>
@@ -44,80 +45,12 @@
         class="category-container <?= $index == 0 ? "" : "hidden" ?>">
         <div class="view-mode">
             <div id="aspect-val-container" class="my-6">
-                <div class="overflow-x-auto my-6">
-                    <p class="mb-3 text-black/50"><span class="text-black">Keterangan :</span> Lorem ipsum dolor, sit
-                        amet
-                        consectetur adipisicing elit. Eos, tempore!</p>
-                    <table class="table table-lg bg-white border-2">
-                        <thead>
-                            <tr class="text-base text-center">
-                                <th class="border-2">A</th>
-                                <th class="text-left border-2">
-                                    <h3 class="font-semibold text-lg">Gerakan Ditempat</h3>
-                                </th>
-                                <th colspan="2" class="border-2">Kurang</th>
-                                <th colspan="2" class="border-2">Cukup</th>
-                                <th colspan="2" class="border-2">Baik</th>
-                                <th colspan="2" class="border-2">Sangat Baik</th>
-                            </tr>
-                        </thead>
-                        <tbody id="aspect-container-1">
-                            <tr id="tr-aspect-1-1" class="text-xl font-semibold ">
-                                <td class="border-2">1</td>
-                                <td class="border-2">
-                                    <h4>Sikap Sempurna</h4>
-                                </td>
-                                <td class="border-2 p-2" class="btn">
-                                    <label>
-                                        <input type="radio" class="hidden peer" name="options-1" />
-                                        <span class="btn w-full peer-checked:btn-primary">1</span>
-                                    </label>
-                                </td>
-                                <td class="border-2 p-2">
-                                    <label>
-                                        <input type="radio" class="hidden peer" name="options-1" />
-                                        <span class="btn w-full peer-checked:btn-primary">2</span>
-                                    </label>
-                                </td>
-                                <td class="border-2 p-2">
-                                    <label>
-                                        <input type="radio" class="hidden peer" name="options-1" />
-                                        <span class="btn w-full peer-checked:btn-primary">3</span>
-                                    </label>
-                                </td>
-                                <td class="border-2 p-2">
-                                    <label>
-                                        <input type="radio" class="hidden peer" name="options-1" />
-                                        <span class="btn w-full peer-checked:btn-primary">4</span>
-                                    </label>
-                                </td>
-                                <td class="border-2 p-2">
-                                    <label>
-                                        <input type="radio" class="hidden peer" name="options-1" />
-                                        <span class="btn w-full peer-checked:btn-primary">5</span>
-                                    </label>
-                                </td>
-                                <td class="border-2 p-2">
-                                    <label>
-                                        <input type="radio" class="hidden peer" name="options-1" />
-                                        <span class="btn w-full peer-checked:btn-primary">6</span>
-                                    </label>
-                                </td>
-                                <td class="border-2 p-2">
-                                    <label>
-                                        <input type="radio" class="hidden peer" name="options-1" />
-                                        <span class="btn w-full peer-checked:btn-primary">7</span>
-                                    </label>
-                                </td>
-                                <td class="border-2 p-2">
-                                    <label>
-                                        <input type="radio" class="hidden peer" name="options-1" />
-                                        <span class="btn w-full peer-checked:btn-primary">8</span>
-                                    </label>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="my-6">
+                    <p class="mb-3 text-black/50"><span class="text-black">Keterangan :</span> Berikut merupakan
+                        simulasi atau tampilan penilaian peserta dari lomba ini</p>
+                    <div class="overflow-x-auto" id="sub-category-container-view-<?= $category['eval_category_id'] ?>">
+                        <p>Belum ada sub kategori dan aspek penilaian ...</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -140,8 +73,10 @@
                 </div>
 
 
-                <a class="btn btn-error btn-outline capitalize self-end">hapus kategori
-                    <?= $category['category_name'] ?></a>
+                <button type="button"
+                    id="delete-category-<?= $category['eval_category_id'] ?>-<?= $category['category_name'] ?>"
+                    class="delete-category-btn btn btn-error btn-outline capitalize self-end">hapus kategori
+                    <?= $category['category_name'] ?></button>
             </div>
 
             <div id="sub-category-container-<?= $category['eval_category_id'] ?>" class="my-6">
@@ -162,7 +97,82 @@
     <?php endforeach ?>
 </div>
 
+<!-- Modal Add Category -->
+<dialog id="add_modal" class="modal">
+    <form id="form-add-category" action="/contest/evaluation-aspect/add" method="post" class="modal-box p-8 relative">
+        <h3 class="badge badge-lg badge-neutral mb-3">Form Tambah</h3>
+        <p class="mb-6">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est, rem.</p>
 
+        <!-- contest-id -->
+        <input type="number" id="contest-id" name="contest-id" value="<?= $contest['contest_id'] ?>" class="hidden" />
+
+        <hr class="mb-6">
+
+        <div class="grid grid-flow-row grid-cols-2 gap-6">
+            <!-- Category -->
+            <div class="flex flex-col gap-1 w-full col-span-2">
+                <label for="category-add-name" class="text-sm font-semibold">Nama Kategori</label>
+                <input type="text" id="category-add-name" name="category-name" class="input input-bordered"
+                    placeholder="Isikan Nama Kategori" required />
+            </div>
+
+            <hr class="col-span-2">
+
+            <button type="submit" class="btn btn-primary capitalize w-full col-span-2">submit</button>
+        </div>
+
+        <div class="modal-action my-0">
+            <button type="button" id="close-edit-modal" onclick="add_modal.close()"
+                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+    </form>
+</dialog>
+
+<!-- Modal Delete Confirmation -->
+<dialog id="delete_modal" class="modal">
+    <form id="form-confirm-delete" method="dialog" class="modal-box p-8">
+        <h3 class="badge badge-lg badge-neutral mb-3">Konfirmasi Hapus</h3>
+        <p class="mb-6">Apakah anda yakin untuk menghapus Sub Kategori <span id="sub-category-delete"
+                class="font-bold"></span>?
+            <span class="text-error">Menghapus Sub Kategori akan menghapus semua Aspek Penilaian yang berada
+                dibawahnya</span>
+        </p>
+
+        <div class="modal-action my-0">
+            <button type="button" id="confirm-delete"
+                class="btn btn-sm btn-outline btn-error capitalize hidden">Iya</button>
+            <button type="button" id="confirm-no-delete" onclick="delete_modal.close()" type="button"
+                class="btn btn-sm btn-neutral capitalize">
+                Tidak
+            </button>
+        </div>
+    </form>
+</dialog>
+
+<!-- Modal Delete Confirmation -->
+<dialog id="delete_category_modal" class="modal">
+    <form id="form-confirm-delete" method="dialog" class="modal-box p-8">
+        <h3 class="badge badge-lg badge-neutral mb-3">Konfirmasi Hapus</h3>
+        <p class="mb-6">Apakah anda yakin untuk menghapus Kategori <span id="category-delete" class="font-bold"></span>?
+            <span class="text-error">Menghapus Kategori akan menghapus semua Sub Kategori dan Aspek Penilaian yang
+                berada
+                dibawahnya</span>
+        </p>
+
+        <div class="modal-action my-0">
+            <a id="confirm-delete-category" class="btn btn-sm btn-outline btn-error capitalize hidden">Iya</a>
+            <button type="button" id="confirm-no-delete" onclick="delete_category_modal.close()" type="button"
+                class="btn btn-sm btn-neutral capitalize">
+                Tidak
+            </button>
+        </div>
+    </form>
+</dialog>
 
 <script src="<?= base_url('./js/manageAspectEval.js') ?>"></script>
 
@@ -200,10 +210,15 @@ subCategoryData["<?= $category_id ?>"][aspectIndex].aspects.push({
 aspectIndex++;
 <?php endif ?>
 <?php endforeach ?>
-$('.sub-category-container').html('');
+$('#sub-category-container-<?= $category_id ?>').html('');
+$('#sub-category-container-view-<?= $category_id ?>').html('');
 
 subCategoryData[<?= $category_id ?>].forEach((data, subCategoryIndex) => {
     $(`#sub-category-container-${<?= $category_id ?>}`).append(subCategoryHtml(String.fromCharCode(data
+            .charCode), data
+        .subCategoryName, <?= $category_id ?>, subCategoryIndex));
+
+    $(`#sub-category-container-view-${<?= $category_id ?>}`).append(subCategoryViewHtml(String.fromCharCode(data
             .charCode), data
         .subCategoryName, <?= $category_id ?>, subCategoryIndex));
 
@@ -211,9 +226,35 @@ subCategoryData[<?= $category_id ?>].forEach((data, subCategoryIndex) => {
         $(`#aspect-container-${<?= $category_id ?>}-${subCategoryIndex}`).append(aspectRowHtml(aIndex,
             <?= $category_id ?>,
             subCategoryIndex, item['name'], item['range']));
+
+        $(`#aspect-container-view-${<?= $category_id ?>}-${subCategoryIndex}`).append(aspectRowViewHtml(
+            aIndex + 1,
+            <?= $category_id ?>,
+            subCategoryIndex, item['name'], item['range']));
     });
 });
 <?php endforeach ?>
+</script>
+
+<script>
+<?php if (session()->getFlashdata('error')) : ?>
+Toastify({
+    text: `<?= session()->getFlashdata('error') ?>`,
+    close: true,
+    duration: 3000,
+    position: 'left',
+    className: 'alert alert-error fixed z-20 top-5 right-5 w-fit transition-all',
+}).showToast();
+<?php endif ?>
+<?php if (session()->getFlashdata('success')) : ?>
+Toastify({
+    text: `<?= session()->getFlashdata('success') ?>`,
+    close: true,
+    duration: 3000,
+    position: 'left',
+    className: 'alert alert-success fixed z-20 top-5 right-5 w-fit transition-all',
+}).showToast();
+<?php endif ?>
 </script>
 
 <script src="<?= base_url("./js/changeTabEval.js") ?>"></script>
