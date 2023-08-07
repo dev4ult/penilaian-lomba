@@ -59,7 +59,7 @@ function isAnyFieldEmpty(category_id) {
   }
 }
 
-let tab = $('.tab-active').attr('id').split('-')[2];
+// let tab = $('.tab-active').attr('id').split('-')[2];
 
 const subCategoryHtml = (subCategoryAlpha, subCategoryName, categoryId, subCategoryIndex) => {
   return `<div class="overflow-x-auto my-6 relative z-0">

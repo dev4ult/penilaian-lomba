@@ -7,8 +7,7 @@ const rowContestant = (index, contest_id, contestant_id, team_name, school) => {
             <td class="flex gap-1.5 items-center">
                 <button class="btn btn-sm btn-neutral btn-outline capitalize"
                     onclick="detail_modal.showModal()">lihat</button> |
-                <a href="/contest/contestant-evaluation/${contest_id}/${contestant_id}" class="btn btn-sm btn-warning capitalize">ubah
-                    penilaian</a>
+                <a href="/contest/contestant-evaluation/${contest_id}/${contestant_id}" class="btn btn-sm btn-primary capitalize">Beri Penilaian</a>
                 <button type="button" id="contestant-rmv-${contestant_id}"
                     class="remove-reg-btn btn btn-sm btn-error btn-outline capitalize">hapus</button>
             </td>
@@ -32,7 +31,7 @@ $(document).ready(function () {
       close: true,
       duration: 3000,
       position: 'left',
-      className: `alert ${status == 200 ? 'alert-success' : 'alert-error'} fixed top-5 right-5 w-fit transition-all`,
+      className: `alert ${status == 200 ? 'alert-success' : 'alert-error'} fixed z-20 top-5 right-5 w-fit transition-all`,
     }).showToast();
   }
 
