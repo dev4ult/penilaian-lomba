@@ -9,11 +9,15 @@ use App\Models\EvaluationCategoriesModel;
 use App\Models\EvaluationSubCategoriesModel;
 use App\Models\EvaluationAspectsModel;
 use App\Models\ContestantsModel;
+use App\Models\ContestantEvaluationsModel;
+use App\Models\ContestantEvaluationsByCategoryModel;
 use App\Models\RegisteredConstestantsModel;
 
 
 class ContestController extends BaseController {
-    protected $users_model, $contests_model, $judges_model, $eval_categories_model, $eval_sub_categories_model, $eval_aspects_model, $contestants_model, $reg_contestants_model;
+    protected $users_model, $contests_model, $judges_model, $eval_categories_model, $eval_sub_categories_model, $eval_aspects_model, $contestants_model, $contestant_eval_model, $contestant_eval_by_category_model, $reg_contestants_model;
+
+    protected $user_logged;
 
     protected $data;
 
@@ -21,11 +25,18 @@ class ContestController extends BaseController {
         $this->users_model = new UsersModel();
         $this->contests_model = new ContestsModel();
         $this->judges_model = new JudgesModel();
+
         $this->eval_categories_model = new EvaluationCategoriesModel();
         $this->eval_sub_categories_model = new EvaluationSubCategoriesModel();
         $this->eval_aspects_model = new EvaluationAspectsModel();
+
         $this->contestants_model = new ContestantsModel();
+        $this->contestant_eval_model = new ContestantEvaluationsModel();
+        $this->contestant_eval_by_category_model = new ContestantEvaluationsByCategoryModel();
+
         $this->reg_contestants_model = new RegisteredConstestantsModel();
+
+        $this->user_logged = session()->get('user_logged');
     }
 
     public function index() {
@@ -357,20 +368,6 @@ class ContestController extends BaseController {
         // return $this->response->setJSON(["contest" => $contest_id, "contestant_id" => $contestant_id]);
     }
 
-    public function get_contestant_eval($contest_id, $contestant_id) {
-
-        $reg_contestant = $this->reg_contestants_model
-            ->where('contest_id', $contest_id)
-            ->where('contestant_id', $contestant_id)->first();
-
-        if ($reg_contestant) {
-            echo view('templates/header');
-            // echo view('templates/sidebar', $sidebar);
-            echo view('pages/edit-contestant-eval');
-            echo view('templates/footer');
-        }
-    }
-
     public function get_eval_aspect($contest_id) {
 
         $contest = $this->contests_model->find($contest_id);
@@ -522,6 +519,142 @@ class ContestController extends BaseController {
         }
 
         session()->setFlashdata('error', 'Kategori Lomba tidak dapat ditemukan!');
+        return redirect()->to(base_url('contests'));
+    }
+
+    public function get_contestant_eval($contest_id, $contestant_id) {
+
+        $contest = $this->contests_model->find($contest_id);
+
+        $reg_contestant = $this->reg_contestants_model
+            ->join('contestants', 'registered_contestants.contestant_id = contestants.contestant_id')
+            ->where('contest_id', $contest_id)
+            ->where('contestants.contestant_id', $contestant_id)->first();
+
+        if ($contestant_id && $reg_contestant && $contest_id && $contest) {
+            $this->data['contest'] = $contest;
+            $this->data['contestant'] = $reg_contestant;
+
+            $this->data['categories'] = $this->eval_categories_model->where('contest_id', $contest_id)->findAll();
+
+            $this->data['sub_categories'] = $this->eval_sub_categories_model->findAll();
+            $this->data['evaluation_aspects'] = $this->eval_aspects_model->findAll();
+
+            echo view('templates/header');
+            // echo view('templates/sidebar', $sidebar);
+            echo view('pages/edit-contestant-eval', $this->data);
+            echo view('templates/footer');
+        }
+    }
+
+    public function put_contestant_eval() {
+        $contest_id = $this->request->getPost('contest-id');
+        $contestant_id = $this->request->getPost('contestant-id');
+
+        $reg_contestant = $this->reg_contestants_model
+            ->join('contestants', 'registered_contestants.contestant_id = contestants.contestant_id')
+            ->where('registered_contestants.contest_id', $contest_id)
+            ->where('registered_contestants.contestant_id', $contestant_id)
+            ->first();
+
+        if ($contest_id && $contestant_id && $reg_contestant) {
+            // check if user is registered as a judge
+            // $user = $this->judges_model
+            //     ->where('user_id', $this->user_logged['user_id'])
+            //     ->where('contest_id', $contest_id)
+            //     ->find();
+
+            // if (!$user) {
+            //     session()->setFlashdata('error', 'User tersebut tidak terdaftar sebagai juri!');
+            //     return redirect()->to(base_url('contest/' . $contest_id));
+            // }
+
+            $total_eval = 0;
+
+            $categories = $this->eval_categories_model->where('contest_id', $contest_id)->findAll();
+
+            $sub_categories = $this->eval_sub_categories_model->findAll();
+            $eval_aspects = $this->eval_aspects_model->findAll();
+
+            $contestant_evaluation = [];
+            $total_per_category = [];
+
+            foreach ($categories as $category) {
+                $total_category_eval = 0;
+                $category_id = $category['eval_category_id'];
+
+                foreach ($sub_categories as $sub_category) {
+                    $sub_category_id = $sub_category['eval_sub_category_id'];
+
+                    if ($sub_category['eval_category_id'] == $category_id) {
+
+                        foreach ($eval_aspects as $aspect) {
+
+                            if ($aspect['eval_sub_category_id'] == $sub_category_id) {
+                                array_push($contestant_evaluation, [
+                                    'Aspect Name' => $aspect['aspect_name'],
+                                    'Value' => (int) $this->request->getPost('options-' . $aspect['aspect_id'])
+                                ]);
+
+                                $total_eval += (int) $this->request->getPost('options-' . $aspect['aspect_id']);
+                                $total_category_eval += (int) $this->request->getPost('options-' . $aspect['aspect_id']);
+                            }
+                        }
+                    }
+                }
+
+                array_push($total_per_category, [
+                    'contest_id' => $contest_id,
+                    'contestant_id' => $contestant_id,
+                    'category_id' => $category_id,
+                    'user_id' => 1,
+                    'total_evaluation' => $total_category_eval
+                ]);
+            }
+
+            $post_fields = [
+                'contest_id' => $contest_id,
+                'contestant_id' => $contestant_id,
+                'user_id' => 1,
+                'total_evaluation' => $total_eval
+            ];
+
+            $is_eval_exist = $this->contestant_eval_model
+                ->where('contest_id', $contest_id)
+                ->where('contestant_id', $contestant_id)
+                ->where('user_id', 1)
+                ->find();
+
+            if ($is_eval_exist) {
+                $update = $this->contestant_eval_model
+                    ->where('contest_id', $contest_id)
+                    ->where('contestant_id', $contestant_id)
+                    ->where('user_id', 1)
+                    ->set($post_fields)
+                    ->update();
+
+                foreach ($total_per_category as $category_eval_fields) {
+                    $update_per_category = $this->contestant_eval_by_category_model
+                        ->where('contest_id', $contest_id)
+                        ->where('contestant_id', $contestant_id)
+                        ->where('user_id', 1)
+                        ->where('category_id', $category_eval_fields['category_id'])
+                        ->set($category_eval_fields)
+                        ->update();
+                }
+            } else {
+                $insert = $this->contestant_eval_model->insert($post_fields);
+
+                $insert_batch = $this->contestant_eval_by_category_model->insertBatch($total_per_category);
+            }
+
+
+            // return $this->response->setJSON($reg_contestant);
+            session()->setFlashdata('success', 'Tim / Peserta ' .  $reg_contestant['team_name'] . ' / ' . $reg_contestant['leader'] . ' berhasil diberi nilai');
+            return redirect()->to(base_url('contest/' . $contest_id));
+        }
+
+        session()->setFlashdata('error', 'Nama Lomba / Peserta tidak dapat ditemukan!');
         return redirect()->to(base_url('contests'));
     }
 }
