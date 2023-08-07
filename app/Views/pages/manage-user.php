@@ -167,7 +167,6 @@
         <p class="mb-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, laboriosam!
         </p>
 
-
         <hr class="mb-6">
 
         <span id="load-bars" class="loading loading-bars loading-md"></span>
@@ -247,9 +246,10 @@
             <!-- Submit Button -->
             <button type="submit" class="btn btn-warning capitalize col-span-2">simpan perubahan</button>
         </div>
+
         <div class="modal-action my-0">
             <button type="button" id="close-edit-modal" onclick="edit_modal.close()"
-                class="absolute top-0 right-0 m-8 btn btn-sm btn-circle btn-outline">
+                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -284,7 +284,7 @@ Toastify({
     close: true,
     duration: 3000,
     position: 'left',
-    className: 'alert alert-error fixed top-5 right-5 w-fit transition-all',
+    className: 'alert alert-error fixed z-20 top-5 right-5 w-fit transition-all',
 }).showToast();
 <?php endif ?>
 <?php if (session()->getFlashdata('success')) : ?>
@@ -293,7 +293,7 @@ Toastify({
     close: true,
     duration: 3000,
     position: 'left',
-    className: 'alert alert-success fixed top-5 right-5 w-fit transition-all',
+    className: 'alert alert-success fixed z-20 top-5 right-5 w-fit transition-all',
 }).showToast();
 <?php endif ?>
 </script>
