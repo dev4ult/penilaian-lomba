@@ -74,7 +74,6 @@ class UserController extends BaseController {
     public function put_edit() {
         $user_id = $this->request->getPost('user-id');
         $password = $this->request->getPost('password');
-        $confirm_password = $this->request->getPost('password-conf');
 
         $put_fields = [
             'username' => $this->request->getPost('username'),
@@ -99,10 +98,8 @@ class UserController extends BaseController {
                 return redirect()->to(base_url('users'));
             }
 
-            if ($password || $confirm_password) {
-                if (password_verify((string) $confirm_password, $user['password'])) {
-                    $put_fields['password'] = password_hash((string) $password, PASSWORD_DEFAULT);
-                }
+            if ($password) {
+                $put_fields['password'] = password_hash((string) $password, PASSWORD_DEFAULT);
             }
 
             $update = $this->users_model->update($user_id, $put_fields);
