@@ -20,22 +20,20 @@
 
 <div class="my-10">
     <div class="flex gap-3 justify-between items-center mb-10">
-        <div class="join">
-            <input type="radio" name="view-edit" class="view-edit-btn btn btn-sm capitalize" aria-label="edit" />
-            <input type="radio" name="view-edit" class="view-edit-btn btn btn-sm capitalize" aria-label="view"
-                checked />
+        <div class="flex gap-5 items-center">
+            <div class="join">
+                <input type="radio" name="view-edit" class="view-edit-btn btn capitalize" aria-label="edit" />
+                <input type="radio" name="view-edit" class="view-edit-btn btn capitalize" aria-label="view" checked />
+            </div>
+            <button type="button" class="btn btn-primary btn-outline capitalize" onclick="add_modal.showModal()">tambah
+                kategori</button>
         </div>
 
-        <div class="flex gap-5 items-center">
-            <button type="button" class="btn btn-sm btn-primary btn-outline capitalize"
-                onclick="add_modal.showModal()">tambah
-                kategori</button>
-            <div class="tabs bg-white border-2 tabs-boxed w-fit self-start">
-                <?php foreach ($categories as $index => $category) : ?>
-                <button type="button" id="select-tab-<?= $category['eval_category_id'] ?>"
-                    class="tab <?= $index == 0 ? "tab-active" : "" ?>"><?= $category['category_name'] ?></button>
-                <?php endforeach ?>
-            </div>
+        <div class="tabs bg-white border-2 tabs-boxed w-fit self-start">
+            <?php foreach ($categories as $index => $category) : ?>
+            <button type="button" id="select-tab-<?= $category['eval_category_id'] ?>-<?= $index ?>"
+                class="tab <?= $index == 0 ? "tab-active" : "" ?>"><?= $category['category_name'] ?></button>
+            <?php endforeach ?>
         </div>
 
     </div>
@@ -174,6 +172,7 @@
     </form>
 </dialog>
 
+<script src="<?= base_url("./js/changeTabEval.js") ?>"></script>
 <script src="<?= base_url('./js/manageAspectEval.js') ?>"></script>
 
 <script>
@@ -256,5 +255,3 @@ Toastify({
 }).showToast();
 <?php endif ?>
 </script>
-
-<script src="<?= base_url("./js/changeTabEval.js") ?>"></script>
