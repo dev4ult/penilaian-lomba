@@ -57,7 +57,9 @@ $routes->group('contest', static function ($routes) {
     $routes->Get('remove-contestant/(:any)/(:any)', 'ContestController::remove_contestant/$1/$2');
 
     $routes->group('evaluation-aspect', static function ($routes) {
+        $routes->post('add', 'ContestController::post_eval_aspect');
         $routes->post('put', 'ContestController::put_eval_aspect');
+        $routes->get('delete/(:any)/(:any)', 'ContestController::delete_eval_aspect/$1/$2');
         $routes->get('(:any)', 'ContestController::get_eval_aspect/$1');
     });
 
