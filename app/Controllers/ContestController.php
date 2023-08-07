@@ -178,14 +178,13 @@ class ContestController extends BaseController {
             return;
         }
 
-        session()->setFlashdata('error', 'Lomba tidak ditemukan!');
+        session()->setFlashdata('error', 'Lomba tidak dapat ditemukan!');
         return redirect()->to(base_url('contests'));
     }
 
     public function put_edit() {
         $contest_id = $this->request->getPost('contest-id');
         $contest = $this->contests_model->find($contest_id);
-
 
         if ($contest_id && $contest) {
             $time_start = $this->request->getPost('time-start');
@@ -206,8 +205,6 @@ class ContestController extends BaseController {
                 'held_on' => $this->request->getPost('held-on'),
                 'category' => $this->request->getPost('category'),
             ];
-
-            // return $this->response->setJSON($put_fields);
 
             $validationRules = [
                 'contest-name' => 'is_unique[contests.contest_name, contest_id, ' . $contest_id . ']'
@@ -238,7 +235,7 @@ class ContestController extends BaseController {
             if ($update) {
 
                 $total_judges = (int) $this->request->getPost('total-judges');
-                $total_eval_categories = (int) $this->request->getPost('total-eval-category');
+                // $total_eval_categories = (int) $this->request->getPost('total-eval-category');
 
                 $this->judges_model->where('contest_id', $contest_id)->delete();
 
@@ -252,23 +249,25 @@ class ContestController extends BaseController {
 
                 if (count($data_judges) > 0) $this->judges_model->insertBatch($data_judges);
 
-                $this->eval_categories_model->where('contest_id', $contest_id)->delete();
+                // $this->eval_categories_model->where('contest_id', $contest_id)->delete();
 
-                $data_eval_categories = [];
-                for ($i = 0; $i < $total_eval_categories; $i++) {
-                    array_push($data_eval_categories, [
-                        "contest_id" => $contest_id,
-                        "category_name" => $this->request->getPost('category-' . $i + 1)
-                    ]);
-                }
+                // $data_eval_categories = [];
+                // for ($i = 0; $i < $total_eval_categories; $i++) {
+                //     array_push($data_eval_categories, [
+                //         "contest_id" => $contest_id,
+                //         "category_name" => $this->request->getPost('category-' . $i + 1)
+                //     ]);
+                // }
 
-                if (count($data_eval_categories)) $this->eval_categories_model->insertBatch($data_eval_categories);
+                // if (count($data_eval_categories)) $this->eval_categories_model->insertBatch($data_eval_categories);
 
                 session()->setFlashdata('success', 'Lomba berhasil diubah informasinya!');
 
                 return redirect()->to(base_url('contest/edit/' . $contest_id));
             }
         }
+
+        session()->setFlashdata('error', 'Lomba tidak dapat ditemukan!');
 
         return redirect()->to(base_url('contests'));
     }
@@ -397,6 +396,40 @@ class ContestController extends BaseController {
             return;
         }
 
+        session()->setFlashdata('error', 'Lomba tidak dapat ditemukan!');
+        return redirect()->to(base_url('contests'));
+    }
+
+    public function post_eval_aspect() {
+        $contest_id = $this->request->getPost('contest-id');
+        $contest = $this->contests_model->find($contest_id);
+
+        if ($contest_id && $contest) {
+            $category_name = $this->request->getPost('category-name');
+
+            $is_name_exist = $this->eval_categories_model->where('contest_id', $contest_id)->where('category_name', $category_name)->find();
+
+            if ($is_name_exist) {
+                session()->setFlashdata('error', 'Nama Kategori tersebut sudah ada dalam lomba ini!');
+                return redirect()->to(base_url('contest/evaluation-aspect/' . $contest_id));
+            }
+
+            $post_fields = [
+                'contest_id' => $contest_id,
+                'category_name' => $category_name
+            ];
+
+            $insert_category = $this->eval_categories_model->insert($post_fields);
+
+            if ($insert_category) {
+                session()->setFlashdata('success', 'Kategori baru berhasil ditambah!');
+            }
+
+            return redirect()->to(base_url('contest/evaluation-aspect/' . $contest_id));
+        }
+
+
+        session()->setFlashdata('error', 'Lomba tidak dapat ditemukan!');
         return redirect()->to(base_url('contests'));
     }
 
@@ -407,15 +440,7 @@ class ContestController extends BaseController {
 
         $sub_categories = json_decode((string) $this->request->getPost('evaluation-aspect'), true);
 
-        // return $this->response->setJSON([
-        //     'contest id' => $contest_id,
-        //     'category id' => $category_id,
-        //     'total sub categories' => count($sub_categories),
-        //     'data' => $sub_categories
-        // ]);
-
         $update_name = $this->eval_categories_model->update($category_id, ['category_name' => $category_name]);
-
 
         foreach ($sub_categories as $sub_category) {
             // print($sub_category['subCategoryId']);
@@ -437,9 +462,9 @@ class ContestController extends BaseController {
                         'aspect_name' => $aspect['name'],
                         'aspect_range_id' => $aspect['range'],
                     ]);
-
-                    $insert_aspect_batch = $this->eval_aspects_model->insertBatch($aspect_data);
                 }
+
+                $insert_aspect_batch = $this->eval_aspects_model->insertBatch($aspect_data);
             } else if ($sub_category['subCategoryId'] == 'delete' && $sub_category['deleteId'] != null) {
                 $delete_sub = $this->eval_sub_categories_model->delete($sub_category['deleteId']);
             } else {
@@ -479,41 +504,24 @@ class ContestController extends BaseController {
             'status' => 200,
             'message' => 'Berhasil mengubah data penilaian kategori'
         ]);
+    }
 
+    public function delete_eval_aspect($contest_id, $category_id) {
+        $category = $this->eval_categories_model->find($category_id);
+        $contest = $this->contests_model->find($contest_id);
 
+        if ($contest_id && $contest && $category_id && $category) {
 
+            $delete = $this->eval_categories_model->delete($category_id);
 
-        // $sub_category_data = [
-        //     'eval_category_id' => $category_id,
-        //     'sub_category_name' => $this->request->getPost('sub-category-' . $category_id . '-' . $i)
-        // ];
+            if ($delete) {
+                session()->setFlashdata('success', 'Kategori Lomba berhasil dihapus!');
+            }
 
-        // $insert_sub_category = $this->eval_sub_categories_model->insert($sub_category_data);
+            return redirect()->to(base_url('contest/evaluation-aspect/' . $contest_id));
+        }
 
-        // if ($insert_sub_category) {
-        //     $sub_category_id = $this->eval_sub_categories_model->getInsertID();
-        //     $total_aspects = $this->request->getPost('total-aspects-' . $category_id . '-' . $i);
-
-        //     $aspect_data = [];
-        //     for ($j = 0; $j < $total_aspects; $j++) {
-        //         array_push($aspect_data, [
-        //             'eval_sub_category_id' => $sub_category_id,
-        //             'aspect_name' => $this->request->getPost('eval-aspect-' . $j . '-' . $i),
-        //             'aspect_range_id' => $this->request->getPost('aspect-range-' . $j . '-' . $i)
-        //         ]);
-        //     }
-
-        //     $insert_batch_aspect = $this->eval_aspects_model->insertBatch($aspect_data);
-
-        //     if ($insert_batch_aspect) {
-        //         session()->setFlashdata('success', 'Aspek penilaian berhasil ditambah / diubah');
-        //     }
-        // }
-
-        // return redirect()->to(base_url('contest/evaluation-aspect/' . $contest_id));
-
-        // return redirect()->to(base_url('contest/' . $contest_id));
-
-        // return $this->response->setJSON(['sub category' => $sub_category_data, 'aspect data' => $aspect_data]);
+        session()->setFlashdata('error', 'Kategori Lomba tidak dapat ditemukan!');
+        return redirect()->to(base_url('contests'));
     }
 }
