@@ -61,12 +61,12 @@ function isAnyFieldEmpty(category_id) {
 
 let tab = $('.tab-active').attr('id').split('-')[2];
 
-const subCategoryHtml = (categoryAlpha, subCategoryName, categoryId, subCategoryIndex) => {
+const subCategoryHtml = (subCategoryAlpha, subCategoryName, categoryId, subCategoryIndex) => {
   return `<div class="overflow-x-auto my-6 relative z-0">
               <table class="table table-lg bg-white border-2">
                   <thead>
                       <tr class="text-base text-center">
-                          <th class="border-2">${categoryAlpha}</th>
+                          <th class="border-2">${subCategoryAlpha}</th>
                           <th class="text-left border-2">
                               <input type="text" id="sub-category-${categoryId}-${subCategoryIndex}" name="sub-category-${categoryId}-${subCategoryIndex}" class="sub-category-input input font-medium text-black input-bordered"
                                   placeholder="Nama Sub Kategori" value="${subCategoryName}" required />
@@ -77,7 +77,7 @@ const subCategoryHtml = (categoryAlpha, subCategoryName, categoryId, subCategory
                           <th colspan="2" class="border-2">Baik</th>
                           <th colspan="2" class="border-2">Sangat Baik</th>
                           <th>
-                              <button type="button" class="btn btn-error capitalize btn-outline btn-sm">hapus</button>
+                              <button type="button" id="delete-sub-${categoryId}-${subCategoryIndex}" class="delete-sub-category-btn btn btn-error capitalize btn-outline btn-sm">hapus</button>
                           </th>
                       </tr>
                   </thead>
@@ -123,6 +123,44 @@ const aspectRowHtml = (index, categoryId, subCategoryIndex, aspectName, rangeVal
           </tr>`;
 };
 
+const subCategoryViewHtml = (subCategoryAlpha, subCategoryName, categoryId, subCategoryId) => {
+  return `<table class="table table-lg bg-white border-2 my-6">
+            <thead>
+                <tr class="text-base text-center">
+                    <th class="border-2">${subCategoryAlpha}</th>
+                    <th class="text-left border-2">
+                        <h3 class="font-semibold text-lg">${subCategoryName}</h3>
+                    </th>
+                    <th colspan="2" class="border-2">Kurang</th>
+                    <th colspan="2" class="border-2">Cukup</th>
+                    <th colspan="2" class="border-2">Baik</th>
+                    <th colspan="2" class="border-2">Sangat Baik</th>
+                </tr>
+            </thead>
+            <tbody id="aspect-container-view-${categoryId}-${subCategoryId}"></tbody>
+          </table>`;
+};
+
+const aspectRowViewHtml = (index, categoryId, subCategoryIndex, aspectName, rangeVal) => {
+  let range = '';
+  for (let i = 0; i < 8; i++) {
+    range += `<td class="border-2 p-2">
+                  <label>
+                      <input type="radio" class="hidden peer" name="options-${index}-${categoryId}-${subCategoryIndex}" />
+                      <span class="btn w-full peer-checked:btn-primary">${rangeVal + i}</span>
+                  </label>
+              </td>`;
+  }
+
+  return `<tr class="text-xl font-semibold ">
+            <td class="border-2 text-center">${index}</td>
+            <td class="border-2">
+                <h4>${aspectName}</h4>
+            </td>
+            ${range}
+          </tr>`;
+};
+
 $(document).ready(function () {
   // view and edit mode
   $('.view-edit-btn').click(function () {
@@ -147,6 +185,18 @@ $(document).ready(function () {
     $(`#category-container-${category_id}`).removeClass('hidden');
   });
 
+  // delete category open modal
+  $('.delete-category-btn').click(function () {
+    const contestId = $('#contest-id').val();
+    const categoryId = this.id.split('-')[2];
+    const categoryName = this.id.split('-')[3];
+
+    $('#confirm-delete-category').attr('href', `/contest/evaluation-aspect/delete/${contestId}/${categoryId}`);
+    $('#category-delete').html(categoryName);
+    $('#confirm-delete-category').removeClass('hidden');
+    delete_category_modal.showModal();
+  });
+
   let charCode = 65;
   $('.add-sub-category').click(function () {
     subCategoryData[tab].push({
@@ -158,18 +208,54 @@ $(document).ready(function () {
 
     $(`#sub-category-container-${tab}`).html('');
     subCategoryData[tab].forEach((data, subCategoryIndex) => {
-      $(`#sub-category-container-${tab}`).append(subCategoryHtml(String.fromCharCode(data.charCode), data.subCategoryName, tab, subCategoryIndex));
+      data.subCategoryId != 'delete' ? $(`#sub-category-container-${tab}`).append(subCategoryHtml(String.fromCharCode(data.charCode), data.subCategoryName, tab, subCategoryIndex)) : '';
 
       data.aspects.forEach((item, aIndex) => {
-        $(`#aspect-container-${tab}-${subCategoryIndex}`).append(aspectRowHtml(aIndex, tab, subCategoryIndex, item['name'], item['range']));
+        return item['aspectId'] != 'delete' ? $(`#aspect-container-${tab}-${subCategoryIndex}`).append(aspectRowHtml(aIndex, tab, subCategoryIndex, item['name'], item['range'])) : '';
       });
     });
 
-    if (subCategoryData[tab].length == 1) {
+    if (subCategoryData[tab].map((data) => data.subCategoryId).some((id) => id == null || id > 0)) {
       $(`#save-eval-aspect-${tab}`).removeClass('hidden');
     }
 
     charCode++;
+  });
+
+  $('#confirm-delete').click(function () {
+    const dataId = $(this).attr('data-id').split('-');
+
+    const categoryId = dataId[0];
+    const subCategoryIndex = dataId[1];
+    const deleteId = dataId[2];
+
+    subCategoryData[categoryId][subCategoryIndex].deleteId = deleteId;
+    subCategoryData[categoryId][subCategoryIndex].subCategoryId = 'delete';
+
+    subCategoryData[categoryId][subCategoryIndex].aspects.forEach((item, index) => {
+      item.deleteId = item.aspectId;
+      item.aspectId = 'delete';
+    });
+
+    if (!subCategoryData[tab].map((data) => data.subCategoryId).some((id) => id == null || id > 0)) {
+      $(`#save-eval-aspect-${tab}`).addClass('hidden');
+    }
+
+    $(`#sub-category-container-${tab}`).html('');
+    subCategoryData[categoryId].forEach((data, subCategoryIndex) => {
+      function refresh() {
+        $(`#sub-category-container-${tab}`).append(subCategoryHtml(String.fromCharCode(data.charCode), data.subCategoryName, tab, subCategoryIndex));
+
+        data.aspects.forEach((item, aIndex) => {
+          return item['aspectId'] != 'delete' ? $(`#aspect-container-${tab}-${subCategoryIndex}`).append(aspectRowHtml(aIndex, tab, subCategoryIndex, item['name'], item['range'])) : '';
+        });
+      }
+
+      return data.subCategoryId != 'delete' ? refresh() : '';
+    });
+
+    $('#confirm-delete').addClass('hidden');
+    delete_modal.close();
   });
 
   $(document).click(function (e) {
@@ -188,6 +274,7 @@ $(document).ready(function () {
       });
     }
 
+    // remove aspect
     if (node.classList.contains('remove-aspect-btn')) {
       const btnId = node.getAttribute('id').split('-');
 
@@ -208,6 +295,24 @@ $(document).ready(function () {
       if (subCategoryData[tab].length == 0) {
         $(`#save-eval-aspect-${tab}`).addClass('hidden');
       }
+    }
+
+    // remove sub category
+    if (node.classList.contains('delete-sub-category-btn')) {
+      const id = node.getAttribute('id').split('-');
+      const categoryId = id[2];
+      const subCategoryIndex = id[3];
+
+      const subCategory = subCategoryData[categoryId][subCategoryIndex];
+      const subCategoryName = subCategory.subCategoryName;
+      const subCategoryId = subCategory.subCategoryId;
+
+      // console.log(subCategoryId);
+
+      $('#sub-category-delete').html(subCategoryName);
+      $('#confirm-delete').attr('data-id', `${categoryId}-${subCategoryIndex}-${subCategoryId}`);
+      $('#confirm-delete').removeClass('hidden');
+      delete_modal.showModal();
     }
   });
 
