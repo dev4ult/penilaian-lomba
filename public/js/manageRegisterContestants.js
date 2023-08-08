@@ -1,9 +1,9 @@
-const rowContestant = (index, contest_id, contestant_id, team_name, school) => {
+const rowContestant = (index, contest_id, total_eval, contestant_id, team_name, school) => {
   return `<tr>
             <th>${index}</th>
             <td id="team-name-data-${contestant_id}">${team_name}</td>
             <td>${school}</td>
-            <td><span class="badge badge-success">80/100</span></td>
+            <td><span class="badge badge-neutral badge-lg badge-outline">${total_eval}</span></td>
             <td class="flex gap-1.5 items-center">
                 <button class="btn btn-sm btn-neutral btn-outline capitalize"
                     onclick="detail_modal.showModal()">lihat</button> |
@@ -44,11 +44,20 @@ $(document).ready(function () {
         const { status } = response;
 
         if (status == 200) {
-          const { data } = response;
+          const { data, contestant_eval } = response;
 
           $('#reg-contestants-container').html('');
 
-          data.forEach((item, index) => $('#reg-contestants-container').append(rowContestant(index + 1, item['contest_id'], item['contestant_id'], item['team_name'], item['school'])));
+          data.forEach((item, index) => {
+            let total_eval = 0;
+            contestant_eval.forEach((eval) => {
+              if (eval['contest_id'] == item['contest_id'] && eval['contestant_id'] == item['contestant_id']) {
+                total_eval += parseInt(eval['total_evaluation']);
+              }
+            });
+
+            $('#reg-contestants-container').append(rowContestant(index + 1, item['contest_id'], total_eval, item['contestant_id'], item['team_name'], item['school']));
+          });
 
           if (data.length == 0) {
             $('#reg-contestants-container').html(`<tr>
@@ -107,6 +116,72 @@ $(document).ready(function () {
       $('#delete-contestant-id').val(contestant_id);
 
       delete_modal.showModal();
+    }
+
+    if (node.classList.contains('preview-contestant-btn')) {
+      const id = node.getAttribute('id').split('-');
+      const reg_contestant_id = id['1'];
+
+      $('#detail-evaluation').addClass('hidden');
+
+      $('.loading-bars').removeClass('hidden');
+
+      $('#detail-contestant').addClass('hidden');
+      $('#detail-contestant').removeClass('grid');
+
+      detail_modal.showModal();
+
+      $.ajax({
+        url: `/contest/get-preview-contestant/${reg_contestant_id}`,
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+          const { status } = response;
+
+          if (status == 200) {
+            const { contestant, members, eval_category, contest_category } = response;
+            const { team_name, leader, school, phone_number } = contestant;
+
+            $('.loading-bars').addClass('hidden');
+
+            $('#detail-evaluation').removeClass('hidden');
+
+            console.log(eval_category, contest_category);
+
+            $('#detail-category-eval').html('');
+            contest_category.forEach((category, index) => {
+              let totalEval = 0;
+              eval_category.forEach((eval) => (category.eval_category_id == eval.category_id ? (totalEval += parseInt(eval.total_evaluation)) : undefined));
+
+              $('#detail-category-eval').append(`<tr>
+                                                    <th>${index + 1}</th>
+                                                    <td>${category.category_name}</td>
+                                                    <td>${totalEval}</td>
+                                                </tr>`);
+            });
+
+            $('#team-name').html(team_name);
+            $('#leader').html(leader);
+            $('#school').html(school);
+            $('#phone-number').html(phone_number);
+
+            $('#detail-contestant').removeClass('hidden');
+            $('#detail-contestant').addClass('grid');
+
+            $('#detail-member').html('');
+            members.forEach((member, index) =>
+              $('#detail-member').append(`<tr>
+                                              <th>${index + 1}</th>
+                                              <td>${member.full_name}</td>
+                                              <td>${member.student_id}</td>
+                                          </tr>`)
+            );
+          }
+        },
+        error: function (message) {
+          detail_modal.close();
+        },
+      });
     }
   });
 
