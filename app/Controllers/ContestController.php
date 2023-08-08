@@ -9,15 +9,16 @@ use App\Models\EvaluationCategoriesModel;
 use App\Models\EvaluationSubCategoriesModel;
 use App\Models\EvaluationAspectsModel;
 use App\Models\ContestantsModel;
+use App\Models\ContestantMembersModel;
 use App\Models\ContestantEvaluationsModel;
 use App\Models\ContestantEvaluationsByCategoryModel;
 use App\Models\RegisteredConstestantsModel;
 
 
 class ContestController extends BaseController {
-    protected $users_model, $contests_model, $judges_model, $eval_categories_model, $eval_sub_categories_model, $eval_aspects_model, $contestants_model, $contestant_eval_model, $contestant_eval_by_category_model, $reg_contestants_model;
+    protected $users_model, $contests_model, $judges_model, $eval_categories_model, $eval_sub_categories_model, $eval_aspects_model, $contestants_model, $members_model, $contestant_eval_model, $contestant_eval_by_category_model, $reg_contestants_model;
 
-    protected $user_logged;
+    protected $user_logged_id;
 
     protected $data;
 
@@ -31,12 +32,13 @@ class ContestController extends BaseController {
         $this->eval_aspects_model = new EvaluationAspectsModel();
 
         $this->contestants_model = new ContestantsModel();
+        $this->members_model = new ContestantMembersModel();
         $this->contestant_eval_model = new ContestantEvaluationsModel();
         $this->contestant_eval_by_category_model = new ContestantEvaluationsByCategoryModel();
 
         $this->reg_contestants_model = new RegisteredConstestantsModel();
 
-        $this->user_logged = session()->get('user_logged');
+        $this->user_logged_id = session('user_id');
     }
 
     public function index() {
@@ -61,6 +63,8 @@ class ContestController extends BaseController {
             $this->data['categories'] = $this->eval_categories_model->where('contest_id', $contest_id)->findAll();
 
             $this->data['reg_contestants'] = $this->reg_contestants_model->join('contestants', 'contestants.contestant_id = registered_contestants.contestant_id')->where('contest_id', $contest_id)->findAll();
+
+            $this->data['total_evaluation'] = $this->contestant_eval_model->findAll();
 
             $this->data['contestants'] = $this->contestants_model->findAll();
 
@@ -176,7 +180,7 @@ class ContestController extends BaseController {
 
         if ($contest_id && $contest) {
             $this->data['contest'] = $contest;
-            $this->data['judges'] = $this->judges_model->join('users', 'users.user_id = judges.user_id')->findAll();
+            $this->data['judges'] = $this->users_model->where('role', 'juri')->findAll();
             $this->data['judges_contest'] = $this->judges_model->join('users', 'users.user_id = judges.user_id')->where('contest_id', $contest_id)->findAll();
             $this->data['categories'] = $this->eval_categories_model->where('contest_id', $contest_id)->findAll();
 
@@ -283,6 +287,42 @@ class ContestController extends BaseController {
         return redirect()->to(base_url('contests'));
     }
 
+    public function get_preview_contestant_json($reg_contestant_id) {
+        $reg_contestant = $this->reg_contestants_model
+            ->join('contestants', 'registered_contestants.contestant_id = contestants.contestant_id')
+            ->find($reg_contestant_id);
+
+
+        if ($reg_contestant_id && $reg_contestant) {
+            $contest_id = $reg_contestant['contest_id'];
+            $contestant_id = $reg_contestant['contestant_id'];
+
+            $all_categories = $this->eval_categories_model->where('contest_id', $contest_id)->findAll();
+
+            $total_eval_category = $this->contestant_eval_by_category_model
+                ->where('contest_id', $contest_id)
+                ->where('contestant_id', $contestant_id)
+                ->findAll();
+
+            $all_members = $this->members_model
+                ->where('contestant_id', $contestant_id)->findAll();
+
+            return $this->response->setJSON([
+                'status' => 200,
+                'message' => 'Peserta berhasil ditemukan',
+                'contestant' => $reg_contestant,
+                'members' => $all_members,
+                'contest_category' => $all_categories,
+                'eval_category' => $total_eval_category,
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'status' => 404,
+            'message' => 'Peserta tersebut tidak dapat ditemukan dalam lomba ini'
+        ]);
+    }
+
     public function get_register_contestants_json($contest_id) {
 
         $contest = $this->contests_model->find($contest_id);
@@ -290,9 +330,12 @@ class ContestController extends BaseController {
         if ($contest_id && $contest) {
             $reg_contestants = $this->reg_contestants_model->join('contestants', 'contestants.contestant_id = registered_contestants.contestant_id')->where('contest_id', $contest_id)->findAll();
 
+            $total_eval = $this->contestant_eval_model->findAll();
+
             return $this->response->setJSON([
                 'status' => 200,
-                'data' => $reg_contestants
+                'data' => $reg_contestants,
+                'contestant_eval' => $total_eval
             ]);
         }
 
@@ -532,6 +575,17 @@ class ContestController extends BaseController {
             ->where('contestants.contestant_id', $contestant_id)->first();
 
         if ($contestant_id && $reg_contestant && $contest_id && $contest) {
+
+            $user = $this->judges_model
+                ->where('user_id', $this->user_logged_id)
+                ->where('contest_id', $contest_id)
+                ->find();
+
+            if (!$user) {
+                session()->setFlashdata('error', 'Anda tidak terdaftar sebagai juri!');
+                return redirect()->to(base_url('contest/' . $contest_id));
+            }
+
             $this->data['contest'] = $contest;
             $this->data['contestant'] = $reg_contestant;
 
@@ -559,15 +613,15 @@ class ContestController extends BaseController {
 
         if ($contest_id && $contestant_id && $reg_contestant) {
             // check if user is registered as a judge
-            // $user = $this->judges_model
-            //     ->where('user_id', $this->user_logged['user_id'])
-            //     ->where('contest_id', $contest_id)
-            //     ->find();
+            $user = $this->judges_model
+                ->where('user_id', $this->user_logged_id)
+                ->where('contest_id', $contest_id)
+                ->find();
 
-            // if (!$user) {
-            //     session()->setFlashdata('error', 'User tersebut tidak terdaftar sebagai juri!');
-            //     return redirect()->to(base_url('contest/' . $contest_id));
-            // }
+            if (!$user) {
+                session()->setFlashdata('error', 'Anda tidak terdaftar sebagai juri!');
+                return redirect()->to(base_url('contest/' . $contest_id));
+            }
 
             $total_eval = 0;
 
@@ -607,7 +661,7 @@ class ContestController extends BaseController {
                     'contest_id' => $contest_id,
                     'contestant_id' => $contestant_id,
                     'category_id' => $category_id,
-                    'user_id' => 1,
+                    'user_id' => $this->user_logged_id,
                     'total_evaluation' => $total_category_eval
                 ]);
             }
@@ -615,32 +669,44 @@ class ContestController extends BaseController {
             $post_fields = [
                 'contest_id' => $contest_id,
                 'contestant_id' => $contestant_id,
-                'user_id' => 1,
+                'user_id' => $this->user_logged_id,
                 'total_evaluation' => $total_eval
             ];
 
             $is_eval_exist = $this->contestant_eval_model
                 ->where('contest_id', $contest_id)
                 ->where('contestant_id', $contestant_id)
-                ->where('user_id', 1)
+                ->where('user_id', $this->user_logged_id)
                 ->find();
 
             if ($is_eval_exist) {
                 $update = $this->contestant_eval_model
                     ->where('contest_id', $contest_id)
                     ->where('contestant_id', $contestant_id)
-                    ->where('user_id', 1)
+                    ->where('user_id', $this->user_logged_id)
                     ->set($post_fields)
                     ->update();
 
                 foreach ($total_per_category as $category_eval_fields) {
-                    $update_per_category = $this->contestant_eval_by_category_model
+                    $is_update_category_eval = $this->contestant_eval_by_category_model
                         ->where('contest_id', $contest_id)
                         ->where('contestant_id', $contestant_id)
-                        ->where('user_id', 1)
+                        ->where('user_id', $this->user_logged_id)
                         ->where('category_id', $category_eval_fields['category_id'])
-                        ->set($category_eval_fields)
-                        ->update();
+                        ->first();
+
+                    if ($is_update_category_eval) {
+                        $update_per_category = $this->contestant_eval_by_category_model
+                            ->where('contest_id', $contest_id)
+                            ->where('contestant_id', $contestant_id)
+                            ->where('user_id', $this->user_logged_id)
+                            ->where('category_id', $category_eval_fields['category_id'])
+                            ->set($category_eval_fields)
+                            ->update();
+                    } else {
+                        $insert_per_category = $this->contestant_eval_by_category_model
+                            ->insert($category_eval_fields);
+                    }
                 }
             } else {
                 $insert = $this->contestant_eval_model->insert($post_fields);
