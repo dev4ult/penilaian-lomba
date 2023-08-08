@@ -58,6 +58,9 @@ $routes->group('contest', ['filter' => 'authenticate'], function ($routes) {
     $routes->post('put', 'ContestController::put_edit');
 
     $routes->get('get-register-contestants/(:any)', 'ContestController::get_register_contestants_json/$1');
+
+    $routes->get('get-preview-contestant/(:any)', 'ContestController::get_preview_contestant_json/$1');
+
     $routes->post('register-contestant', 'ContestController::register_contestant');
     $routes->Get('remove-contestant/(:any)/(:any)', 'ContestController::remove_contestant/$1/$2');
 
