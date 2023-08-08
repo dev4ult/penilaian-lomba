@@ -211,9 +211,16 @@
                         <th><?= $index + 1 ?></th>
                         <td id="team-name-data-<?= $contestant['contestant_id'] ?>"><?= $contestant['team_name'] ?></td>
                         <td><?= $contestant['school'] ?></td>
-                        <td><span class="badge badge-success">80/100</span></td>
+                        <?php $contestant_eval = 0 ?>
+                        <?php foreach ($total_evaluation as $eval) {
+                            if ($eval['contest_id'] == $contestant['contest_id'] && $eval['contestant_id'] == $contestant['contestant_id']) {
+                                $contestant_eval += $eval['total_evaluation'];
+                            }
+                        } ?>
+                        <td><span class="badge badge-neutral badge-outline badge-lg"><?= $contestant_eval ?></span></td>
                         <td class="flex gap-1.5 items-center">
-                            <button class="btn btn-sm btn-neutral btn-outline capitalize" onclick="detail_modal.showModal()">lihat</button> |
+                            <button id="preview-<?= $contestant['reg_contestant_id'] ?>" class="preview-contestant-btn btn btn-sm btn-neutral btn-outline capitalize">lihat</button>
+                            |
                             <a href="/contest/contestant-evaluation/<?= $contestant['contest_id'] ?>/<?= $contestant['contestant_id'] ?>" class="btn btn-sm btn-primary capitalize">Beri Penilaian</a>
                             <button type="button" id="contestant-rmv-<?= $contestant['contestant_id'] ?>" class="remove-reg-btn btn btn-sm btn-error btn-outline capitalize">hapus</button>
                         </td>
@@ -236,31 +243,18 @@
 
         <hr class="my-6">
 
-        <div class="overflow-x-auto">
+        <span id="load-bars" class="loading loading-bars loading-md"></span>
+
+        <div id="detail-evaluation" class="overflow-x-auto hidden">
             <table class="table table-zebra bg-white border-2">
                 <thead>
-                    <tr class="">
+                    <tr>
                         <th></th>
-                        <th>Aspek</th>
-                        <th>Nilai</th>
+                        <th>Kategori Penilaian</th>
+                        <th>Nilai Total</th>
                     </tr>
                 </thead>
-                <tbody class="font-semibold">
-                    <tr>
-                        <th>1</th>
-                        <td>Makhraj dan Tajwid</td>
-                        <td>7 / 8</td>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <td>Penjiwaan dan Pengkhayatan</td>
-                        <td>5 / 9</td>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <td>Irama dan Suara</td>
-                        <td>7 / 9</td>
-                    </tr>
+                <tbody id="detail-category-eval" class="font-semibold">
                 </tbody>
             </table>
         </div>
@@ -268,33 +262,36 @@
         <hr class="my-6">
 
         <h2 class="badge badge-neutral mb-3 block">Tim / Peserta</h2>
-        <div class="grid p-6 border-2 rounded grid-flow-row grid-cols-2 gap-4 my-3">
+
+        <span id="load-bars" class="loading loading-bars loading-md"></span>
+
+        <div id="detail-contestant" class="p-6 border-2 rounded grid-flow-row grid-cols-2 gap-4 my-3 hidden">
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">1</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Nama Tim</h3>
-                    <h4 class="font-bold">Cabe Rawit</h4>
+                    <h4 class="font-bold" id="team-name"></h4>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">2</span>
                 <div>
-                    <h3 class="text-sm text-black/50 font-semibold">Ketua</h3>
-                    <h4 class="font-bold">Siddiq Maulana</h4>
+                    <h3 class="text-sm text-black/50 font-semibold">Penanggung Jawab</h3>
+                    <h4 class="font-bold" id="leader"></h4>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">3</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Asal Instansi / Sekolah</h3>
-                    <h4 class="font-bold">SMAN 34</h4>
+                    <h4 class="font-bold" id="school"></h4>
                 </div>
             </div>
             <div class="flex gap-2 items-center">
                 <span class="p-4 rounded-full w-9 h-9 bg-black/10 text-black/50 grid place-content-center">4</span>
                 <div>
                     <h3 class="text-sm text-black/50 font-semibold">Nomor Telepon</h3>
-                    <h4 class="font-bold">080000000000</h4>
+                    <h4 class="font-bold" id="phone-number"></h4>
                 </div>
             </div>
         </div>
@@ -311,22 +308,8 @@
                         <th>NIS</th>
                     </tr>
                 </thead>
-                <tbody class="font-semibold">
-                    <tr>
-                        <th>1</th>
-                        <td>Cy Ganderton</td>
-                        <td>2100000000</td>
-                    </tr>
-                    <tr>
-                        <th>2</th>
-                        <td>Cy Ganderton</td>
-                        <td>2100000000</td>
-                    </tr>
-                    <tr>
-                        <th>3</th>
-                        <td>Cy Ganderton</td>
-                        <td>2100000000</td>
-                    </tr>
+                <tbody id="detail-member" class="font-semibold">
+
                 </tbody>
             </table>
         </div>
