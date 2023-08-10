@@ -49,22 +49,20 @@ $routes->group('user', ['filter' => ['authenticate', 'adminAuth']], function ($r
 $routes->get('contests', 'ContestController::index', ['filter' => 'authenticate']);
 
 $routes->group('contest', ['filter' => 'authenticate'], function ($routes) {
-    $routes->group('add', function ($routes) {
+    $routes->group('add', ['filter' => ['authenticate', 'adminAuth']], function ($routes) {
         $routes->get('/', 'ContestController::get_add');
         $routes->post('/', 'ContestController::post_add');
     });
 
-    $routes->get('edit/(:any)', 'ContestController::get_edit/$1');
-    $routes->post('put', 'ContestController::put_edit');
+    $routes->get('edit/(:any)', 'ContestController::get_edit/$1', ['filter' => ['authenticate', 'adminAuth']]);
+    $routes->post('put', 'ContestController::put_edit', ['filter' => ['authenticate', 'adminAuth']]);
 
     $routes->get('get-register-contestants/(:any)', 'ContestController::get_register_contestants_json/$1');
-
     $routes->get('get-preview-contestant/(:any)', 'ContestController::get_preview_contestant_json/$1');
-
     $routes->post('register-contestant', 'ContestController::register_contestant');
     $routes->Get('remove-contestant/(:any)/(:any)', 'ContestController::remove_contestant/$1/$2');
 
-    $routes->group('evaluation-aspect',  function ($routes) {
+    $routes->group('evaluation-aspect', ['filter' => ['authenticate', 'adminAuth']], function ($routes) {
         $routes->post('add', 'ContestController::post_eval_aspect');
         $routes->post('put', 'ContestController::put_eval_aspect');
         $routes->get('delete/(:any)/(:any)', 'ContestController::delete_eval_aspect/$1/$2');
