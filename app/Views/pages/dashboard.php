@@ -22,7 +22,7 @@
                 </div>
                 <div class="">
                     <h4 class="font-medium">Akun</h4>
-                    <h1 class="text-5xl mb-0 font-semibold">20</h1>
+                    <h1 class="text-5xl mb-0 font-semibold"><?= $total_users ?></h1>
                 </div>
             </a>
 
@@ -34,7 +34,7 @@
                 </div>
                 <div class="">
                     <h4 class="font-medium">Lomba</h4>
-                    <h1 class="text-5xl mb-0 font-semibold">34</h1>
+                    <h1 class="text-5xl mb-0 font-semibold"><?= $total_contests ?></h1>
                 </div>
             </a>
 
@@ -46,7 +46,7 @@
                 </div>
                 <div class="">
                     <h4 class="font-medium">Peserta</h4>
-                    <h1 class="text-5xl mb-0 font-semibold">95</h1>
+                    <h1 class="text-5xl mb-0 font-semibold"><?= $total_contestants ?></h1>
                 </div>
             </a>
 
@@ -75,7 +75,6 @@
 <?php if (session()->getFlashdata('error')) : ?>
 Toastify({
     text: `<?= session()->getFlashdata('error') ?>`,
-    close: true,
     duration: 3000,
     position: 'left',
     className: 'alert alert-error fixed z-20 top-5 right-5 w-fit transition-all',
@@ -84,7 +83,6 @@ Toastify({
 <?php if (session()->getFlashdata('success')) : ?>
 Toastify({
     text: `<?= session()->getFlashdata('success') ?>`,
-    close: true,
     duration: 3000,
     position: 'left',
     className: 'alert alert-success fixed z-20 top-5 right-5 w-fit transition-all',

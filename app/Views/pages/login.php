@@ -15,8 +15,7 @@
         <!-- Password -->
         <div class="flex flex-col gap-1 w-full">
             <label for="password" class="text-sm font-semibold">Password</label>
-            <input type="password" id="password" name="password" class="input input-bordered"
-                placeholder="Isikan Password">
+            <input type="password" id="password" name="password" class="input input-bordered" placeholder="Isikan Password">
         </div>
 
         <!-- Submit Button -->
@@ -25,13 +24,12 @@
 </div>
 
 <script>
-<?php if (session()->getFlashdata('error')) : ?>
-Toastify({
-    text: `<?= session()->getFlashdata('error') ?>`,
-    close: true,
-    duration: 3000,
-    position: 'left',
-    className: 'alert alert-error fixed z-20 top-5 right-5 w-fit transition-all',
-}).showToast();
-<?php endif ?>
+    <?php if (session()->getFlashdata('error')) : ?>
+        Toastify({
+            text: `<?= session()->getFlashdata('error') ?>`,
+            duration: 3000,
+            position: 'left',
+            className: 'alert alert-error fixed z-20 top-5 right-5 w-fit transition-all',
+        }).showToast();
+    <?php endif ?>
 </script>
