@@ -122,6 +122,7 @@ $(document).ready(function () {
       const id = node.getAttribute('id').split('-');
       const reg_contestant_id = id['1'];
 
+      $('#judge-who-evaluated').addClass('hidden');
       $('#detail-evaluation').addClass('hidden');
 
       $('.loading-bars').removeClass('hidden');
@@ -139,14 +140,20 @@ $(document).ready(function () {
           const { status } = response;
 
           if (status == 200) {
-            const { contestant, members, eval_category, contest_category } = response;
+            const { contestant, members, eval_category, contest_category, evaluated_by_user } = response;
             const { team_name, leader, school, phone_number } = contestant;
 
             $('.loading-bars').addClass('hidden');
 
-            $('#detail-evaluation').removeClass('hidden');
+            $('#judge-who-evaluated').removeClass('hidden');
+            $('#judge-who-evaluated').html('');
 
-            console.log(eval_category, contest_category);
+            if (evaluated_by_user.length == 0) {
+              $('#judge-who-evaluated').html('<span class="text-error">Belum ada juri yang menilai</span>');
+            }
+
+            evaluated_by_user.forEach((user, index) => $('#judge-who-evaluated').append(`<span class="badge badge-accent rounded-full badge-lg">${user.full_name}</span>${index < evaluated_by_user.length - 1 ? ', ' : ''}`));
+            $('#detail-evaluation').removeClass('hidden');
 
             $('#detail-category-eval').html('');
             contest_category.forEach((category, index) => {
