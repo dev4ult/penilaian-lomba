@@ -1,7 +1,7 @@
 <!-- Header -->
 <header class="pb-10 border-b-2 flex justify-between ">
     <div class="prose">
-        <h1 class="my-0 text-2xl font-extrabold">Halo, Nibras Alyassar</h1>
+        <h1 class="my-0 text-2xl font-extrabold">Halo, <?= $user['full_name'] ?></h1>
         <p>Selamat datang di Dashboard Admin</p>
     </div>
     <a href="/logout" class="self-end btn btn-sm btn-outline btn-error capitalize">Logout</a>
@@ -14,6 +14,8 @@
     <div>
         <h2 class="text-lg font-semibold text-black/30 mb-3">Manajemen</h2>
         <div class="flex gap-6 w-full">
+
+            <?php if(session('user_role') == 'admin') : ?>
             <!-- User -->
             <a href="/users"
                 class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
@@ -25,6 +27,7 @@
                     <h1 class="text-5xl mb-0 font-semibold"><?= $total_users ?></h1>
                 </div>
             </a>
+            <?php endif ?>
 
             <!-- Lomba  -->
             <a href="/contests"
