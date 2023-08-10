@@ -304,6 +304,14 @@ class ContestController extends BaseController {
                 ->where('contestant_id', $contestant_id)
                 ->findAll();
 
+            $user_who_evaluated = $this->contestant_eval_model
+                ->select('users.full_name as full_name')
+                ->join('users', 'contestant_evaluations.user_id = users.user_id')
+                ->where('contest_id', $contest_id)
+                ->where('contestant_id', $contestant_id)
+                ->findAll();
+
+
             $all_members = $this->members_model
                 ->where('contestant_id', $contestant_id)->findAll();
 
@@ -314,6 +322,7 @@ class ContestController extends BaseController {
                 'members' => $all_members,
                 'contest_category' => $all_categories,
                 'eval_category' => $total_eval_category,
+                'evaluated_by_user' => $user_who_evaluated,
             ]);
         }
 
