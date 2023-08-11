@@ -1,12 +1,11 @@
-const rowContestant = (index, contest_id, total_eval, contestant_id, team_name, school) => {
+const rowContestant = (index, contest_id, total_eval, contestant_id, reg_contestant_id, team_name, school) => {
   return `<tr>
             <th>${index}</th>
             <td id="team-name-data-${contestant_id}">${team_name}</td>
             <td>${school}</td>
             <td><span class="badge badge-neutral badge-lg badge-outline">${total_eval}</span></td>
             <td class="flex gap-1.5 items-center">
-                <button class="btn btn-sm btn-neutral btn-outline capitalize"
-                    onclick="detail_modal.showModal()">lihat</button> |
+                <button id="preview-${reg_contestant_id}" class="preview-contestant-btn btn btn-sm btn-neutral btn-outline capitalize">lihat</button> |
                 <a href="/contest/contestant-evaluation/${contest_id}/${contestant_id}" class="btn btn-sm btn-primary capitalize">Beri Penilaian</a>
                 <button type="button" id="contestant-rmv-${contestant_id}"
                     class="remove-reg-btn btn btn-sm btn-error btn-outline capitalize">hapus</button>
@@ -56,7 +55,7 @@ $(document).ready(function () {
               }
             });
 
-            $('#reg-contestants-container').append(rowContestant(index + 1, item['contest_id'], total_eval, item['contestant_id'], item['team_name'], item['school']));
+            $('#reg-contestants-container').append(rowContestant(index + 1, item['contest_id'], total_eval, item['contestant_id'], item['reg_contestant_id'], item['team_name'], item['school']));
           });
 
           if (data.length == 0) {
@@ -152,7 +151,7 @@ $(document).ready(function () {
               $('#judge-who-evaluated').html('<span class="text-error">Belum ada juri yang menilai</span>');
             }
 
-            evaluated_by_user.forEach((user, index) => $('#judge-who-evaluated').append(`<span class="badge badge-accent rounded-full badge-lg">${user.full_name}</span>${index < evaluated_by_user.length - 1 ? ', ' : ''}`));
+            evaluated_by_user.forEach((user, index) => $('#judge-who-evaluated').append(`<span class="badge badge-accent rounded-full badge-lg">${user.full_name}</span>${index < evaluated_by_user.length - 1 ? ' | ' : ''}`));
             $('#detail-evaluation').removeClass('hidden');
 
             $('#detail-category-eval').html('');
@@ -217,9 +216,5 @@ $(document).ready(function () {
         },
       });
     }
-  });
-
-  $('#refresh').click(function () {
-    refresh();
   });
 });
