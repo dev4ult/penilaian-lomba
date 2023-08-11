@@ -26,6 +26,26 @@ class ContestantController extends BaseController {
         echo view('templates/footer');
     }
 
+    public function search() {
+        $this->data['search_keyword'] = $this->request->getPost('search-keyword');
+
+        // $sidebar['path'] = "/";
+
+        if ($this->data['search_keyword']) {
+            $this->data['contestants'] = $this->contestants_model
+                ->like('team_name', $this->data['search_keyword'])
+                ->orLike('leader', $this->data['search_keyword'])
+                ->orLike('school', $this->data['search_keyword']);
+        }
+
+        $this->data['contestants'] = $this->contestants_model->findAll();
+
+        echo view('templates/header');
+        // echo view('templates/sidebar', $sidebar);
+        echo view('pages/manage-contestant', $this->data);
+        echo view('templates/footer');
+    }
+
     public function get_add() {
         echo view('templates/header');
         // echo view('templates/sidebar', $sidebar);

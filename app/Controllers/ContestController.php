@@ -52,6 +52,31 @@ class ContestController extends BaseController {
         echo view('templates/footer');
     }
 
+    public function search() {
+        $this->data['search_keyword'] = $this->request->getPost('search-keyword');
+        $this->data['filter_category'] = $this->request->getPost('filter-category');
+
+
+        if ($this->data['filter_category']) {
+            $this->data['contests'] = $this->contests_model
+                ->where('category', $this->data['filter_category']);
+        }
+
+        if ($this->data['search_keyword']) {
+            $this->data['contests'] = $this->contests_model
+                ->like('contest_name', $this->data['search_keyword']);
+        }
+
+        // $sidebar['path'] = "/";
+
+        $this->data['contests'] = $this->contests_model->findAll();
+
+        echo view('templates/header');
+        // echo view('templates/sidebar', $sidebar);
+        echo view('pages/manage-contest', $this->data);
+        echo view('templates/footer');
+    }
+
     public function get_detail($contest_id) {
         // $sidebar['path'] = "/";
 

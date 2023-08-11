@@ -49,7 +49,10 @@ $routes->group('user', ['filter' => ['authenticate', 'adminAuth']], function ($r
     $routes->get('(:any)', 'UserController::get_detail_json/$1');
 });
 
-$routes->get('contests', 'ContestController::index', ['filter' => 'authenticate']);
+$routes->group('contests', ['filter' => 'authenticate'], function ($routes) {
+    $routes->get('/', 'ContestController::index');
+    $routes->post('/', 'ContestController::search');
+});
 
 $routes->group('contest', ['filter' => 'authenticate'], function ($routes) {
     $routes->group('add', ['filter' => ['authenticate', 'adminAuth']], function ($routes) {
@@ -80,7 +83,10 @@ $routes->group('contest', ['filter' => 'authenticate'], function ($routes) {
     $routes->get('(:any)', 'ContestController::get_detail/$1');
 });
 
-$routes->get('contestants', 'ContestantController::index', ['filter' => 'authenticate']);
+$routes->group('contestants', ['filter' => 'authenticate'], function ($routes) {
+    $routes->get('/', 'ContestantController::index');
+    $routes->post('/', 'ContestantController::search');
+});
 
 $routes->group('contestant', ['filter' => 'authenticate'], function ($routes) {
     $routes->group('add', static function ($routes) {
