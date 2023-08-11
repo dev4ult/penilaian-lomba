@@ -37,7 +37,10 @@ $routes->group('login', ['filter' => 'redirectIfAuth'], function ($routes) {
 
 $routes->get('logout', 'AuthController::logout', ['filter' => 'authenticate']);
 
-$routes->get('users', 'UserController::index', ['filter' => ['authenticate', 'adminAuth']]);
+$routes->group('users', ['filter' => ['authenticate', 'adminAuth']], function ($routes) {
+    $routes->get('/', 'UserController::index');
+    $routes->post('/', 'UserController::search');
+});
 
 $routes->group('user', ['filter' => ['authenticate', 'adminAuth']], function ($routes) {
     $routes->post('put', 'UserController::put_edit');
