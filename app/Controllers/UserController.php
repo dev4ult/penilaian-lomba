@@ -23,6 +23,28 @@ class UserController extends BaseController {
         echo view('templates/footer');
     }
 
+    public function search() {
+        $this->data['search_keyword'] = $this->request->getPost('search-keyword');
+        $this->data['filter_role'] = $this->request->getPost('filter-role');
+
+        if ($this->data['filter_role']) {
+            $this->data['users'] = $this->users_model
+                ->where('role', $this->data['filter_role']);
+        }
+
+        if ($this->data['search_keyword']) {
+            $this->data['users'] = $this->users_model
+                ->Like('username', $this->data['search_keyword']);
+        }
+
+        $this->data['users'] = $this->users_model->findAll();
+
+        echo view('templates/header');
+        // echo view('templates/sidebar', $sidebar);
+        echo view('pages/manage-user', $this->data);
+        echo view('templates/footer');
+    }
+
     public function post_add() {
         $password = $this->request->getPost('password');
         $confirm_password = $this->request->getPost('password-conf');
