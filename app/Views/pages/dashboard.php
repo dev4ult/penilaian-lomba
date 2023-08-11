@@ -15,7 +15,7 @@
         <h2 class="text-lg font-semibold text-black/30 mb-3">Manajemen</h2>
         <div class="flex gap-6 w-full">
 
-            <?php if(session('user_role') == 'admin') : ?>
+            <?php if (session('user_role') == 'admin') : ?>
             <!-- User -->
             <a href="/users"
                 class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
@@ -59,20 +59,56 @@
     <!-- Statistic -->
     <div class="mt-10">
         <h2 class="text-lg font-semibold text-black/30 mb-3">Statistik</h2>
-        <div class="grid grid-flow-row grid-cols-2 gap-6">
+        <div class="">
             <div class="p-4 rounded-lg border-2 bg-white hover:shadow">
                 <div id="chart" class="min-w-[30rem]"></div>
             </div>
-            <div class="p-4 rounded-lg border-2 bg-white hover:shadow">
-                <div id="chart-donut" class="min-w-[30rem]"></div>
-            </div>
+
         </div>
     </div>
 
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script src="<?= base_url('./js/dashboardChart.js') ?>"></script>
+
+<script>
+var options = {
+    series: [{
+        data: [
+            <?php foreach ($contests as $contest) : ?>
+            <?php $total_reg = 0 ?>
+            <?php foreach ($reg_contestants as $contestant) : ?>
+            <?php if ($contest['contest_id'] == $contestant['contest_id']) : ?>
+            <?php $total_reg += 1 ?>
+            <?php endif ?>
+            <?php endforeach ?>
+            <?= (int) $total_reg ?>,
+            <?php endforeach ?>
+        ],
+    }, ],
+    chart: {
+        type: 'bar',
+        height: 250,
+    },
+    plotOptions: {
+        bar: {
+            borderRadius: 3,
+        },
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    xaxis: {
+        categories: [
+            <?php foreach ($contests as $contest) : ?> '<?= $contest['contest_name'] ?>',
+            <?php endforeach ?>
+        ],
+    },
+};
+
+var chart = new ApexCharts(document.querySelector('#chart'), options);
+chart.render();
+</script>
 
 <script>
 <?php if (session()->getFlashdata('error')) : ?>
