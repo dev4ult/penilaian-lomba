@@ -154,15 +154,24 @@ $(document).ready(function () {
             evaluated_by_user.forEach((user, index) => $('#judge-who-evaluated').append(`<span class="badge badge-accent rounded-full badge-lg">${user.full_name}</span>${index < evaluated_by_user.length - 1 ? ' | ' : ''}`));
             $('#detail-evaluation').removeClass('hidden');
 
+            const totalJudges = $('#total-judges').val();
+
             $('#detail-category-eval').html('');
             contest_category.forEach((category, index) => {
               let totalEval = 0;
-              eval_category.forEach((eval) => (category.eval_category_id == eval.category_id ? (totalEval += parseInt(eval.total_evaluation)) : undefined));
+              let totalWhoEvaluated = 0;
+              eval_category.forEach((eval) => {
+                if (category.eval_category_id == eval.category_id) {
+                  totalWhoEvaluated++;
+                  totalEval += parseInt(eval.total_evaluation);
+                }
+              });
 
               $('#detail-category-eval').append(`<tr>
                                                     <th>${index + 1}</th>
                                                     <td>${category.category_name}</td>
                                                     <td>${totalEval}</td>
+                                                    <td><span class="badge ${totalWhoEvaluated == 0 ? 'badge-error' : 'badge-accent'}">${totalWhoEvaluated} / ${totalJudges}</span></td>
                                                 </tr>`);
             });
 

@@ -1,3 +1,9 @@
+if (totalCategories == 1) {
+  $('#prev-btn').addClass('hidden');
+  $('#next-btn').addClass('hidden');
+  $('#submit-btn').removeClass('hidden');
+}
+
 function displayCategory() {
   const category_id = $('.tab')[indexTabActive].getAttribute('id').split('-')[2];
 
