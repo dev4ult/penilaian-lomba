@@ -34,7 +34,10 @@ class RecapController extends BaseController {
         $contest = $this->contests_model->find($contest_id);
 
         if ($contest_id && $contest) {
+            $this->data['contest'] = $contest;
+
             $categories = $this->categories_model->where('contest_id', $contest_id)->findAll();
+            $this->data['categories'] = $categories;
 
             $checkbox = [];
 
@@ -56,8 +59,11 @@ class RecapController extends BaseController {
                 ->findAll();
 
             $eval_by_categories = $this->contestant_evals_by_category
+                ->join('contestants', 'contestant_evals_by_category.contestant_id = contestants.contestant_id')
                 ->where('contest_id', $contest_id)
                 ->findAll();
+
+            $this->data['eval_by_categories'] = $eval_by_categories;
 
             $index_deleted = 0;
             foreach ($eval_by_categories as $index => $eval_category) {
@@ -71,6 +77,7 @@ class RecapController extends BaseController {
 
 
             $main_evaluation = [];
+            $category_evaluation = [];
 
             foreach ($reg_contestants as $contestant) {
                 $total_eval = 0;
@@ -85,11 +92,33 @@ class RecapController extends BaseController {
                     'school' =>  $contestant['school'],
                     'total_eval' => $total_eval
                 ]);
+
+                foreach ($categories as $category) {
+                    $total_eval = 0;
+
+                    foreach ($this->data['eval_by_categories'] as $eval_category) {
+                        if ($eval_category['contestant_id'] == $contestant['contestant_id'] && $eval_category['category_id'] == $category['eval_category_id']) {
+                            $total_eval += (int) $eval_category['total_evaluation'];
+                        }
+                    }
+
+                    array_push($category_evaluation, [
+                        'school' =>  $contestant['school'],
+                        'category_id' => $category['eval_category_id'],
+                        'total_eval' => $total_eval
+                    ]);
+                }
             }
 
+            // return $this->response->setJSON($category_evaluation);
+
+
+
+            array_multisort(array_column($category_evaluation, 'total_eval'), SORT_DESC, $category_evaluation);
             array_multisort(array_column($main_evaluation, 'total_eval'), SORT_DESC, $main_evaluation);
 
             $this->data['main_table_eval'] = $main_evaluation;
+            $this->data['category_table_eval'] = $category_evaluation;
             // return $this->response->setJSON($main_evaluation);
 
 
@@ -99,7 +128,7 @@ class RecapController extends BaseController {
             $this->dompdf->loadHtml(view('templates/recap_pdf', $this->data));
 
             // (optional) setup the paper size and orientation
-            $this->dompdf->setPaper('A4', 'landscape');
+            $this->dompdf->setPaper('A4', 'portrait');
 
             // render html as PDF
             $this->dompdf->render();
