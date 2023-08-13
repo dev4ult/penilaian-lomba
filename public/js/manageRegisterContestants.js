@@ -1,3 +1,46 @@
+const contest_id = $('#contest-id').val();
+
+function refresh() {
+  $.ajax({
+    url: `/contest/get-register-contestants/${contest_id}`,
+    method: 'GET',
+    dataType: 'json',
+    success: function (response) {
+      const { status } = response;
+
+      if (status == 200) {
+        const { data, contestant_eval } = response;
+
+        $('#reg-contestants-container').html('');
+
+        data.forEach((item, index) => {
+          let total_eval = 0;
+          contestant_eval.forEach((eval) => {
+            if (eval['contest_id'] == item['contest_id'] && eval['contestant_id'] == item['contestant_id']) {
+              total_eval += parseInt(eval['total_evaluation']);
+            }
+          });
+
+          $('#reg-contestants-container').append(rowContestant(index + 1, item['contest_id'], total_eval, item['contestant_id'], item['reg_contestant_id'], item['team_name'], item['school']));
+        });
+
+        if (data.length == 0) {
+          $('#reg-contestants-container').html(`<tr>
+                                                  <td colspan="6">
+                                                      <h3 class="text-center text-black/50">-- Belum ada Peserta yang mendaftar pada lomba ini --</>
+                                                  </td>
+                                              </tr>`);
+        }
+
+        $('#total-contestants-registered').html(data.length);
+      } else {
+        const { message } = response;
+        notify(status, message);
+      }
+    },
+  });
+}
+
 const rowContestant = (index, contest_id, total_eval, contestant_id, reg_contestant_id, team_name, school) => {
   return `<tr>
             <th>${index}</th>
@@ -22,8 +65,6 @@ $(document).ready(function () {
     }
   });
 
-  const contest_id = $('#contest-id').val();
-
   function notify(status, message) {
     Toastify({
       text: message,
@@ -32,47 +73,6 @@ $(document).ready(function () {
       position: 'left',
       className: `alert ${status == 200 ? 'alert-success' : 'alert-error'} fixed z-20 top-5 right-5 w-fit transition-all`,
     }).showToast();
-  }
-
-  function refresh() {
-    $.ajax({
-      url: `/contest/get-register-contestants/${contest_id}`,
-      method: 'GET',
-      dataType: 'json',
-      success: function (response) {
-        const { status } = response;
-
-        if (status == 200) {
-          const { data, contestant_eval } = response;
-
-          $('#reg-contestants-container').html('');
-
-          data.forEach((item, index) => {
-            let total_eval = 0;
-            contestant_eval.forEach((eval) => {
-              if (eval['contest_id'] == item['contest_id'] && eval['contestant_id'] == item['contestant_id']) {
-                total_eval += parseInt(eval['total_evaluation']);
-              }
-            });
-
-            $('#reg-contestants-container').append(rowContestant(index + 1, item['contest_id'], total_eval, item['contestant_id'], item['reg_contestant_id'], item['team_name'], item['school']));
-          });
-
-          if (data.length == 0) {
-            $('#reg-contestants-container').html(`<tr>
-                                                    <td colspan="6">
-                                                        <h3 class="text-center text-black/50">-- Belum ada Peserta yang mendaftar pada lomba ini --</>
-                                                    </td>
-                                                </tr>`);
-          }
-
-          $('#total-contestants-registered').html(data.length);
-        } else {
-          const { message } = response;
-          notify(status, message);
-        }
-      },
-    });
   }
 
   $('#add-contestant').click(function () {

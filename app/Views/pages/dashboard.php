@@ -69,6 +69,23 @@
 
 </main>
 
+<hr>
+
+<!-- attribute -->
+<footer class="my-6">
+    <h2 class="text-lg font-semibold text-black/30 mb-3">Atribusi Icon</h2>
+    <a class="underline text-primary" href="https://www.flaticon.com/free-icons/dashboard"
+        title="dashboard icons">Dashboard icons created by Pixel
+        perfect - Flaticon</a>
+    <a class="underline text-primary" href="https://www.flaticon.com/free-icons/user" title="user icons">User icons
+        created by Freepik - Flaticon</a>
+    <a class="underline text-primary" href="https://www.flaticon.com/free-icons/prize" title="prize icons">Prize icons
+        created by fjstudio -
+        Flaticon</a>
+    <a class="underline text-primary" href="https://www.flaticon.com/free-icons/user" title="user icons">User icons
+        created by Freepik - Flaticon</a>
+</footer>
+
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 <script>

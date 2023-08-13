@@ -1,4 +1,4 @@
-<div class="flex items-center justify-center pt-24">
+<div class="flex items-center justify-center pt-32">
     <form action="/login" method="post" class="flex flex-col gap-6 bg-white p-8 border-2 rounded-lg w-[26rem] prose">
         <!-- Title and  Desc-->
         <div>

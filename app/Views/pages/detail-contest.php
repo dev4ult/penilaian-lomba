@@ -109,6 +109,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php if (count($categories) == 0) : ?>
+                        <tr>
+                            <td colspan="2">
+                                <h3 class="text-center text-black/50">-- Belum ada Kategori yang ditambahkan pada lomba ini
+                                    --
+                                </h3>
+                            </td>
+                        </tr>
+                    <?php endif ?>
                     <?php foreach ($categories as $index => $category) : ?>
                         <tr>
                             <th><?= $index + 1 ?></th>
@@ -118,8 +127,7 @@
                 </tbody>
             </table>
         </div>
-        <p class="mt-2 text-black/60 text-sm"><span class="text-black">Keterangan :</span> Range Nilai merupakan
-            ketentuan nilai terkecil dan terbesar dari suatu aspek penilaian lomba</p>
+
     </div>
 
     <!-- Judges -->
@@ -138,6 +146,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <?php if (count($judges) == 0) : ?>
+                        <tr>
+                            <td colspan="4">
+                                <h3 class="text-center text-black/50">-- Belum ada Juri yang ditugaskan pada lomba ini --
+                                </h3>
+                            </td>
+                        </tr>
+                    <?php endif ?>
                     <?php foreach ($judges as $index => $judge) : ?>
                         <tr>
                             <th><?= $index + 1 ?></th>
@@ -166,17 +182,9 @@
                     peserta</button>
             </div>
 
-            <!-- Filter Contestants -->
-            <div class="join mx-3">
-                <select class="select select-bordered join-item">
-                    <option disabled selected>Filter</option>
-                    <option>Belum Dinilai</option>
-                    <option>Sudah Dinilai</option>
-                </select>
-                <div class="indicator">
-                    <button class="btn join-item capitalize btn-primary">Set</button>
-                </div>
-            </div>
+            <!-- refresh -->
+
+            <button type="button" onclick="refresh()" class="btn capitalize btn-primary mx-2">refresh</button>
 
             <!-- Add Contestants -->
             <div class="join">
@@ -208,7 +216,7 @@
                 <?php if (count($reg_contestants) == 0) : ?>
                     <tr>
                         <td colspan="6">
-                            <h3 class="text-center text-black/50">-- Belum ada Peserta yang mendaftar pada lomba ini --</>
+                            <h3 class="text-center text-black/50">-- Belum ada Peserta yang mendaftar pada lomba ini --</h3>
                         </td>
                     </tr>
                 <?php endif ?>
