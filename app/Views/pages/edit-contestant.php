@@ -2,8 +2,8 @@
 <header class="pb-10 border-b-2 flex justify-between">
     <div class="prose">
         <h2 class="text-lg font-extrabold">Edit Peserta</h2>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae praesentium ea provident placeat, cum
-            ullam.</p>
+        <p>Perubahan Informasi Peserta memberikan akses untuk merubah kesalahan terhadap informasi peserta tim atau
+            anggota.</p>
     </div>
 
     <!-- Breadcrumbs -->

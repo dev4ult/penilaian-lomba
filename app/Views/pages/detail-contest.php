@@ -2,8 +2,7 @@
 <header class="pb-10 border-b-2 flex justify-between">
     <div class="prose ">
         <h1 class="text-2xl font-extrabold my-0"><?= $contest['contest_name'] ?></h1>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ratione porro quas magni, nam perspiciatis
-            voluptatum!</p>
+        <p>Detail Lomba menyediakan spesifikasi atau informasi tentang lomba terhadap user Admin dan Juri.</p>
     </div>
 
     <!-- Breadcrumbs -->
@@ -27,8 +26,8 @@
 
         <div class="text-right">
             <?php if (session('user_role') == 'admin') : ?>
-                <a href="/contest/edit/<?= $contest['contest_id'] ?>" class="btn btn-sm btn-warning capitalize w-fit">edit
-                    informasi</a>
+            <a href="/contest/edit/<?= $contest['contest_id'] ?>" class="btn btn-sm btn-warning capitalize w-fit">edit
+                informasi</a>
             <?php endif ?>
 
         </div>
@@ -96,7 +95,8 @@
         <div class="flex gap-4 justify-between">
             <h2 class="text-lg font-semibold text-black/30 mb-3">Kategori Penilaian</h2>
             <?php if (session('user_role') == 'admin') : ?>
-                <a href="/contest/evaluation-aspect/<?= $contest['contest_id'] ?>" class="btn btn-sm btn-warning capitalize">Edit Kategori</a>
+            <a href="/contest/evaluation-aspect/<?= $contest['contest_id'] ?>"
+                class="btn btn-sm btn-warning capitalize">Edit Kategori</a>
             <?php endif ?>
         </div>
 
@@ -110,19 +110,19 @@
                 </thead>
                 <tbody>
                     <?php if (count($categories) == 0) : ?>
-                        <tr>
-                            <td colspan="2">
-                                <h3 class="text-center text-black/50">-- Belum ada Kategori yang ditambahkan pada lomba ini
-                                    --
-                                </h3>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="2">
+                            <h3 class="text-center text-black/50">-- Belum ada Kategori yang ditambahkan pada lomba ini
+                                --
+                            </h3>
+                        </td>
+                    </tr>
                     <?php endif ?>
                     <?php foreach ($categories as $index => $category) : ?>
-                        <tr>
-                            <th><?= $index + 1 ?></th>
-                            <td><?= $category['category_name'] ?></td>
-                        </tr>
+                    <tr>
+                        <th><?= $index + 1 ?></th>
+                        <td><?= $category['category_name'] ?></td>
+                    </tr>
                     <?php endforeach ?>
                 </tbody>
             </table>
@@ -147,20 +147,20 @@
                 </thead>
                 <tbody>
                     <?php if (count($judges) == 0) : ?>
-                        <tr>
-                            <td colspan="4">
-                                <h3 class="text-center text-black/50">-- Belum ada Juri yang ditugaskan pada lomba ini --
-                                </h3>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td colspan="4">
+                            <h3 class="text-center text-black/50">-- Belum ada Juri yang ditugaskan pada lomba ini --
+                            </h3>
+                        </td>
+                    </tr>
                     <?php endif ?>
                     <?php foreach ($judges as $index => $judge) : ?>
-                        <tr>
-                            <th><?= $index + 1 ?></th>
-                            <td><?= $judge['full_name'] ?></td>
-                            <td><?= $judge['staff_id'] ?></td>
-                            <td><?= $judge['phone_number'] ?></td>
-                        </tr>
+                    <tr>
+                        <th><?= $index + 1 ?></th>
+                        <td><?= $judge['full_name'] ?></td>
+                        <td><?= $judge['staff_id'] ?></td>
+                        <td><?= $judge['phone_number'] ?></td>
+                    </tr>
                     <?php endforeach ?>
                 </tbody>
             </table>
@@ -177,7 +177,8 @@
 
         <div>
             <div class="inline-flex">
-                <button type="button" onclick="recap_modal.showModal()" id="recap-modal-btn" class="btn btn-primary btn-outline capitalize w-fit">rekap
+                <button type="button" onclick="recap_modal.showModal()" id="recap-modal-btn"
+                    class="btn btn-primary btn-outline capitalize w-fit">rekap
                     nilai
                     peserta</button>
             </div>
@@ -188,13 +189,15 @@
 
             <!-- Add Contestants -->
             <div class="join">
-                <input type="text" id="select-contestants" class="input input-bordered" list="contestants" placeholder="Tambah Peserta" />
+                <input type="text" id="select-contestants" class="input input-bordered" list="contestants"
+                    placeholder="Tambah Peserta" />
                 <datalist id="contestants">
                     <?php foreach ($contestants as $contestant) : ?>
-                        <option value="<?= $contestant['team_name'] ?>" />
+                    <option value="<?= $contestant['team_name'] ?>" />
                     <?php endforeach ?>
                 </datalist>
-                <button id="add-contestant" class="btn btn-primary btn-outline capitalize join-item btn-disabled">Tambah</button>
+                <button id="add-contestant"
+                    class="btn btn-primary btn-outline capitalize join-item btn-disabled">Tambah</button>
             </div>
         </div>
     </div>
@@ -214,35 +217,38 @@
             </thead>
             <tbody id="reg-contestants-container">
                 <?php if (count($reg_contestants) == 0) : ?>
-                    <tr>
-                        <td colspan="6">
-                            <h3 class="text-center text-black/50">-- Belum ada Peserta yang mendaftar pada lomba ini --</h3>
-                        </td>
-                    </tr>
+                <tr>
+                    <td colspan="6">
+                        <h3 class="text-center text-black/50">-- Belum ada Peserta yang mendaftar pada lomba ini --</h3>
+                    </td>
+                </tr>
                 <?php endif ?>
 
                 <?php foreach ($reg_contestants as $index => $contestant) : ?>
-                    <tr>
-                        <th><?= $index + 1 ?></th>
-                        <td id="team-name-data-<?= $contestant['contestant_id'] ?>"><?= $contestant['team_name'] ?></td>
-                        <td><?= $contestant['school'] ?></td>
-                        <?php $contestant_eval = 0 ?>
-                        <?php foreach ($total_evaluation as $eval) {
+                <tr>
+                    <th><?= $index + 1 ?></th>
+                    <td id="team-name-data-<?= $contestant['contestant_id'] ?>"><?= $contestant['team_name'] ?></td>
+                    <td><?= $contestant['school'] ?></td>
+                    <?php $contestant_eval = 0 ?>
+                    <?php foreach ($total_evaluation as $eval) {
                             if ($eval['contest_id'] == $contestant['contest_id'] && $eval['contestant_id'] == $contestant['contestant_id']) {
                                 $contestant_eval += $eval['total_evaluation'];
                             }
                         } ?>
-                        <td><span class="badge badge-neutral badge-outline badge-lg"><?= $contestant_eval ?></span></td>
-                        <td class="flex gap-1.5 items-center">
-                            <button id="preview-<?= $contestant['reg_contestant_id'] ?>" class="preview-contestant-btn btn btn-sm btn-neutral btn-outline capitalize">lihat</button>
-                            |
-                            <a href="/contest/contestant-evaluation/<?= $contestant['contest_id'] ?>/<?= $contestant['contestant_id'] ?>" class="btn btn-sm btn-primary capitalize">Beri Penilaian</a>
-                            <button type="button" id="contestant-rmv-<?= $contestant['contestant_id'] ?>" class="remove-reg-btn btn btn-sm btn-error btn-outline capitalize">hapus</button>
-                        </td>
-                    </tr>
-                    <script>
-                        $(`option[value="<?= $contestant['team_name'] ?>"]`).remove();
-                    </script>
+                    <td><span class="badge badge-neutral badge-outline badge-lg"><?= $contestant_eval ?></span></td>
+                    <td class="flex gap-1.5 items-center">
+                        <button id="preview-<?= $contestant['reg_contestant_id'] ?>"
+                            class="preview-contestant-btn btn btn-sm btn-neutral btn-outline capitalize">lihat</button>
+                        |
+                        <a href="/contest/contestant-evaluation/<?= $contestant['contest_id'] ?>/<?= $contestant['contestant_id'] ?>"
+                            class="btn btn-sm btn-primary capitalize">Beri Penilaian</a>
+                        <button type="button" id="contestant-rmv-<?= $contestant['contestant_id'] ?>"
+                            class="remove-reg-btn btn btn-sm btn-error btn-outline capitalize">hapus</button>
+                    </td>
+                </tr>
+                <script>
+                $(`option[value="<?= $contestant['team_name'] ?>"]`).remove();
+                </script>
                 <?php endforeach ?>
             </tbody>
         </table>
@@ -253,7 +259,8 @@
 <dialog id="recap_modal" class="modal">
     <form action="/generate-recap" method="post" class="modal-box p-8">
         <h3 class="badge badge-lg badge-neutral mb-3">Rekap Nilai</h3>
-        <p class="mb-6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur, architecto?</span>?
+        <p class="mb-6">Rekapitulasi Nilai Peserta akan menghasilkan file pdf berisikan hasil akhir penilaian
+            peserta.</span>?
         </p>
 
         <input type="number" id="contest-id" name="contest-id" class="hidden" value="<?= $contest['contest_id'] ?>" />
@@ -262,7 +269,8 @@
 
         <div class="flex flex-col gap-1">
             <label for="filename" class="text-sm font-semibold">Nama File</label>
-            <input type="text" id="filename" name="filename" class="input input-bordered" placeholder="Rekapitulasi Nilai Lomba ..." required />
+            <input type="text" id="filename" name="filename" class="input input-bordered"
+                placeholder="Rekapitulasi Nilai Lomba ..." required />
         </div>
 
         <hr class="my-6">
@@ -270,11 +278,16 @@
         <h3 class="badge badge-neutral mb-6">Nilai Penentu Lomba</h3>
 
         <div class="grid grid-flow-row grid-cols-2 gap-4">
+            <?php if (count($categories) == 0) : ?>
+            <p class="col-span-2">Tidak ada kategori penilaian...</p>
+            <input type="text" name="unknown" class="hidden" required />
+            <?php endif ?>
             <?php foreach ($categories as $category) : ?>
-                <label class="label cursor-pointer p-4 border-2 rounded">
-                    <span class="label-text"><?= $category['category_name'] ?></span>
-                    <input type="checkbox" name="category-<?= $category['eval_category_id'] ?>" checked="checked" value="<?= $category['eval_category_id'] ?>" class="checkbox checkbox-primary" />
-                </label>
+            <label class="label cursor-pointer p-4 border-2 rounded">
+                <span class="label-text"><?= $category['category_name'] ?></span>
+                <input type="checkbox" name="category-<?= $category['eval_category_id'] ?>" checked="checked"
+                    value="<?= $category['eval_category_id'] ?>" class="checkbox checkbox-primary" />
+            </label>
             <?php endforeach ?>
         </div>
 
@@ -283,8 +296,10 @@
         <button type="submit" class="btn btn-primary capitalize w-full">Download</button>
 
         <div class="modal-action my-0">
-            <button type="button" onclick="recap_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button type="button" onclick="recap_modal.close()"
+                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
 
@@ -297,8 +312,8 @@
 <dialog id="detail_modal" class="modal">
     <form method="dialog" class="modal-box max-w-2xl p-8">
         <h3 class="badge badge-lg badge-neutral mb-3">Informasi Penilaian</h3>
-        <p class="mb-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, corrupti? Consequuntur
-            incidunt tenetur sequi neque?</p>
+        <p class="mb-3">Detail Penilaian Peserta memberikan informasi mengenai peserta dan penilaiannya pada lomba ini
+            per kategori</p>
 
         <hr class="my-6">
 
@@ -384,8 +399,10 @@
             </table>
         </div>
         <div class="modal-action my-0">
-            <button type="button" onclick="detail_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button type="button" onclick="detail_modal.close()"
+                class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
@@ -397,14 +414,16 @@
 <dialog id="delete_modal" class="modal">
     <form id="form-confirm-delete" method="dialog" class="modal-box p-8">
         <h3 class="badge badge-lg badge-neutral mb-3">Konfirmasi Hapus</h3>
-        <p class="mb-6">Apakah anda yakin untuk menghapus Tim / Peserta <span id="team-delete" class="font-bold"></span>?
+        <p class="mb-6">Apakah anda yakin untuk menghapus Tim / Peserta <span id="team-delete"
+                class="font-bold"></span>?
         </p>
 
         <input type="number" id="delete-contestant-id" name="delete-contestant-id" class="hidden" />
 
         <div class="modal-action my-0">
             <button type="button" id="confirm-delete" class="btn btn-sm btn-outline btn-error capitalize">Iya</button>
-            <button id="confirm-no-delete" onclick="delete_modal.close()" type="button" class="btn btn-sm btn-neutral capitalize">
+            <button id="confirm-no-delete" onclick="delete_modal.close()" type="button"
+                class="btn btn-sm btn-neutral capitalize">
                 Tidak
             </button>
         </div>
@@ -412,22 +431,22 @@
 </dialog>
 
 <script>
-    <?php if (session()->getFlashdata('error')) : ?>
-        Toastify({
-            text: `<?= session()->getFlashdata('error') ?>`,
-            duration: 3000,
-            position: 'left',
-            className: 'alert alert-error fixed z-20 top-5 right-5 w-fit transition-all',
-        }).showToast();
-    <?php endif ?>
-    <?php if (session()->getFlashdata('success')) : ?>
-        Toastify({
-            text: `<?= session()->getFlashdata('success') ?>`,
-            duration: 3000,
-            position: 'left',
-            className: 'alert alert-success fixed z-20 top-5 right-5 w-fit transition-all',
-        }).showToast();
-    <?php endif ?>
+<?php if (session()->getFlashdata('error')) : ?>
+Toastify({
+    text: `<?= session()->getFlashdata('error') ?>`,
+    duration: 3000,
+    position: 'left',
+    className: 'alert alert-error fixed z-20 top-5 right-5 w-fit transition-all',
+}).showToast();
+<?php endif ?>
+<?php if (session()->getFlashdata('success')) : ?>
+Toastify({
+    text: `<?= session()->getFlashdata('success') ?>`,
+    duration: 3000,
+    position: 'left',
+    className: 'alert alert-success fixed z-20 top-5 right-5 w-fit transition-all',
+}).showToast();
+<?php endif ?>
 </script>
 
 

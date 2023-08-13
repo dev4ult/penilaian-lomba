@@ -2,7 +2,7 @@
 <header class="pb-10 border-b-2 flex justify-between ">
     <div class="prose">
         <h1 class="my-0 text-2xl font-extrabold">Halo, <?= $user['full_name'] ?></h1>
-        <p>Selamat datang di Dashboard Admin</p>
+        <p>Selamat datang di Dashboard Admin.</p>
     </div>
     <a href="/logout" class="self-end btn btn-sm btn-outline btn-error capitalize">Logout</a>
 </header>
@@ -58,7 +58,7 @@
 
     <!-- Statistic -->
     <div class="mt-10">
-        <h2 class="text-lg font-semibold text-black/30 mb-3">Statistik</h2>
+        <h2 class="text-lg font-semibold text-black/30 mb-3">Statistik Jumlah Peserta Terdaftar</h2>
         <div class="">
             <div class="p-4 rounded-lg border-2 bg-white hover:shadow">
                 <div id="chart" class="min-w-[30rem]"></div>

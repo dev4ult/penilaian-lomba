@@ -1,7 +1,7 @@
 <!-- Header -->
 <header class="pb-10 border-b-2 flex justify-between">
     <div class="prose">
-        <h1 class="text-xl my-0 font-extrabold">Manajemen Akun / User</h1>
+        <h1 class="text-2xl my-0 font-extrabold">Manajemen Akun / User</h1>
         <p>Pengelolaan data user untuk aksesibilitas ke aplikasi dan pengaturan peranan atau tugas terhadap user</p>
     </div>
 
@@ -24,7 +24,8 @@
     <dialog id="registration_modal" class="modal">
         <form action="/user/add" method="post" class="modal-box p-8 max-w-2xl relative">
             <h3 class="badge badge-lg badge-neutral mb-3">Form Registrasi</h3>
-            <p class="mb-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, laboriosam!
+            <p class="mb-6">Form Registrasi User dengan menambah akun / user untuk memberikan akses terhadap website
+                ini.
             </p>
             <div class="grid grid-flow-row grid-cols-2 gap-6">
                 <hr class="col-span-2" />
@@ -82,7 +83,7 @@
                 <button type="submit" class="btn btn-primary capitalize col-span-2">submit</button>
             </div>
             <div class="modal-action my-0">
-                <button type="button" onclick="registration_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-circle btn-outline">
+                <button type="button" onclick="registration_modal.close()" class="absolute top-0 right-0 m-8 btn btn-sm btn-square btn-outline">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -155,7 +156,7 @@
 <dialog id="edit_modal" class="modal">
     <form id="form-edit-user" action="/user/put" method="post" class="modal-box max-w-2xl p-8 relative">
         <h3 class="badge badge-lg badge-neutral mb-3">Edit Akun / User</h3>
-        <p class="mb-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus, laboriosam!
+        <p class="mb-6">Form Ubah Informasi untuk merubah kesalahan informasi user.
         </p>
 
         <hr class="mb-6">

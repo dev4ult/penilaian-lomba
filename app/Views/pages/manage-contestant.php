@@ -2,7 +2,8 @@
 <header class="pb-10 border-b-2 flex justify-between">
     <div class="prose">
         <h1 class="text-2xl font-extrabold my-0">Manajemen Peserta</h1>
-        <p>Pengelolaan data user untuk aksesibilitas ke aplikasi dan pengaturan peranan atau tugas terhadap user</p>
+        <p>Pengelolaan Peserta untuk melihat list atau pengaturan terhadap peserta seperti tambah, edit dan hapus
+            informasi peserta.</p>
     </div>
 
     <!-- Breadcrumbs -->
@@ -79,7 +80,7 @@
 <dialog id="detail_modal" class="modal">
     <form method="dialog" class="modal-box max-w-2xl p-8">
         <h3 class="badge badge-lg badge-neutral mb-3">Detail Peserta</h3>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam odio eius atque ullam incidunt ipsa!</p>
+        <p>Detail Peserta menampilkan informasi lengkap peserta tim berserta anggota-anggotanya!</p>
 
         <hr class="my-6">
 
