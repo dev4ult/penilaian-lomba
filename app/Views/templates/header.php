@@ -7,7 +7,8 @@
     <title>Dokumen</title>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="<?= base_url("./css/styles.css") ?>">
-    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 </head>
 
@@ -19,15 +20,15 @@
                 <span class="font-bold">Komunitas Count Pembaris Indonesia</span>
             </a>
             <?php if (session('user_role') == 'admin') : ?>
-                <a href="/contest/add" class="btn btn-primary capitalize">
-                    Publikasi Lomba
-                    <span>+</span>
-                </a>
+            <a href="/contest/add" class="btn btn-primary capitalize">
+                Publikasi Lomba
+                <span>+</span>
+            </a>
             <?php else : ?>
-                <a href="/contestant/add" class="btn btn-primary capitalize">
-                    Registrasi Peserta
-                    <span>+</span>
-                </a>
+            <a href="/contestant/add" class="btn btn-primary capitalize">
+                Registrasi Peserta
+                <span>+</span>
+            </a>
             <?php endif ?>
 
 
@@ -36,22 +37,25 @@
         <div class="flex flex-col gap-4 mt-7">
             <a href="/" class="px-4 h-12 flex gap-6 items-center font-semibold hover:text-primary group">
                 <img src="<?= base_url('./icons/dashboard.png') ?>" class="w-5" alt="contest logo">
-                <span class=" <?= $path == "dashboard" ? 'text-black' : 'text-black/30 group-hover:text-black' ?>">Dashboard</span>
+                <span
+                    class=" <?= $path == "dashboard" ? 'text-black' : 'text-black/30 group-hover:text-black' ?>">Dashboard</span>
             </a>
             <?php if (session('user_role') == 'admin') : ?>
-                <a href="/users" class="px-4 h-12 flex gap-6 items-center font-semibold hover:text-primary group">
-                    <img src="<?= base_url('./icons/user.png') ?>" class="w-5" alt="contest logo">
-                    <span class=" <?= $path == "user" ? 'text-black' : 'text-black/30 group-hover:text-black' ?>">Akun /
-                        User</span>
-                </a>
+            <a href="/users" class="px-4 h-12 flex gap-6 items-center font-semibold hover:text-primary group">
+                <img src="<?= base_url('./icons/user.png') ?>" class="w-5" alt="contest logo">
+                <span class=" <?= $path == "user" ? 'text-black' : 'text-black/30 group-hover:text-black' ?>">Akun /
+                    User</span>
+            </a>
             <?php endif ?>
             <a href="/contests" class="px-4 h-12 flex gap-6 items-center font-semibold hover:text-primary group">
                 <img src="<?= base_url('./icons/contest.png') ?>" class="w-5" alt="contest logo">
-                <span class=" <?= $path == "contest" ? 'text-black' : 'text-black/30 group-hover:text-black' ?>">Lomba</span>
+                <span
+                    class=" <?= $path == "contest" ? 'text-black' : 'text-black/30 group-hover:text-black' ?>">Lomba</span>
             </a>
             <a href="/contestants" class="px-4 h-12 flex gap-6 items-center font-semibold hover:text-primary group">
                 <img src="<?= base_url('./icons/contestant.png') ?>" class="w-5" alt="contest logo">
-                <span class=" <?= $path == "contestant" ? 'text-black' : 'text-black/30 group-hover:text-black' ?>">Peserta</span>
+                <span
+                    class=" <?= $path == "contestant" ? 'text-black' : 'text-black/30 group-hover:text-black' ?>">Peserta</span>
             </a>
         </div>
 
