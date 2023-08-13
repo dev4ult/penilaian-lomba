@@ -11,17 +11,16 @@ class ContestantController extends BaseController {
     protected $data;
 
     public function __construct() {
+        $this->data['path'] = 'contestant';
         $this->contestants_model = new ContestantsModel();
         $this->member_model = new ContestantMembersModel();
     }
 
     public function index() {
-        // $sidebar['path'] = "/";
 
         $this->data['contestants'] = $this->contestants_model->findAll();
 
-        echo view('templates/header');
-        // echo view('templates/sidebar', $sidebar);
+        echo view('templates/header', $this->data);
         echo view('pages/manage-contestant', $this->data);
         echo view('templates/footer');
     }
@@ -40,14 +39,14 @@ class ContestantController extends BaseController {
 
         $this->data['contestants'] = $this->contestants_model->findAll();
 
-        echo view('templates/header');
+        echo view('templates/header', $this->data);
         // echo view('templates/sidebar', $sidebar);
         echo view('pages/manage-contestant', $this->data);
         echo view('templates/footer');
     }
 
     public function get_add() {
-        echo view('templates/header');
+        echo view('templates/header', $this->data);
         // echo view('templates/sidebar', $sidebar);
         echo view('pages/add-contestant');
         echo view('templates/footer');
@@ -130,7 +129,7 @@ class ContestantController extends BaseController {
             $this->data['contestant'] = $contestant;
             $this->data['members'] = $this->member_model->where('contestant_id', $contestant_id)->findAll();
 
-            echo view('templates/header');
+            echo view('templates/header', $this->data);
             // echo view('templates/sidebar', $sidebar);
             echo view('pages/edit-contestant', $this->data);
             echo view('templates/footer');

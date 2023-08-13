@@ -23,6 +23,8 @@ class ContestController extends BaseController {
     protected $data;
 
     public function __construct() {
+        $this->data['path'] = 'contest';
+
         $this->users_model = new UsersModel();
         $this->contests_model = new ContestsModel();
         $this->judges_model = new JudgesModel();
@@ -46,7 +48,7 @@ class ContestController extends BaseController {
 
         $this->data['contests'] = $this->contests_model->findAll();
 
-        echo view('templates/header');
+        echo view('templates/header', $this->data);
         // echo view('templates/sidebar', $sidebar);
         echo view('pages/manage-contest', $this->data);
         echo view('templates/footer');
@@ -71,7 +73,7 @@ class ContestController extends BaseController {
 
         $this->data['contests'] = $this->contests_model->findAll();
 
-        echo view('templates/header');
+        echo view('templates/header', $this->data);
         // echo view('templates/sidebar', $sidebar);
         echo view('pages/manage-contest', $this->data);
         echo view('templates/footer');
@@ -93,7 +95,7 @@ class ContestController extends BaseController {
 
             $this->data['contestants'] = $this->contestants_model->findAll();
 
-            echo view('templates/header');
+            echo view('templates/header', $this->data);
 
             // echo view('templates/sidebar', $sidebar);
             echo view('pages/detail-contest', $this->data);
@@ -111,7 +113,7 @@ class ContestController extends BaseController {
 
         $this->data['judges'] = $this->users_model->where('role', 'juri')->findAll();
 
-        echo view('templates/header');
+        echo view('templates/header', $this->data);
         // echo view('templates/sidebar', $sidebar);
         echo view('pages/add-contest', $this->data);
         echo view('templates/footer');
@@ -209,7 +211,7 @@ class ContestController extends BaseController {
             $this->data['judges_contest'] = $this->judges_model->join('users', 'users.user_id = judges.user_id')->where('contest_id', $contest_id)->findAll();
             $this->data['categories'] = $this->eval_categories_model->where('contest_id', $contest_id)->findAll();
 
-            echo view('templates/header');
+            echo view('templates/header', $this->data);
             // var_dump($this->data['judges']);
             // echo view('templates/sidebar', $sidebar);
             echo view('pages/edit-contest', $this->data);
@@ -462,7 +464,7 @@ class ContestController extends BaseController {
             $this->data['sub_categories'] = $this->eval_sub_categories_model->findAll();
             $this->data['evaluation_aspects'] = $this->eval_aspects_model->findAll();
 
-            echo view('templates/header');
+            echo view('templates/header', $this->data);
             // echo view('templates/sidebar', $sidebar);
             echo view('pages/detail-evaluation', $this->data);
             echo view('templates/footer');
@@ -628,7 +630,7 @@ class ContestController extends BaseController {
             $this->data['sub_categories'] = $this->eval_sub_categories_model->findAll();
             $this->data['evaluation_aspects'] = $this->eval_aspects_model->findAll();
 
-            echo view('templates/header');
+            echo view('templates/header', $this->data);
             // echo view('templates/sidebar', $sidebar);
             echo view('pages/edit-contestant-eval', $this->data);
             echo view('templates/footer');

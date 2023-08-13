@@ -9,6 +9,7 @@ class UserController extends BaseController {
     protected $data;
 
     public function __construct() {
+        $this->data['path'] = 'user';
         $this->users_model = new UsersModel();
     }
 
@@ -17,7 +18,7 @@ class UserController extends BaseController {
 
         $this->data['users'] = $this->users_model->findAll();
 
-        echo view('templates/header');
+        echo view('templates/header', $this->data);
         // echo view('templates/sidebar', $sidebar);
         echo view('pages/manage-user', $this->data);
         echo view('templates/footer');
@@ -39,7 +40,7 @@ class UserController extends BaseController {
 
         $this->data['users'] = $this->users_model->findAll();
 
-        echo view('templates/header');
+        echo view('templates/header', $this->data);
         // echo view('templates/sidebar', $sidebar);
         echo view('pages/manage-user', $this->data);
         echo view('templates/footer');

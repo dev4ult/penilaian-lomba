@@ -7,12 +7,14 @@ use App\Models\UsersModel;
 class AuthController extends BaseController {
     protected $users_model;
 
+
     public function __construct() {
+
         $this->users_model = new UsersModel();
     }
 
     public function index() {
-        echo view('templates/header');
+        echo view('templates/header-login');
         echo view('pages/login');
         echo view('templates/footer');
     }
