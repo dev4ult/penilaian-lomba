@@ -12,11 +12,16 @@ use App\Models\ContestantsModel;
 use App\Models\ContestantMembersModel;
 use App\Models\ContestantEvaluationsModel;
 use App\Models\ContestantEvaluationsByCategoryModel;
+use App\Models\ContestantEvaluationsByAspectModel;
 use App\Models\RegisteredConstestantsModel;
 
 
 class ContestController extends BaseController {
-    protected $users_model, $contests_model, $judges_model, $eval_categories_model, $eval_sub_categories_model, $eval_aspects_model, $contestants_model, $members_model, $contestant_eval_model, $contestant_eval_by_category_model, $reg_contestants_model;
+    protected $users_model, $contests_model, $judges_model, $contestants_model, $members_model, $reg_contestants_model;
+
+    protected $eval_categories_model, $eval_sub_categories_model, $eval_aspects_model;
+
+    protected $contestant_eval_model, $contestant_eval_by_category_model, $contestant_eval_by_aspect_model;
 
     protected $user_logged_id;
 
@@ -37,6 +42,7 @@ class ContestController extends BaseController {
         $this->members_model = new ContestantMembersModel();
         $this->contestant_eval_model = new ContestantEvaluationsModel();
         $this->contestant_eval_by_category_model = new ContestantEvaluationsByCategoryModel();
+        $this->contestant_eval_by_aspect_model = new ContestantEvaluationsByAspectModel();
 
         $this->reg_contestants_model = new RegisteredConstestantsModel();
 
@@ -331,8 +337,14 @@ class ContestController extends BaseController {
                 ->where('contestant_id', $contestant_id)
                 ->findAll();
 
+            $eval_aspect = $this->contestant_eval_by_aspect_model
+                ->join('evaluation_aspects', 'contestant_evals_by_aspect.aspect_id = evaluation_aspects.aspect_id')
+                ->where('contest_id', $contest_id)
+                ->where('contestant_id', $contestant_id)
+                ->findAll();
+
             $user_who_evaluated = $this->contestant_eval_model
-                ->select('users.full_name as full_name')
+                ->select('users.full_name as full_name, users.user_id as user_id')
                 ->join('users', 'contestant_evaluations.user_id = users.user_id')
                 ->where('contest_id', $contest_id)
                 ->where('contestant_id', $contestant_id)
@@ -349,6 +361,7 @@ class ContestController extends BaseController {
                 'members' => $all_members,
                 'contest_category' => $all_categories,
                 'eval_category' => $total_eval_category,
+                'eval_aspect' => $eval_aspect,
                 'evaluated_by_user' => $user_who_evaluated,
             ]);
         }
@@ -682,8 +695,12 @@ class ContestController extends BaseController {
 
                             if ($aspect['eval_sub_category_id'] == $sub_category_id) {
                                 array_push($contestant_evaluation, [
-                                    'Aspect Name' => $aspect['aspect_name'],
-                                    'Value' => (int) $this->request->getPost('options-' . $aspect['aspect_id'])
+                                    'contest_id' => $contest_id,
+                                    'contestant_id' => $contestant_id,
+                                    'category_id' => $category_id,
+                                    'aspect_id' => $aspect['aspect_id'],
+                                    'user_id' => $this->user_logged_id,
+                                    'evaluation' => (int) $this->request->getPost('options-' . $aspect['aspect_id'])
                                 ]);
 
                                 $total_eval += (int) $this->request->getPost('options-' . $aspect['aspect_id']);
@@ -701,6 +718,8 @@ class ContestController extends BaseController {
                     'total_evaluation' => $total_category_eval
                 ]);
             }
+
+            // return $this->response->setJSON($contestant_evaluation);
 
             $post_fields = [
                 'contest_id' => $contest_id,
@@ -744,10 +763,34 @@ class ContestController extends BaseController {
                             ->insert($category_eval_fields);
                     }
                 }
+
+                foreach ($contestant_evaluation as $aspect_eval_fields) {
+                    $is_update_aspect_eval = $this->contestant_eval_by_aspect_model
+                        ->where('contest_id', $contest_id)
+                        ->where('contestant_id', $contestant_id)
+                        ->where('user_id', $this->user_logged_id)
+                        ->where('aspect_id', $aspect_eval_fields['aspect_id'])
+                        ->first();
+
+                    if ($is_update_aspect_eval) {
+                        $update_per_aspect = $this->contestant_eval_by_aspect_model
+                            ->where('contest_id', $contest_id)
+                            ->where('contestant_id', $contestant_id)
+                            ->where('user_id', $this->user_logged_id)
+                            ->where('aspect_id', $aspect_eval_fields['aspect_id'])
+                            ->set($aspect_eval_fields)
+                            ->update();
+                    } else {
+                        $insert_per_aspect = $this->contestant_eval_by_aspect_model
+                            ->insert($aspect_eval_fields);
+                    }
+                }
             } else {
                 $insert = $this->contestant_eval_model->insert($post_fields);
 
-                $insert_batch = $this->contestant_eval_by_category_model->insertBatch($total_per_category);
+                $insert_batch_category = $this->contestant_eval_by_category_model->insertBatch($total_per_category);
+
+                $insert_batch_aspect = $this->contestant_eval_by_aspect_model->insertBatch($contestant_evaluation);
             }
 
 
