@@ -56,6 +56,62 @@ const rowContestant = (index, contest_id, total_eval, contestant_id, reg_contest
         </tr>`;
 };
 
+const aspectTables = (allCategories, allAspectVals, judges) => {
+  const perCategory = (categoryId, categoryName, aspectVals, judges) => {
+    const perAspectRow = (aspectName, evaluation, index, judge) => {
+      let perJudgeEval = '';
+
+      return `<tr>
+                  <th>${index}</th>
+                  <th>${aspectName}</th>
+                  <th>${evaluation}</th>
+              </tr>`;
+    };
+
+    let judgeColumn = '';
+
+    judges.forEach((judge) => {
+      judgeColumn += `<th>${judge['full_name']}</th>`;
+    });
+
+    let aspectRow = '';
+
+    let index = 1;
+    aspectVals.forEach((aspect) => {
+      if (aspect['category_id'] == categoryId) {
+        aspectRow += perAspectRow(aspect['aspect_name'], aspect['evaluation'], index);
+        index++;
+      }
+    });
+
+    return `<hr class="my-6" />
+            <h2 class="badge badge-neutral mb-3 block">${categoryName}</h2>
+  
+            <div>
+              <table class="table table-zebra bg-white border-2 my-3">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Aspek Penilaian</th>
+                        ${judgeColumn}
+                    </tr>
+                </thead>
+                <tbody class="font-semibold">
+                  ${aspectRow}
+                </tbody>
+              </table>
+            </div>`;
+  };
+
+  let tables = '';
+
+  allCategories.forEach((category) => {
+    tables += perCategory(category['eval_category_id'], category['category_name'], allAspectVals, judges);
+  });
+
+  return tables;
+};
+
 $(document).ready(function () {
   $('#select-contestants').keyup(function () {
     if ($(`option[value='${this.value}']`).length > 0) {
@@ -139,8 +195,14 @@ $(document).ready(function () {
           const { status } = response;
 
           if (status == 200) {
-            const { contestant, members, eval_category, contest_category, evaluated_by_user } = response;
+            const { contestant, members, eval_category, eval_aspect, contest_category, evaluated_by_user } = response;
             const { team_name, leader, school, phone_number } = contestant;
+
+            const tables = aspectTables(contest_category, eval_aspect, evaluated_by_user);
+
+            $('#all-aspect-tables').html(tables);
+
+            // console.log(evaluated_by_user);
 
             $('.loading-bars').addClass('hidden');
 
@@ -198,6 +260,16 @@ $(document).ready(function () {
         },
       });
     }
+  });
+
+  $('#per-aspect-btn').click(function (e) {
+    $('#main-eval-information').addClass('hidden');
+    $('#per-aspect-evaluation').removeClass('hidden');
+  });
+
+  $('#back-to-main-btn').click(function (e) {
+    $('#main-eval-information').removeClass('hidden');
+    $('#per-aspect-evaluation').addClass('hidden');
   });
 
   $('#confirm-delete').click(function () {
