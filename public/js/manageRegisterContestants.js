@@ -206,6 +206,8 @@ $(document).ready(function () {
             const { contestant, members, eval_category, eval_aspect, contest_category, contest_aspect, evaluated_by_user } = response;
             const { team_name, leader, school, phone_number } = contestant;
 
+            $('#contestant-id').val(contestant.contestant_id);
+
             const tables = aspectTables(contest_category, contest_aspect, eval_aspect, evaluated_by_user);
 
             $('#all-aspect-tables').html(tables);

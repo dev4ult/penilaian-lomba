@@ -2,36 +2,62 @@
 
 namespace App\Controllers;
 
+// require_once 'vendor/autoload.php';
+
 use App\Models\ContestsModel;
-use App\Models\EvaluationCategoriesModel;
+use App\Models\ContestantsModel;
 use App\Models\RegisteredConstestantsModel;
 use App\Models\ContestantEvaluationsModel;
+
+use App\Models\EvaluationCategoriesModel;
+use App\Models\EvaluationSubCategoriesModel;
+use App\Models\EvaluationAspectsModel;
+
+use App\Models\ContestantEvaluationsByAspectModel;
 use App\Models\ContestantEvaluationsByCategoryModel;
+
 use Dompdf\Dompdf;
+use Mpdf\Mpdf;
 
 class RecapController extends BaseController {
 
-    protected $contests_model, $categories_model, $reg_contestants_model, $contestant_evals, $contestant_evals_by_category;
+    protected $contests_model, $contestants_model, $reg_contestants_model, $contestant_evals_model;
+
+    protected $categories_model, $sub_categories_model, $aspects_model;
+
+    protected $contestant_evals_by_aspect_model, $contestant_evals_by_category_model;
 
     protected $dompdf;
+
+    protected $mpdf;
 
     protected $data;
 
     public function __construct() {
         $this->contests_model = new ContestsModel();
-        $this->categories_model = new EvaluationCategoriesModel();
+        $this->contestants_model = new ContestantsModel();
         $this->reg_contestants_model = new RegisteredConstestantsModel();
-        $this->contestant_evals = new ContestantEvaluationsModel();
-        $this->contestant_evals_by_category = new ContestantEvaluationsByCategoryModel();
+        $this->contestant_evals_model = new ContestantEvaluationsModel();
+
+        $this->categories_model = new EvaluationCategoriesModel();
+        $this->sub_categories_model = new EvaluationSubCategoriesModel();
+        $this->aspects_model = new EvaluationAspectsModel();
+
+
+        $this->contestant_evals_by_aspect_model = new ContestantEvaluationsByAspectModel();
+        $this->contestant_evals_by_category_model = new ContestantEvaluationsByCategoryModel();
 
         $this->dompdf = new Dompdf();
+        $this->mpdf = new Mpdf();
     }
 
 
-    public function generate_recap() {
+    public function generate_contest_recap() {
         $contest_id = $this->request->getPost('contest-id');
 
+
         $contest = $this->contests_model->find($contest_id);
+
 
         if ($contest_id && $contest) {
             $this->data['contest'] = $contest;
@@ -58,7 +84,7 @@ class RecapController extends BaseController {
                 ->where('contest_id', $contest_id)
                 ->findAll();
 
-            $eval_by_categories = $this->contestant_evals_by_category
+            $eval_by_categories = $this->contestant_evals_by_category_model
                 ->join('contestants', 'contestant_evals_by_category.contestant_id = contestants.contestant_id')
                 ->where('contest_id', $contest_id)
                 ->findAll();
@@ -125,7 +151,7 @@ class RecapController extends BaseController {
             $filename = $this->request->getPost('filename');
 
             // load HTML content
-            $this->dompdf->loadHtml(view('templates/recap_pdf', $this->data));
+            $this->dompdf->loadHtml(view('templates/recap-contest-pdf', $this->data));
 
             // (optional) setup the paper size and orientation
             $this->dompdf->setPaper('A4', 'portrait');
@@ -141,5 +167,85 @@ class RecapController extends BaseController {
 
         session()->setFlashdata('error', 'Lomba tidak dapat ditemukan!');
         return redirect()->to(base_url('contests'));
+    }
+
+    public function generate_contestant_recap() {
+        $contest_id = $this->request->getPost('contest-id');
+        $contestant_id = $this->request->getPost('contestant-id');
+
+        $contest = $this->contests_model->find($contest_id);
+        $contestant = $this->contestants_model->find($contestant_id);
+
+        // return $this->response->setJSON(['contestant' => $contestant]);
+        if ($contest && $contestant) {
+
+            $this->data['judges'] = $this->contestant_evals_model
+                ->select('users.full_name as full_name, users.user_id as user_id')
+                ->join('users', 'contestant_evaluations.user_id = users.user_id')
+                ->where('contest_id', $contest_id)
+                ->where('contestant_id', $contestant_id)
+                ->findAll();
+
+
+            $contest_categories = $this->categories_model
+                ->where('contest_id', $contest_id)
+                ->findAll();
+
+            // return $this->response->setJSON($contest_categories);
+
+            $this->data['contest_categories'] = $contest_categories;
+
+            $contest_aspects = [];
+
+            foreach ($contest_categories as $category) {
+
+                $sub_categories = $this->sub_categories_model
+                    ->where('eval_category_id', $category['eval_category_id'])
+                    ->findAll();
+
+
+                if ($sub_categories) {
+                    foreach ($sub_categories as $sub_category) {
+                        $aspects = $this->aspects_model
+                            ->where('eval_sub_category_id', $sub_category['eval_sub_category_id'])->findAll();
+
+                        if ($aspects) {
+                            foreach ($aspects as $aspect) {
+                                $aspect['category_id'] = $category['eval_category_id'];
+                                array_push($contest_aspects, $aspect);
+                            }
+                        }
+                    }
+                }
+            }
+
+            $this->data['contest_aspects'] = $contest_aspects;
+
+            $this->data['category_evaluations'] = $this->contestant_evals_by_category_model
+                ->where('contest_id', $contest_id)
+                ->where('contestant_id', $contestant_id)
+                ->findAll();
+
+            $this->data['aspect_evaluations'] = $this->contestant_evals_by_aspect_model
+                ->join('evaluation_aspects', 'contestant_evals_by_aspect.aspect_id = evaluation_aspects.aspect_id')
+                ->where('contest_id', $contest_id)
+                ->where('contestant_id', $contestant_id)
+                ->findAll();
+
+
+            $this->response->setHeader("Content-Type", "application/pdf");
+
+            $this->mpdf->WriteHTML('<columns column-count="2" column-gap="7" />');
+            // $this->mpdf->Bookmark('Start of the document');
+            $this->mpdf->WriteHTML(view('templates/recap-contestant-pdf', $this->data));
+
+
+            // Output a PDF file directly to the browser
+            $this->mpdf->Output('test.pdf', 'I');
+            $this->mpdf->Output();
+        }
+
+        // session()->setFlashdata('error', 'Peserta atau Lomba tidak dapat ditemukan');
+        // return redirect()->to(base_url('contests'));
     }
 }
