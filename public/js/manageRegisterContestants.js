@@ -56,57 +56,65 @@ const rowContestant = (index, contest_id, total_eval, contestant_id, reg_contest
         </tr>`;
 };
 
-const aspectTables = (allCategories, allAspectVals, judges) => {
-  const perCategory = (categoryId, categoryName, aspectVals, judges) => {
-    const perAspectRow = (aspectName, evaluation, index, judge) => {
-      let perJudgeEval = '';
+const perAspectRow = (aspectId, aspectName, allAspectVals, judges, index) => {
+  let perJudgeEval = '';
 
-      return `<tr>
-                  <th>${index}</th>
-                  <th>${aspectName}</th>
-                  <th>${evaluation}</th>
-              </tr>`;
-    };
-
-    let judgeColumn = '';
-
+  allAspectVals.forEach((aspect) => {
     judges.forEach((judge) => {
-      judgeColumn += `<th>${judge['full_name']}</th>`;
-    });
-
-    let aspectRow = '';
-
-    let index = 1;
-    aspectVals.forEach((aspect) => {
-      if (aspect['category_id'] == categoryId) {
-        aspectRow += perAspectRow(aspect['aspect_name'], aspect['evaluation'], index);
-        index++;
+      if (aspect['aspect_id'] == aspectId && judge['user_id'] == aspect['user_id']) {
+        perJudgeEval += `<td>${aspect['evaluation']}</td>`;
       }
     });
+  });
 
-    return `<hr class="my-6" />
-            <h2 class="badge badge-neutral mb-3 block">${categoryName}</h2>
-  
-            <div>
-              <table class="table table-zebra bg-white border-2 my-3">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Aspek Penilaian</th>
-                        ${judgeColumn}
-                    </tr>
-                </thead>
-                <tbody class="font-semibold">
-                  ${aspectRow}
-                </tbody>
-              </table>
-            </div>`;
-  };
+  return `<tr>
+              <td>${index}</td>
+              <td>${aspectName}</td>
+              ${perJudgeEval}
+          </tr>`;
+};
 
+const perCategory = (categoryId, categoryName, contestAspects, allAspectVals, judges) => {
+  let judgeColumn = '';
+
+  judges.forEach((judge) => {
+    judgeColumn += `<th><span class="badge badge-accent rounded-full font-medium">${judge['full_name']}</span></th>`;
+  });
+
+  let aspectRow = '';
+
+  let index = 1;
+  contestAspects.forEach((aspect) => {
+    if (aspect['category_id'] == categoryId) {
+      aspectRow += perAspectRow(aspect['aspect_id'], aspect['aspect_name'], allAspectVals, judges, index);
+      index++;
+    }
+  });
+
+  return `<hr class="my-6" />
+          <h2 class="badge badge-neutral mb-3 block">${categoryName}</h2>
+
+          <div>
+            <table class="table table-zebra bg-white border-2 my-3">
+              <thead>
+                  <tr>
+                      <th></th>
+                      <th>Aspek Penilaian</th>
+                      ${judgeColumn}
+                  </tr>
+              </thead>
+              <tbody class="font-semibold">
+                ${aspectRow}
+              </tbody>
+            </table>
+          </div>`;
+};
+
+const aspectTables = (contestCategories, contestAspects, allAspectVals, judges) => {
   let tables = '';
 
-  allCategories.forEach((category) => {
-    tables += perCategory(category['eval_category_id'], category['category_name'], allAspectVals, judges);
+  contestCategories.forEach((category) => {
+    tables += perCategory(category['eval_category_id'], category['category_name'], contestAspects, allAspectVals, judges);
   });
 
   return tables;
@@ -195,14 +203,12 @@ $(document).ready(function () {
           const { status } = response;
 
           if (status == 200) {
-            const { contestant, members, eval_category, eval_aspect, contest_category, evaluated_by_user } = response;
+            const { contestant, members, eval_category, eval_aspect, contest_category, contest_aspect, evaluated_by_user } = response;
             const { team_name, leader, school, phone_number } = contestant;
 
-            const tables = aspectTables(contest_category, eval_aspect, evaluated_by_user);
+            const tables = aspectTables(contest_category, contest_aspect, eval_aspect, evaluated_by_user);
 
             $('#all-aspect-tables').html(tables);
-
-            // console.log(evaluated_by_user);
 
             $('.loading-bars').addClass('hidden');
 

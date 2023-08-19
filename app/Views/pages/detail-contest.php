@@ -300,11 +300,12 @@
 <!-- Modal Detail Contestant -->
 <dialog id="detail_modal" class="modal">
     <form method="dialog" class="modal-box max-w-2xl p-8">
-        <h1 class="badge badge-lg badge-neutral mb-3">Informasi Penilaian</h1>
-        <p class="mb-3">Detail Penilaian Peserta memberikan informasi mengenai peserta dan penilaiannya pada lomba ini
-            per kategori dan aspek.</p>
-        <hr class="my-6">
         <div id="main-eval-information">
+            <h1 class="badge badge-lg badge-neutral mb-3">Informasi Penilaian</h1>
+            <p class="mb-3">Detail Penilaian Peserta memberikan informasi mengenai peserta dan penilaiannya pada lomba
+                ini
+                per kategori dan aspek.</p>
+            <hr class="my-6">
             <h2 class="badge badge-neutral mb-3 block">Juri yang Menilai</h2>
 
             <span id="load-bars" class="loading loading-bars loading-md"></span>
@@ -394,12 +395,12 @@
 
         </div>
         <div id="per-aspect-evaluation" class="hidden">
-            <div class="flex justify-between mb-3">
-                <h2 class="badge badge-neutral mb-3 block self-end">Aspek Penilaian</h2>
-                <button type="button" class="btn btn-sm btn-outline capitalize" id="back-to-main-btn">Informasi
-                    Utama</button>
+            <h1 class="badge badge-lg badge-neutral mb-3">Penilaian per Aspek</h1>
+            <p class="mb-3">Data tabel dibawah merupakan penilaian peserta per aspek pada lomba ini.</p>
+            <hr class="my-6">
+            <div class="text-right">
+                <button type="button" class="btn btn-sm btn-outline capitalize" id="back-to-main-btn">Kembali</button>
             </div>
-            <p>Data tabel dibawah merupakan informasi penilaian peserta per aspek penilaian lomba.</p>
             <div class="overflow-x-auto" id="all-aspect-tables">
 
             </div>

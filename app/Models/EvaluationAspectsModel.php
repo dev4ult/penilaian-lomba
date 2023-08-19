@@ -13,6 +13,7 @@ class EvaluationAspectsModel extends Model {
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'aspect_id',
         'eval_sub_category_id',
         'aspect_name',
         'aspect_range_id'

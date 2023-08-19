@@ -332,6 +332,28 @@ class ContestController extends BaseController {
 
             $all_categories = $this->eval_categories_model->where('contest_id', $contest_id)->findAll();
 
+            $all_aspects = [];
+
+            foreach ($all_categories as $category) {
+                $sub_categories = $this->eval_sub_categories_model
+                    ->where('eval_category_id', $category['eval_category_id'])
+                    ->findAll();
+
+                if ($sub_categories) {
+                    foreach ($sub_categories as $sub_category) {
+                        $aspects = $this->eval_aspects_model
+                            ->where('eval_sub_category_id', $sub_category['eval_sub_category_id'])->findAll();
+
+                        if ($aspects) {
+                            foreach ($aspects as $aspect) {
+                                $aspect['category_id'] = $category['eval_category_id'];
+                                array_push($all_aspects, $aspect);
+                            }
+                        }
+                    }
+                }
+            }
+
             $total_eval_category = $this->contestant_eval_by_category_model
                 ->where('contest_id', $contest_id)
                 ->where('contestant_id', $contestant_id)
@@ -360,6 +382,7 @@ class ContestController extends BaseController {
                 'contestant' => $reg_contestant,
                 'members' => $all_members,
                 'contest_category' => $all_categories,
+                'contest_aspect' => $all_aspects,
                 'eval_category' => $total_eval_category,
                 'eval_aspect' => $eval_aspect,
                 'evaluated_by_user' => $user_who_evaluated,
