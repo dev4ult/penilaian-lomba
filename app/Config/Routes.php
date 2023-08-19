@@ -101,7 +101,8 @@ $routes->group('contestant', ['filter' => 'authenticate'], function ($routes) {
     $routes->get('(:any)', 'ContestantController::get_detail_json/$1');
 });
 
-$routes->post('generate-recap', 'RecapController::generate_recap', ['filter' => 'authenticate']);
+$routes->post('generate-contest-recap', 'RecapController::generate_contest_recap', ['filter' => 'authenticate']);
+$routes->post('generate-contestant-recap', 'RecapController::generate_contestant_recap', ['filter' => 'authenticate']);
 
 
 /*
