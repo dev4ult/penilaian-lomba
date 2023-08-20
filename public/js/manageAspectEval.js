@@ -95,7 +95,7 @@ const subCategoryHtml = (subCategoryAlpha, subCategoryName, categoryId, subCateg
 const aspectRowHtml = (index, categoryId, subCategoryIndex, aspectName, rangeVal) => {
   let range = '';
   for (let i = 0; i < 7; i++) {
-    range += i != 3 ? `<td class="border-2">${rangeVal ? (i + parseInt(rangeVal)) * 10 + (i > 3 ? 10 : 0) : ''}</td>` : '<td class="border-2">...</td>';
+    range += i != 3 ? `<td class="border-2">${rangeVal ? i + parseInt(rangeVal) + (i > 3 ? 1 : 0) : ''}</td>` : '<td class="border-2">...</td>';
   }
 
   return `<tr id="tr-aspect-${index}-${categoryId}-${subCategoryIndex}" class="text-xl font-semibold text-center">
@@ -107,16 +107,16 @@ const aspectRowHtml = (index, categoryId, subCategoryIndex, aspectName, rangeVal
               <td class="border-2">
                   <select id="aspect-range-${index}-${subCategoryIndex}" name="aspect-range-${index}-${subCategoryIndex}" class="aspect-select select select-sm select-bordered join-item" required>
                       <option value="" disabled ${rangeVal ? '' : 'selected'}>Range</option>
-                      <option value="1" ${rangeVal == '1' ? 'selected' : ''}>10 - 80</option>
-                      <option value="2" ${rangeVal == '2' ? 'selected' : ''}>20 - 90</option>
-                      <option value="3" ${rangeVal == '3' ? 'selected' : ''}>30 - 100</option>
-                      <option value="4" ${rangeVal == '4' ? 'selected' : ''}>40 - 110</option>
-                      <option value="5" ${rangeVal == '5' ? 'selected' : ''}>50 - 120</option>
-                      <option value="6" ${rangeVal == '6' ? 'selected' : ''}>60 - 130</option>
-                      <option value="7" ${rangeVal == '7' ? 'selected' : ''}>70 - 140</option>
-                      <option value="8" ${rangeVal == '8' ? 'selected' : ''}>80 - 150</option>
-                      <option value="9" ${rangeVal == '9' ? 'selected' : ''}>90 - 160</option>
-                      <option value="10" ${rangeVal == '10' ? 'selected' : ''}>100 - 170</option>
+                      <option value="1" ${rangeVal == '1' ? 'selected' : ''}>1 - 8</option>
+                      <option value="2" ${rangeVal == '2' ? 'selected' : ''}>2 - 9</option>
+                      <option value="3" ${rangeVal == '3' ? 'selected' : ''}>3 - 10</option>
+                      <option value="4" ${rangeVal == '4' ? 'selected' : ''}>4 - 11</option>
+                      <option value="5" ${rangeVal == '5' ? 'selected' : ''}>5 - 12</option>
+                      <option value="6" ${rangeVal == '6' ? 'selected' : ''}>6 - 13</option>
+                      <option value="7" ${rangeVal == '7' ? 'selected' : ''}>7 - 14</option>
+                      <option value="8" ${rangeVal == '8' ? 'selected' : ''}>8 - 15</option>
+                      <option value="9" ${rangeVal == '9' ? 'selected' : ''}>9 - 16</option>
+                      <option value="10" ${rangeVal == '10' ? 'selected' : ''}>10 - 17</option>
                   </select>
               </td>
               ${range}
@@ -150,7 +150,7 @@ const aspectRowViewHtml = (index, categoryId, subCategoryIndex, aspectName, rang
     range += `<td class="border-2 p-2">
                   <label>
                       <input type="radio" class="hidden peer" name="options-${index}-${categoryId}-${subCategoryIndex}" />
-                      <span class="btn w-full peer-checked:btn-primary">${(rangeVal + i) * 10}</span>
+                      <span class="btn w-full peer-checked:btn-primary">${rangeVal + i}</span>
                   </label>
               </td>`;
   }
