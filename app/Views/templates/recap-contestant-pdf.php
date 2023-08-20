@@ -12,6 +12,10 @@
             font-size: 0.9rem;
         }
 
+        h2 {
+            text-decoration: underline;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
@@ -19,16 +23,23 @@
 
         td,
         th {
-            padding: 2px;
-            border-width: 2px;
+            border-width: 1px;
             border-color: black;
             border-style: solid;
             padding: 10px 7px;
         }
 
-        td {
-            font-weight: bold;
+        .table-detail-info {
+            margin-bottom: 2rem;
         }
+
+        .table-detail-info th,
+        .table-detail-info td {
+            text-align: left;
+            border: none;
+            padding: 5px 0;
+        }
+
 
         .divider {
             padding: 10px;
@@ -39,7 +50,32 @@
 
 <body>
     <div>
-        <table>
+        <h2>Rekap Nilai Peserta</h2>
+        <table class="table-detail-info">
+            <tr>
+                <td>Nama Tim</td>
+                <td>:</td>
+                <th><?= $contestant['team_name'] ?></th>
+            </tr>
+            <tr>
+                <td>Penanggung Jawab</td>
+                <td>:</td>
+                <th><?= $contestant['leader'] ?></th>
+            </tr>
+            <tr>
+                <td>Asal Sekolah</td>
+                <td>:</td>
+                <th><?= $contestant['school'] ?></th>
+            </tr>
+            <tr>
+                <td>Nomor Telepon</td>
+                <td>:</td>
+                <th><?= $contestant['phone_number'] ?></th>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table class="table-aspect-evaluation">
             <thead>
                 <tr>
                     <th rowspan="2">NO</th>
@@ -99,14 +135,13 @@
                     </tr>
                     <tr>
 
-                        <th colspan="<?= 2 + count($judges) ?>"><?= $totalVal ?></th>
+                        <th colspan="<?= count($judges) ?>"><?= $totalVal ?></th>
                     </tr>
                 </tbody>
 
                 </tfoot>
             <?php endforeach ?>
         </table>
-
     </div>
 </body>
 
