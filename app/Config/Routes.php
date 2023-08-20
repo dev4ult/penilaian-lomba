@@ -63,6 +63,8 @@ $routes->group('contest', ['filter' => 'authenticate'], function ($routes) {
     $routes->get('edit/(:any)', 'ContestController::get_edit/$1', ['filter' => ['authenticate', 'adminAuth']]);
     $routes->post('put', 'ContestController::put_edit', ['filter' => ['authenticate', 'adminAuth']]);
 
+    $routes->get('delete/(:any)', 'ContestController::delete_contest/$1', ['filter' => ['authenticate', 'adminAuth']]);
+
     $routes->get('get-register-contestants/(:any)', 'ContestController::get_register_contestants_json/$1');
     $routes->get('get-preview-contestant/(:any)', 'ContestController::get_preview_contestant_json/$1');
     $routes->post('register-contestant', 'ContestController::register_contestant');

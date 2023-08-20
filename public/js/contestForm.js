@@ -7,7 +7,7 @@ const tableRowJudge = (id, user_id, fullName, nisNip, phoneNumber) => {
               <td>${nisNip}</td>
               <td>${phoneNumber}</td>
               <td>
-                  <input type="text" id="judge-${id}" name="judge-${id}" class="hidden" value="${user_id}" />
+                  <input type="number" id="judge-${id}" name="judge-${id}" class="hidden" value="${user_id}" />
                   <button id="remove-judge-${id}" type="button" class="remove-judge-btn btn btn-sm btn-outline btn-error capitalize">hapus</button>
               </td>
           </tr>`;
@@ -22,7 +22,6 @@ const tableRowCategoryEval = (id, category) => {
                 <input type="text" id="category-${id}" placeholder="Isikan Nama Kategori" name="category-${id}" value="${category}" class="input-category input input-bordered" required />
               </td>
               <td>
-                  <a href="/contest/evaluation-aspect" class="btn btn-sm btn-warning capitalize">edit penilaian</a> |
                   <button id="remove-category-${id}" type="button" class="remove-category-btn btn btn-sm btn-outline btn-error capitalize">hapus</button>
               </td>
           </tr>`;

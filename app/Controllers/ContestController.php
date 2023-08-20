@@ -188,8 +188,6 @@ class ContestController extends BaseController {
 
             if (count($data_judges) > 0) $this->judges_model->insertBatch($data_judges);
 
-
-
             $data_eval_categories = [];
             for ($i = 0; $i < $total_eval_categories; $i++) {
                 array_push($data_eval_categories, [
@@ -316,6 +314,20 @@ class ContestController extends BaseController {
         }
 
         session()->setFlashdata('error', 'Lomba tidak dapat ditemukan!');
+
+        return redirect()->to(base_url('contests'));
+    }
+
+    public function delete_contest($contest_id) {
+        $contest = $this->contests_model->find($contest_id);
+
+        if ($contest_id && $contest) {
+            $delete = $this->contests_model->delete($contest_id);
+
+            if ($delete) {
+                session()->setFlashdata('success', 'Lomba berhasil ' . $contest['contest_name'] . ' dihapus');
+            }
+        }
 
         return redirect()->to(base_url('contests'));
     }
