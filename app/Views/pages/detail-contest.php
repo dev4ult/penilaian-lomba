@@ -326,14 +326,8 @@
             <div class="flex justify-between mb-3">
                 <h2 class="badge badge-neutral self-end">Kategori Penilaian</h2>
 
-                <div class="flex gap-1">
-                    <input type="number" name="contest-id" class="hidden" value="<?= $contest['contest_id'] ?>" />
-
-                    <input type="number" name="contestant-id" id="contestant-id" class="hidden" />
-                    <button type="submit" class="btn btn-sm btn-primary capitalize">rekap nilai peserta</button>
-                    <button type="button" id="per-aspect-btn" class="btn btn-sm btn-outline capitalize">Aspek
-                        Penilaian</button>
-                </div>
+                <button type="button" id="per-aspect-btn" class="btn btn-sm btn-outline capitalize">Aspek
+                    Penilaian</button>
             </div>
 
             <span id="load-bars" class="loading loading-bars loading-md"></span>
@@ -410,10 +404,13 @@
 
         </div>
         <div id="per-aspect-evaluation" class="hidden">
-            <h1 class="badge badge-lg badge-neutral mb-3">Penilaian per Aspek</h1>
+            <h1 class="badge badge-lg badge-neutral mb-3">Aspek Penilaian</h1>
             <p class="mb-3">Data tabel dibawah merupakan penilaian peserta per aspek pada lomba ini.</p>
             <hr class="my-6">
-            <div class="text-right">
+            <div class="flex justify-between gap-3">
+
+                <input type="number" name="reg-contestant-id" id="reg-contestant-id" class="hidden" />
+                <button type="submit" class="btn btn-sm btn-primary capitalize">rekap nilai peserta</button>
                 <button type="button" class="btn btn-sm btn-outline capitalize" id="back-to-main-btn">Kembali</button>
             </div>
             <div class="overflow-x-auto" id="all-aspect-tables">
