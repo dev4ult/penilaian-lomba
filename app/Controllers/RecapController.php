@@ -55,9 +55,7 @@ class RecapController extends BaseController {
     public function generate_contest_recap() {
         $contest_id = $this->request->getPost('contest-id');
 
-
         $contest = $this->contests_model->find($contest_id);
-
 
         if ($contest_id && $contest) {
             $this->data['contest'] = $contest;
@@ -170,14 +168,16 @@ class RecapController extends BaseController {
     }
 
     public function generate_contestant_recap() {
-        $contest_id = $this->request->getPost('contest-id');
-        $contestant_id = $this->request->getPost('contestant-id');
-
-        $contest = $this->contests_model->find($contest_id);
-        $contestant = $this->contestants_model->find($contestant_id);
+        $reg_contestant_id = $this->request->getPost('reg-contestant-id');
+        $reg_contestant = $this->reg_contestants_model->find($reg_contestant_id);
 
         // return $this->response->setJSON(['contestant' => $contestant]);
-        if ($contest && $contestant) {
+        if ($reg_contestant_id && $reg_contestant) {
+            $contest_id = $reg_contestant['contest_id'];
+            $contestant_id = $reg_contestant['contestant_id'];
+
+            // $contest = $this->contests_model->find($contest_id);
+            $this->data['contestant'] = $this->contestants_model->find($contestant_id);
 
             $this->data['judges'] = $this->contestant_evals_model
                 ->select('users.full_name as full_name, users.user_id as user_id')
