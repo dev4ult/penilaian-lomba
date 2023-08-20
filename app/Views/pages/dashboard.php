@@ -29,19 +29,9 @@
             </a>
             <?php endif ?>
 
-            <!-- Lomba  -->
-            <a href="/contests"
-                class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
-                <div class="h-fit p-4 rounded-full bg-purple-300">
-                    <img src="<?= base_url('./icons/contest.png') ?>" class="w-8 h-8 my-0" alt="lomba">
-                </div>
-                <div class="">
-                    <h4 class="font-medium">Lomba</h4>
-                    <h1 class="text-5xl mb-0 font-semibold"><?= $total_contests ?></h1>
-                </div>
-            </a>
 
-            <!-- Lomba  -->
+
+            <!-- contestant  -->
             <a href="/contestants"
                 class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
                 <div class="h-fit p-4 rounded-full bg-orange-300">
@@ -50,6 +40,18 @@
                 <div class="">
                     <h4 class="font-medium">Peserta</h4>
                     <h1 class="text-5xl mb-0 font-semibold"><?= $total_contestants ?></h1>
+                </div>
+            </a>
+
+            <!-- contest  -->
+            <a href="/contests"
+                class="no-underline w-fit bg-white border-2 hover:shadow rounded-lg py-5 px-7 cursor-pointer flex gap-4 items-center">
+                <div class="h-fit p-4 rounded-full bg-purple-300">
+                    <img src="<?= base_url('./icons/contest.png') ?>" class="w-8 h-8 my-0" alt="lomba">
+                </div>
+                <div class="">
+                    <h4 class="font-medium">Lomba</h4>
+                    <h1 class="text-5xl mb-0 font-semibold"><?= $total_contests ?></h1>
                 </div>
             </a>
 
