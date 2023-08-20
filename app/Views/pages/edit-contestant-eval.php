@@ -76,8 +76,8 @@
                                                 <?php for ($i = 0; $i < 8; $i++) : ?>
                                                     <td class="border-2 p-2" class="btn">
                                                         <label>
-                                                            <input type="radio" class="hidden peer" name="options-<?= $aspect_id ?>" value="<?= ($aspect['aspect_range_id'] + $i) * 10 ?>" required />
-                                                            <span class="btn w-full peer-checked:btn-primary"><?= ($aspect['aspect_range_id'] + $i) * 10 ?></span>
+                                                            <input type="radio" class="hidden peer" name="options-<?= $aspect_id ?>" value="<?= ($aspect['aspect_range_id'] + $i) ?>" required />
+                                                            <span class="btn w-full peer-checked:btn-primary"><?= ($aspect['aspect_range_id'] + $i) ?></span>
                                                         </label>
                                                     </td>
                                                 <?php endfor ?>
