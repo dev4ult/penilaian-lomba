@@ -170,13 +170,18 @@ class RecapController extends BaseController {
     public function generate_contestant_recap() {
         $reg_contestant_id = $this->request->getPost('reg-contestant-id');
         $reg_contestant = $this->reg_contestants_model->find($reg_contestant_id);
+        $queue_number = $this->request->getPost('queue-number');
+        $duration = $this->request->getPost('duration');
 
         // return $this->response->setJSON(['contestant' => $contestant]);
         if ($reg_contestant_id && $reg_contestant) {
+
+            $this->data['queue'] = $queue_number;
+            $this->data['duration'] = $duration;
             $contest_id = $reg_contestant['contest_id'];
             $contestant_id = $reg_contestant['contestant_id'];
 
-            // $contest = $this->contests_model->find($contest_id);
+            $this->data['contest'] = $this->contests_model->find($contest_id);
             $this->data['contestant'] = $this->contestants_model->find($contestant_id);
 
             $this->data['judges'] = $this->contestant_evals_model
@@ -195,6 +200,7 @@ class RecapController extends BaseController {
 
             $this->data['contest_categories'] = $contest_categories;
 
+            $contest_sub_categories = [];
             $contest_aspects = [];
 
             foreach ($contest_categories as $category) {
@@ -206,18 +212,23 @@ class RecapController extends BaseController {
 
                 if ($sub_categories) {
                     foreach ($sub_categories as $sub_category) {
+
+                        array_push($contest_sub_categories, $sub_category);
+
                         $aspects = $this->aspects_model
                             ->where('eval_sub_category_id', $sub_category['eval_sub_category_id'])->findAll();
 
                         if ($aspects) {
                             foreach ($aspects as $aspect) {
-                                $aspect['category_id'] = $category['eval_category_id'];
+                                $aspect['sub_category_id'] = $sub_category['eval_sub_category_id'];
                                 array_push($contest_aspects, $aspect);
                             }
                         }
                     }
                 }
             }
+
+            $this->data['contest_sub_categories'] = $contest_sub_categories;
 
             $this->data['contest_aspects'] = $contest_aspects;
 
@@ -235,14 +246,14 @@ class RecapController extends BaseController {
 
             $this->response->setHeader("Content-Type", "application/pdf");
 
-            $this->mpdf->WriteHTML('<columns column-count="2" column-gap="7" />');
+            // $this->mpdf->WriteHTML('<columns column-count="2" column-gap="7" />');
             // $this->mpdf->Bookmark('Start of the document');
             $this->mpdf->WriteHTML(view('templates/recap-contestant-pdf', $this->data));
 
 
             // Output a PDF file directly to the browser
-            $this->mpdf->Output('test.pdf', 'I');
-            $this->mpdf->Output();
+            $this->mpdf->Output('Rekapitulasi Peserta ' . $this->data['contestant']['team_name'] . '.pdf', 'D');
+            // $this->mpdf->Output();
         }
 
         // session()->setFlashdata('error', 'Peserta atau Lomba tidak dapat ditemukan');
