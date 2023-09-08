@@ -160,7 +160,7 @@ class RecapController extends BaseController {
             // output the generated pdf
             $this->dompdf->stream($filename);
 
-            return redirect()->to(base_url('contest/' . $contest_id));
+            return;
         }
 
         session()->setFlashdata('error', 'Lomba tidak dapat ditemukan!');
